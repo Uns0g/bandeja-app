@@ -33,7 +33,7 @@
 .receita__imagem{
 	grid-area: imagem;
 	width: 256px;
-	height: 192px;
+	height: 100%;
 	border-right: 1px solid #000;
 	border-radius: 10px 0 0 0;
 	background-color: #fff;
@@ -62,7 +62,6 @@
 	display: flex;
 	justify-content: space-around;
 	padding: .3em 0;
-	
 }
 
 .receita__info-container{

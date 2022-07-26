@@ -24,7 +24,6 @@ main{
 	background-color: #fff;
 	font-size: 1.2em;
 }
-
 .form__input::placeholder{
 	color: var(--secondary);
 	font-weight: 500;
@@ -43,9 +42,7 @@ main{
 	text-align: center;
 	cursor: pointer;
 }
-
 .form__input--foto:hover{ background: #efefef;}
-
 .form__input--foto:active{ border: 1px inset #000;}
 
 .form__input--foto input{
@@ -63,23 +60,7 @@ main{
 	font-weight: 900;
 	cursor: pointer;
 }
-
 .form__botao:active{ border-style: inset;}
-
-.form__botao{
-	padding: 10px;
-	border: 1px outset var(--secondary);
-	border-radius: 5px;
-	background-color: var(--primary);
-	color: var(--secondary);
-	font-size: 1.5em;
-	font-weight: 900;
-	cursor: pointer;
-}
-
-.form__botao:active{
-	border-style: inset;
-}
 
 .aviso{
 	font-weight: bold;

@@ -84,16 +84,6 @@
 	border-radius: 5px;
 }
 
-/*.comentario::after{
-	content: '';
-	position: absolute;
-	bottom: -6px;
-	height: 6px;
-	width: 100%;
-	background-color: #000;
-	border-radius: 0 0 5px 5px;
-}*/
-
 .comentario__usuario, .comentario__texto, .comentario__botao, .outros-comentarios{
 	display: flex;
 	flex-direction: column;
@@ -141,7 +131,6 @@
 	scrollbar-color: var(--secondary) #C2C2C2;
 }
 .comentario__texto::-webkit-scrollbar-thumb{ background-color: var(--secondary);}
-.comentario__texto:focus{ outline: 2px solid var(--primary);}
 
 .comentario__acoes{
 	position: absolute;

@@ -9,13 +9,6 @@
 	box-sizing: border-box;	
 }
 
-button{
-	border: none;
-	background-color: transparent;
-}
-
-button:hover{ background-color: transparent;}
-
 main{ margin: 2rem auto;}
 
 .header{
@@ -31,10 +24,7 @@ main{ margin: 2rem auto;}
 	cursor: default;
 }
 
-.header__icone{
-	font-size: 2em;
-	color: var(--secondary);
-}
+.header__icone{ font-size: 2em; color: var(--secondary);}
 
 .header__titulo{
 	margin: 10px 0 0 0;
@@ -79,3 +69,12 @@ main{ margin: 2rem auto;}
 	border-radius: 0 5px 0 0;
 	color: var(--primary);
 }
+
+button{
+	border: none;
+	background-color: transparent;
+}
+
+button:hover{ background-color: transparent;}
+
+input:focus, textarea:focus{ outline: 2px solid var(--primary);}

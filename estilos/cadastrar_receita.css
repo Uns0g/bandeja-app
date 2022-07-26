@@ -29,8 +29,6 @@
 				-1px -1px 3px inset #C2C2C2;
 	resize: none;
 }
-
-.campo__texto:focus{ outline: 2px double var(--primary);}
 .campo__texto::placeholder{ font-weight: normal;}
 
 .campo--imagem{
@@ -39,7 +37,6 @@
 	border: 2px solid #000;
 	background-color: #E7E7E7;
 }
-
 .campo--imagem:active{ border-color: var(--primary);}
 
 .campo__imagem-mensagem{
@@ -142,7 +139,6 @@
 	font-size: 1.4em;
 	cursor: pointer;
 }
-
 .campo__icone-x:active{ color: var(--secondary);}
 
 
@@ -162,7 +158,6 @@
 	font-weight: bold;
 	cursor: pointer;
 }
-
 .adicionar-ingrediente__botao:hover{ background-color: var(--primary);}
 .adicionar-ingrediente__botao:active{ border-style: inset;}
 
