@@ -5,9 +5,9 @@
 		<meta name="description" content="Página de cadastro de Bandeja">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
-		<link href="styles/core.css" rel="stylesheet">
-		<link href="styles/usuario.css" rel="stylesheet">
-		<link href="styles/receitas.css" rel="stylesheet">
+		<link href="estilos/core.css" rel="stylesheet">
+		<link href="estilos/usuario.css" rel="stylesheet">
+		<link href="estilos/elemento_receita.css" rel="stylesheet">
 		<title>Página De Ipsum Lorem</title>
 	</head>
 	<body>
@@ -75,7 +75,7 @@
 						</div>
 						<div class="receita__acoes">
 							<button class="receita__acao-favorito">
-								<i class="ri-star-fill receita__icone-favorito"></i>
+								<i class="ri-star-fill receita__favorito-icone"></i>
 								<span class="receita__acao-texto">0 Favoritos</span>
 							</button>
 						</div>
@@ -99,10 +99,10 @@
 		</main>
 		<nav class="menu">
 			<div class="menu__botoes-container">
-				<div class="menu__botao">
+				<div class="menu__botao" onClick="window.location.href = 'pesquisa.html';">
 					<i class="ri-search-line"></i>
 				</div>
-				<div class="menu__botao menu__botao--active">
+				<div class="menu__botao menu__botao--active" onClick="window.location.href = 'seu_usuario.html';">
 					<i class="ri-user-3-fill"></i>
 				</div>
 			</div>

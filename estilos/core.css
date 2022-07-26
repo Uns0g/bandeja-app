@@ -16,6 +16,7 @@ button{
 
 button:hover{ background-color: transparent;}
 
+main{ margin: 2rem auto;}
 
 .header{
 	border-radius: 0 0 5px 5px;
@@ -42,6 +43,12 @@ button:hover{ background-color: transparent;}
 }
 
 .header__titulo::selection{ background-color: transparent;}
+
+.titulo{
+	font-size: 3rem;
+	color: var(--secondary);
+	text-align: center;
+}
 
 .menu{
 	position: fixed;

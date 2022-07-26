@@ -5,9 +5,9 @@
 		<meta name="description" content="Página de cadastro de Bandeja">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
-		<link href="styles/core.css" rel="stylesheet">
-		<link href="styles/forms.css" rel="stylesheet">
-		<title>Cadastrar Receita</title>
+		<link href="estilos/core.css" rel="stylesheet">
+		<link href="estilos/cadastrar_receita.css" rel="stylesheet">
+		<title>Cadastrar Uma Receita</title>
 	</head>
 	<body>
 		<header class="header">
@@ -45,6 +45,97 @@
 			</div>
 		</header>
 		<main>
+			<h2 class="titulo">Crie Sua Receita</h2>
+			<form action="" method="POST" class="formulario" enctype="multipart/form-data">
+				<div class="campo">
+					<label class="campo__label" for="nome">Dê um nome para a receita:</label>
+					<input type="text" class="campo__texto" id="nome" name="nome" placeholder="O nome público da receita será o mesmo que você digitar aqui" required>
+				</div>
+				<div class="campo campo--imagem">
+					<label class="campo__label" for="imagem">
+						<span class="campo__imagem-mensagem">Insira uma imagem da receita pronta</span>
+						<span class="campo__botao-imagem">Inserir</span>
+					</label>
+					<input type="file" class="campo__input-imagem" name="imagem" id="imagem" required>
+				</div>
+				<section class="informacoes">
+					<div class="campo campo--pequeno">
+						<label class="campo__label" for="tempo">Tempo De Preparo</label>
+						<i class="ri-timer-line campo__icone"></i>
+						<input type="text" class="campo__texto" name="tempo" id="tempo" placeholder="mins, hrs, dias" required>
+					</div>
+					<div class="campo campo--pequeno">
+						<label class="campo__label" for="porcoes">Rendimento</label>
+						<i class="ri-pie-chart-2-line campo__icone"></i>
+						<input type="text" class="campo__texto" name="porcoes" id="porcoes" placeholder="Porções" required>
+					</div>
+				</section>
+				<hr class="formulario__divisao">
+				<div class="campo campo--grande">
+					<label class="campo__label" for="descricao">Descrição (opcional)</label>
+					<textarea class="campo__texto" name="descricao" id="descricao" placeholder="Adicione uma descrição para sua receita, se quiser"></textarea>
+					<div class="campo__bandeja"></div>
+				</div>
+				<section class="ingredientes">
+					<div class="campo">
+						<label class="campo__label">Ingredientes</label>
+						<span class="campo__mensagem">Adicione os ingredientes da sua receita</span>
+					</div>
+					<ul class="ingredientes__lista">
+						<li class="ingredientes__linha">
+							<div class="campo campo--pequeno">
+								<b class="campo__label">Medida</b>
+								<input type="text" class="campo__texto" name="medida" placeholder="Ex: 3 unidades de" required>
+							</div>
+							<div class="campo campo--pequeno">
+								<b class="campo__label">Ingrediente
+									<i class="ri-close-fill campo__icone-x"></i>
+								</b>
+								<input type="text" class="campo__texto" name="ingrediente" placeholder="alguma coisa" required>
+							</div>
+						</li>
+						<li class="ingredientes__linha">
+							<div class="campo campo--pequeno">
+								<b class="campo__label">Medida</b>
+								<input type="text" class="campo__texto" name="medida" placeholder="Ex: 3 unidades de" required>
+							</div>
+							<div class="campo campo--pequeno">
+								<b class="campo__label">Ingrediente
+									<i class="ri-close-fill campo__icone-x"></i>
+								</b>
+								<input type="text" class="campo__texto" name="ingrediente" placeholder="alguma coisa" required>
+							</div>
+						</li>
+					</ul>
+					<div class="adicionar-ingrediente">
+						<button type="button" class="adicionar-ingrediente__botao">
+							<i class="ri-add-fill adicionar-ingrediente__icone"></i>
+						</button>
+						<span class="adicionar-ingrediente__texto">Adicionar Outro Ingrediente</span>
+					</div>
+				</section>
+				<hr class="formulario__divisao">
+				<div class="campo campo--grande">
+					<label class="campo__label" for="preparo">Como Fazer</label>
+					<textarea class="campo__texto" name="preparo" id="preparo" placeholder="Ex: Adicione o ingrediente x, ingrediente y e um pouco de z em uma panela..." required></textarea>
+					<div class="campo__bandeja"></div>
+				</div>
+				<div class="formulario__botoes-container">
+					<input type="button" class="formulario__botao" value="VOLTAR" onclick="window.location.href = 'seu_usuario.html';">
+					<input type="reset" class="formulario__botao" value="LIMPAR">
+					<input type="submit" class="formulario__botao formulario__botao" value="SALVAR">
+				</div>
+			</form>
 		</main>
+		<nav class="menu">
+			<div class="menu__botoes-container" onClick="window.location.href = 'pesquisa.html';">
+				<div class="menu__botao">
+					<i class="ri-search-line"></i>
+				</div>
+				<div class="menu__botao menu__botao--active" onClick="window.location.href = 'seu_usuario.html';">
+					<i class="ri-user-3-fill"></i>
+				</div>
+			</div>
+		</nav>
 	</body>
 </html>

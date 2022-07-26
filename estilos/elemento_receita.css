@@ -1,3 +1,11 @@
+.secao{
+	display: flex;
+	flex-direction: column;
+	row-gap: .6em;
+	margin-top: 2em;
+	border-bottom: 2px solid var(--primary);
+}
+
 .receita{
 	position: relative;
 	display: grid;
@@ -91,12 +99,12 @@
 
 .receita__acoes button{ cursor: pointer;}
 
-.receita__acao-favorito:hover .receita__icone-favorito{ color: #FCB55F;}
-.receita__acao-favorito:hover .receita__icone-favorito--active{ color: gray;}
+.receita__acao-favorito:hover .receita__favorito-icone{ color: #FCB55F;}
+.receita__acao-favorito:hover .receita__favorito-icone--active{ color: gray;}
 
-.receita__icone-favorito, .receita__icone-edita{ font-size: 4.8em;}
+.receita__favorito-icone, .receita__edita-icone{ font-size: 4.8em;}
 
-.receita__icone-favorito--active{ color: var(--secondary);}
+.receita__favorito-icone--active{ color: var(--secondary);}
 
 .receita__acao-texto{ font-size: 1.3em;}
 
@@ -108,9 +116,7 @@
 	font-size: 2.4em;
 }
 
-.receita__acao-remove:hover{
-	animation: sacudir .5s infinite;
-}
+.receita__acao-remove:hover{ animation: sacudir .5s infinite;}
 
 .receita__acao-edita{
 	position: absolute;
@@ -118,9 +124,7 @@
 	right: 4px;
 }
 
-.receita__acao-edita:hover .receita__icone-edita{
-	animation: sacudir 1s infinite;
-}
+.receita__acao-edita:hover .receita__edita-icone{ animation: sacudir 1s infinite;}
 
 @keyframes sacudir {
   0% { transform: translate(0, 0) rotate(0deg);}

@@ -6,11 +6,6 @@ main{
 	height: 90%;
 }
 
-.titulo{
-	font-size: 3rem;
-	color: var(--secondary);
-}
-
 .form{
 	display: flex;
 	flex-direction: column;
@@ -69,19 +64,7 @@ main{
 	cursor: pointer;
 }
 
-.form__botao:active{
-	border-style: inset;
-}
-
-.aviso{
-	font-weight: bold;
-	font-size: 1.4em;
-}
-
-.aviso__link{
-	color: var(--secondary);
-	text-decoration: underline;
-}
+.form__botao:active{ border-style: inset;}
 
 .form__botao{
 	padding: 10px;

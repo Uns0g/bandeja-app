@@ -1,0 +1,175 @@
+.receita{ width: 80%;}
+
+.receita__foto{
+	width: 720px;
+	height: 540px;
+	margin: 1em auto;
+	border: 2px double #C2C2C2;
+	background-size: cover;
+	background-position: center;
+}
+
+.informacao{
+	display: grid;
+	grid-template-columns: .3fr .3fr;
+	grid-row-gap: 1.3em;
+	justify-content: space-around;
+	width: 70%;
+	margin: auto;
+}
+
+.informacao__box{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.informacao__box:nth-child(1) .informacao__icone{ color: var(--secondary);}
+
+.informacao__box:nth-child(2) .informacao__icone{ color: var(--primary);}
+
+.informacao__icone{ font-size: 5em;}
+
+.informacao__texto{ font-size: 1.6em;}
+
+.receita__divisoria{
+	height: 3px;
+	margin: 1em 0 3em;
+	background-color: var(--primary);
+	color: var(--primary);
+}
+
+.campo{ margin-bottom: 2em;}
+
+.campo__titulo{
+	color: var(--secondary);
+	font-size: 2.4em;
+	text-align: center;
+}
+
+.campo__conteudo{
+	width: 90%;
+	margin: auto;
+	padding: 1em;
+	border-radius: 5px 5px 0 0;
+	font-size: 1.4em;
+	box-shadow: 1px 1px .2em inset #000,
+				-2px -2px .3em inset #C2C2C2;
+}
+
+.campo__bandeja{
+	height: 5px;
+	background-color: #000;
+	border-radius: 0 0 5px 5px;
+}
+
+.campo__lista{ margin-left: 2em;}
+
+.secao-comentarios__titulo{
+	display: flex;
+	align-items: center;
+	border-bottom: 2px solid var(--secondary);
+	color: var(--secondary);
+	font-size: 2.4em;
+	cursor: pointer;
+	margin-bottom: .6em;
+}
+
+.secao-comentarios__titulo:active{ font-size: 2.5em;}
+
+.comentario{
+	position: relative;
+	display: flex;
+	column-gap: 1.2em;
+	border-radius: 5px;
+}
+
+/*.comentario::after{
+	content: '';
+	position: absolute;
+	bottom: -6px;
+	height: 6px;
+	width: 100%;
+	background-color: #000;
+	border-radius: 0 0 5px 5px;
+}*/
+
+.comentario__usuario, .comentario__texto, .comentario__botao, .outros-comentarios{
+	display: flex;
+	flex-direction: column;
+}
+
+.comentario__usuario{
+	row-gap: .5em;
+	width: 20%;
+	padding: 1em;
+	border: 1px solid #C2C2C2;
+	border-radius: 10px;
+}
+
+.comentario__usuario-foto{
+	width: 120px;
+	height: 120px;
+	margin: auto;
+	border: 1px solid #000;
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.comentario__usuario-nome{
+	text-align: center;
+	font-size: 1.2em;
+	font-weight: bold;
+}
+
+.comentario__texto{
+	row-gap: 1em;
+	width: 100%;
+	height: auto;
+	max-height: 12rem;
+	padding: 1em;
+	border-radius: 5px;
+	color: #C2C2C2;
+	box-shadow: 1px 1px .2em inset #E7E7E7,
+				-2px -2px .3em inset #E7E7E7;
+	font-family: monospace;
+	font-size: 1.3rem;
+	font-weight: bold;
+	overflow: scroll;
+	resize: none;
+	scrollbar-color: var(--secondary) #C2C2C2;
+}
+.comentario__texto::-webkit-scrollbar-thumb{ background-color: var(--secondary);}
+.comentario__texto:focus{ outline: 2px solid var(--primary);}
+
+.comentario__acoes{
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	display: flex;
+	column-gap: 1em;
+	padding: .3em;
+	z-index: 1;
+}
+
+.comentario__botao{ font-weight: bold; cursor: pointer;}
+
+.comentario__botao:last-of-type{ color: var(--primary); font-weight: bold;}
+
+.comentario__botao-icone{ font-size: 2em;}
+
+.comentario__botao-texto{ font-size: 1.2em;}
+
+.outros-comentarios{ row-gap: 3em; margin-bottom: 3em;}
+
+.comentario--seu .comentario__texto{ color: #000; font-weight: normal;}
+
+.comentario__botao--escondido{ display: none;}
+
+.comentario__botao--remove{ 
+	position: absolute;
+	top: 0;
+	right: 0;
+	font-size: 1.5em;
+}
