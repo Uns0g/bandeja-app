@@ -1,8 +1,8 @@
-.receita{ width: 80%;}
+.receita{ width: 90%;}
 
 .receita__foto{
-	width: 720px;
-	height: 540px;
+	width: 1280px;
+	height: 720px;
 	margin: 1em auto;
 	border: 2px double #C2C2C2;
 	background-size: cover;
@@ -63,16 +63,24 @@
 	border-radius: 0 0 5px 5px;
 }
 
-.campo__lista{ margin-left: 2em;}
+.campo__lista{ margin-left: 2em}
+
+.secao-comentarios{ position: relative;}
+.secao-comentarios::after{
+	content: '';
+	position: absolute;
+	bottom: -.4em;
+	height: 2px;
+	width: 100%;
+	background-color: var(--secondary);
+}
 
 .secao-comentarios__titulo{
 	display: flex;
 	align-items: center;
-	border-bottom: 2px solid var(--secondary);
 	color: var(--secondary);
 	font-size: 2.4em;
 	cursor: pointer;
-	margin-bottom: .6em;
 }
 
 .secao-comentarios__titulo:active{ font-size: 2.5em;}

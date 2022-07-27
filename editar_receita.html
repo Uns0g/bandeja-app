@@ -7,7 +7,7 @@
 		<link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
 		<link href="estilos/core.css" rel="stylesheet">
 		<link href="estilos/cadastrar_receita.css" rel="stylesheet">
-		<title>Cadastrar Uma Receita</title>
+		<title>Editando [Nome]</title>
 	</head>
 	<body>
 		<header class="header">
@@ -45,18 +45,21 @@
 			</div>
 		</header>
 		<main>
-			<h2 class="titulo">Crie Sua Receita</h2>
+			<h2 class="titulo">Editar Sua Receita</h2>
 			<form action="" method="POST" class="formulario" enctype="multipart/form-data">
 				<div class="campo">
-					<label class="campo__label" for="nome">Dê um nome para a receita:</label>
-					<input type="text" class="campo__texto" id="nome" name="nome" placeholder="O nome público da receita será o mesmo que você digitar aqui" required>
+					<label class="campo__label" for="nome">Dê um novo nome para a receita:</label>
+					<input type="text" class="campo__texto" id="nome" name="nome" placeholder="O novo nome público da receita será o mesmo que você digitar aqui">
+				</div>
+				<div class="imagem-antiga" style="background-image: url('');">
+					<p class="imagem-antiga__texto">Imagem Atual Da Receita</p>
 				</div>
 				<div class="campo campo--imagem">
 					<label class="campo__label" for="imagem">
-						<span class="campo__imagem-mensagem">Insira uma foto da receita na horizontal</span>
+						<span class="campo__imagem-mensagem">Nova foto horizontal para a receita (opcional)</span>
 						<span class="campo__botao-imagem">Inserir</span>
 					</label>
-					<input type="file" class="campo__input-imagem" name="imagem" id="imagem" required>
+					<input type="file" class="campo__input-imagem" name="imagem" id="imagem">
 				</div>
 				<section class="informacoes">
 					<div class="campo campo--pequeno">
@@ -72,8 +75,8 @@
 				</section>
 				<hr class="formulario__divisao">
 				<div class="campo campo--grande">
-					<label class="campo__label" for="descricao">Descrição (opcional)</label>
-					<textarea class="campo__texto" name="descricao" id="descricao" placeholder="Adicione uma descrição para sua receita, se quiser"></textarea>
+					<label class="campo__label" for="descricao">Nova Descrição</label>
+					<textarea class="campo__texto" name="descricao" id="descricao" placeholder="Adicione uma nova descricao para sua receita"></textarea>
 					<div class="campo__bandeja"></div>
 				</div>
 				<section class="ingredientes">
@@ -85,25 +88,25 @@
 						<li class="ingredientes__linha">
 							<div class="campo campo--pequeno">
 								<b class="campo__label">Medida</b>
-								<input type="text" class="campo__texto" name="medida" placeholder="Ex: 3 unidades de" required>
+								<input type="text" class="campo__texto" name="medida" placeholder="Ex: 3 unidades de">
 							</div>
 							<div class="campo campo--pequeno">
 								<b class="campo__label">Ingrediente
 									<i class="ri-close-fill campo__icone-x"></i>
 								</b>
-								<input type="text" class="campo__texto" name="ingrediente" placeholder="alguma coisa" required>
+								<input type="text" class="campo__texto" name="ingrediente" placeholder="alguma coisa">
 							</div>
 						</li>
 						<li class="ingredientes__linha">
 							<div class="campo campo--pequeno">
 								<b class="campo__label">Medida</b>
-								<input type="text" class="campo__texto" name="medida" placeholder="Ex: 3 unidades de" required>
+								<input type="text" class="campo__texto" name="medida" placeholder="Ex: 3 unidades de">
 							</div>
 							<div class="campo campo--pequeno">
 								<b class="campo__label">Ingrediente
 									<i class="ri-close-fill campo__icone-x"></i>
 								</b>
-								<input type="text" class="campo__texto" name="ingrediente" placeholder="alguma coisa" required>
+								<input type="text" class="campo__texto" name="ingrediente" placeholder="alguma coisa">
 							</div>
 						</li>
 					</ul>
@@ -117,13 +120,13 @@
 				<hr class="formulario__divisao">
 				<div class="campo campo--grande">
 					<label class="campo__label" for="preparo">Como Fazer</label>
-					<textarea class="campo__texto" name="preparo" id="preparo" placeholder="Ex: Adicione o ingrediente x, ingrediente y e um pouco de z em uma panela..." required></textarea>
+					<textarea class="campo__texto" name="preparo" id="preparo" placeholder="Mude a descrição do modo de preparo da sua receita"></textarea>
 					<div class="campo__bandeja"></div>
 				</div>
 				<div class="formulario__botoes-container">
 					<input type="button" class="formulario__botao" value="VOLTAR" onclick="window.location.href = 'seu_usuario.html';">
 					<input type="reset" class="formulario__botao" value="LIMPAR">
-					<input type="submit" class="formulario__botao formulario__botao" value="SALVAR">
+					<input type="submit" class="formulario__botao formulario__botao" value="EDITAR">
 				</div>
 			</form>
 		</main>

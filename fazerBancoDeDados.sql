@@ -4,22 +4,33 @@ USE bandeja;
 CREATE TABLE usuarios(
 	usuarioID INT NOT NULL AUTO_INCREMENT,
 	nome VARCHAR(255) NOT NULL UNIQUE,
+	fotoURL VARCHAR(255) NOT NULL,
 	senha VARCHAR(255) NOT NULL,
 	PRIMARY KEY (usuarioID)
 );
 
 CREATE TABLE receitas(
-	receitaID NOT NULL AUTO_INCREMENT,
+	receitaID INT NOT NULL AUTO_INCREMENT,
 	titulo VARCHAR(255) NOT NULL,
 	imagemURL VARCHAR(550) NOT NULL,
 	tempo VARCHAR(15) DEFAULT 'Não Informado',
-	usuario_ID INT NOT NULL,
+	autor_ID INT NOT NULL,
 	rendimento VARCHAR(15) DEFAULT 'Não Informado',
 	favoritos_numeros BIGINT DEFAULT 0,
 	descricao TEXT,
 	preparo TEXT NOT NULL,
 	PRIMARY KEY (receitaID),
-	FOREIGN KEY (usuario_ID) REFERENCES usuarios(usuarioID)
+	FOREIGN KEY (autor_ID) REFERENCES usuarios(usuarioID)
+);
+
+CREATE TABLE ingredientes_receitas(
+	ingredienteReceitaID BIGINT NOT NULL AUTO_INCREMENT,
+	unidades VARCHAR(50) NOT NULL,
+	ingrediente_ID INT NOT NULL,
+	receita_ID INT NOT NULL,
+	PRIMARY KEY (ingredienteReceitaID),
+	FOREIGN KEY (ingrediente_ID) REFERENCES ingredientes(ingredienteID),
+	FOREIGN KEY (receita_ID) REFERENCES receitas(receitaID)
 );
 
 CREATE TABLE ingredientes(
@@ -30,10 +41,10 @@ CREATE TABLE ingredientes(
 
 CREATE TABLE favoritos(
 	favoritoID BIGINT NOT NULL AUTO_INCREMENT,
-	autor_ID INT NOT NULL,
+	usuario_ID INT NOT NULL,
 	receita_ID INT NOT NULL,
 	PRIMARY KEY (favoritoID),
-	FOREIGN KEY (autor_ID) REFERENCES usuarios(usuarioID),
+	FOREIGN KEY (usuario_ID) REFERENCES usuarios(usuarioID),
 	FOREIGN KEY (receita_ID) REFERENCES receitas(receitaID)
 );
 
@@ -42,7 +53,7 @@ CREATE TABLE comentarios(
 	conteudo TEXT,
 	autor_ID INT NOT NULL,
 	receita_ID INT NOT NULL, 
-	PRIMARY KEY (comentarioID)
+	PRIMARY KEY (comentarioID),
 	FOREIGN KEY (autor_ID) REFERENCES usuarios(usuarioID),
 	FOREIGN KEY (receita_ID) REFERENCES receitas(receitaID)
 );

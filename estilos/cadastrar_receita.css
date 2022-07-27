@@ -8,8 +8,31 @@
 	display: flex;
 	flex-direction: column;
 	row-gap: 2em;
-	width: 80%;
+	width: 90%;
 	margin: auto;
+}
+
+.imagem-antiga{
+	position: relative;
+	width: 1280px;
+	height: 720px;
+	margin: 2em auto 0;
+	border: 2px solid #000;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+}
+
+.imagem-antiga__texto{
+	position: absolute;
+	top: -1.3em;
+	left: -2px;
+	width: 1280px;
+	padding: .4em;
+	background-color: #000;
+	color: #FFF;
+	font-size: 1.5em;
+	text-align: center;
 }
 
 .campo, .campo--imagem .campo__label{
@@ -32,7 +55,8 @@
 .campo__texto::placeholder{ font-weight: normal;}
 
 .campo--imagem{
-	margin: 1.5em 0; 
+	width: 1280px;
+	margin: 1.5em auto; 
 	padding: 1em;
 	border: 2px solid #000;
 	background-color: #E7E7E7;
