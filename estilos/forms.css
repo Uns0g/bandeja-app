@@ -17,6 +17,25 @@ main{
 	background-color: #000;
 }
 
+.form--editar .form__input--foto{
+	display: flex;
+	align-items: flex-end;
+	width: 18em;
+	height: 13em;
+	padding: 0;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.form__input-botao-enviar-foto{
+	width: 100%;
+	padding: .4em 0;
+	border-radius: 0 0 5px 5px;
+	background-color: var(--primary);
+	text-align: center;
+}
+
 .form__input{
 	padding: 10px;
 	border: none;
@@ -24,16 +43,10 @@ main{
 	background-color: #fff;
 	font-size: 1.2em;
 }
-.form__input::placeholder{
-	color: var(--secondary);
-	font-weight: 500;
-}
+.form__input::placeholder{ color: var(--secondary); font-weight: 500;}
 
 /* Para quem usa Microsoft Edge como navegador*/
-.form__input::ms-input-placeholder{
-	color: var(--secondary);
-	font-weight: 500;
-}
+.form__input::ms-input-placeholder{ color: var(--secondary); font-weight: 500;}
 
 .form__input--foto{
 	color: var(--secondary);
@@ -45,10 +58,7 @@ main{
 .form__input--foto:hover{ background: #efefef;}
 .form__input--foto:active{ border: 1px inset #000;}
 
-.form__input--foto input{
-	position: absolute;
-	top: -1000px
-}
+.form__input--foto input{ position: absolute; top: -1000px;}
 
 .form__botao{
 	padding: 10px;
@@ -62,12 +72,59 @@ main{
 }
 .form__botao:active{ border-style: inset;}
 
-.aviso{
-	font-weight: bold;
-	font-size: 1.4em;
+.aviso{ font-weight: bold; font-size: 1.4em;}
+
+.aviso__link{ color: var(--secondary); text-decoration: underline;}
+
+.form-background{
+	position: fixed;
+	top: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+	width: 100%;
+	background-color: #000;
+	opacity: .9;
+	z-index: 2;
 }
 
-.aviso__link{
-	color: var(--secondary);
-	text-decoration: underline;
+.form-background--hidden{ display: none;}
+
+.form-acao{
+	display: flex;
+	flex-direction: column;
+	padding: 2em;
+	border-radius: 5px;
+	background-color: #FFF;
+	opacity: 1;
+	z-index: 3;
 }
+
+.form-acao__texto{ font-size: 2.4em; font-weight: bold;}
+
+.form-acao__input{ 
+	padding: .2em; 
+	font-size: 1.6em;
+	text-transform: uppercase;
+}
+.form-acao__input::placeholder{ text-transform: capitalize;}
+
+.form-acao__botoes{
+	display: flex;
+	justify-content: space-around;
+	margin-top: 2em;
+}
+
+.form-acao__cancelar, .form-acao__enviar{
+	padding: .4em;
+	border-color: var(--secondary);
+	border-radius: 5px;
+	font-size: 1.6em;
+	cursor: pointer;
+	text-transform: uppercase;
+}
+
+.form-acao__cancelar{ background-color: var(--primary); color: #FFF;}
+
+.form-acao__enviar{ background-color: var(--secondary); font-weight: bold;}

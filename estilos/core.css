@@ -3,18 +3,11 @@
 	--secondary: #F28705;
 }
 
-*{
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;	
-}
+*{ margin: 0; padding: 0; box-sizing: border-box;}
 
 main{ margin: 2rem auto;}
 
-.header{
-	border-radius: 0 0 5px 5px;
-	background-color: var(--primary);
-}
+.header{ border-radius: 0 0 5px 5px; background-color: var(--primary);}
 
 .header__logo-container{
 	display: flex;
@@ -70,10 +63,7 @@ main{ margin: 2rem auto;}
 	color: var(--primary);
 }
 
-button{
-	border: none;
-	background-color: transparent;
-}
+button{ border: none; background-color: transparent;}
 
 button:hover{ background-color: transparent;}
 

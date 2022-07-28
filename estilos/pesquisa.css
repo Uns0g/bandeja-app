@@ -5,7 +5,6 @@ main{
 	width: 70%;
 }
 
-
 /* Seção De Pesquisa */
 .pesquisa{ 
 	position: relative;
@@ -18,9 +17,11 @@ main{
 
 .pesquisa__barra{
 	padding: .4em;
-	font-size: 1.7em;
 	border-radius: 5px;
+	font-size: 1.7em;
+	text-transform: uppercase;
 }
+.pesquisa__barra::placeholder{ text-transform: capitalize;}
 
 .pesquisa__botao{
 	position: absolute;
@@ -35,10 +36,7 @@ main{
 	font-weight: bold;
 	cursor: pointer;
 }
-.pesquisa__botao:hover{
-	background-color: var(--primary);
-	opacity: .9;
-}
+.pesquisa__botao:hover{ background-color: var(--primary); opacity: .9;}
 .pesquisa__botao:active{ border-style: outset;}
 
 /* Seção De Ingredientes */
@@ -63,13 +61,13 @@ main{
 	font-weight: bold;
 	cursor: pointer;
 }
-
 .ingredientes__elemento:hover{
 	background-color: var(--primary);
 	color: #FFF;
 	border: none;
 	opacity: .8;
 }
+.ingredientes__elemento:active{ border: 1px solid #000;}
 
 .ingredientes__elemento--errado{ color: var(--primary); border-color: var(--primary);}
 
@@ -92,8 +90,6 @@ main{
 	font-size: 2.2em;
 	cursor: pointer;
 }
+.receitas__titulo:active{ font-size: 2.3em;}
 
-.receitas__container{
-	height: 1px;
-	visibility: hidden;
-}
+.receitas__container{ height: 1px; visibility: hidden;}
