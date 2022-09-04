@@ -1,3 +1,6 @@
+<?php
+	session_start();
+?>
 <html>
 	<head>
 		<meta charset="UTF-8">
@@ -46,16 +49,37 @@
 		</header>
 		<main>
 			<h2 class="titulo">Cadastre-se</h2>
-			<form class="form" action="" method="POST">
-				<input type="text" name="nome" class="form__input" placeholder="Crie um nome de usuário" required>
-				<label class="form__input form__input--foto">
-					<input type="file" name="foto">
-					<span>Envie uma foto sua</span>
-				</label>
-				<input type="password" name="senha" class="form__input" placeholder="Crie uma senha" required>
+			<form class="form" action="scripts/php/validarFormulario.php" enctype="multipart/form-data" method="POST">
+			<?php
+				if($_SESSION["nome-invalido"]){?>
+					<input type="text" name="nome" class="form__input from__input--erro" placeholder="O nome de usuário já está sendo usado" required>
+			<?php}
+				else{?>-->
+					<input type="text" name="nome" class="form__input" placeholder="Crie um nome de usuário" required>
+			<?php}?>
+			<?php
+				if($_SESSION["imagem-invalida"]){?>
+					<label class="form__input form__input--foto form__input--foto-invalida">
+						<input type="file" name="foto" required="">
+						<span>Envie uma foto menor que 2MB e com extensão válida</span>
+					</label>
+			<?php}
+				else{?>
+					<label class="form__input form__input--foto">
+						<input type="file" name="foto" value="">
+						<span>Envie uma foto sua</span>
+					</label>
+			<?php}?>
+			<?php
+				if($_SESSION["senha-invalida"]){?>
+					<input type="password" name="senha" class="form__input" placeholder="A senha não pode ser vazia" required>
+			<?php}
+				else{?>
+					<input type="password" name="senha" class="form__input" placeholder="Crie uma senha" required>
+			<?php}?>
 				<input type="submit" class="form__botao" value="Cadastrar-se">
 			</form>
-			<p class="aviso">Já tem uma conta? <a href="login.html" class="aviso__link">Entre</a></p>
+			<p class="aviso">Já tem uma conta? <a href="login.php" class="aviso__link">Entre</a></p>
 		</main>
 	</body>
 </html>

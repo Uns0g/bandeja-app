@@ -1,3 +1,7 @@
+<?php
+	$requisicao = "SELECT * FROM usuarios WHERE nome = '".$_SESSION["usuario"]."'"; 
+?>
+
 <html>
 	<head>
 		<meta charset="UTF-8">
@@ -6,9 +10,9 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
 		<link href="estilos/core.css" rel="stylesheet">
+		<link href="estilos/forms.css" rel="stylesheet">
 		<link href="estilos/usuario.css" rel="stylesheet">
 		<link href="estilos/elemento_receita.css" rel="stylesheet">
-		<link href="estilos/forms.css" rel="stylesheet">
 		<title>Seu Usuário</title>
 	</head>
 	<body>
@@ -55,7 +59,7 @@
 							<h2 class="usuario-frente__nome">Bernadete</h2>
 						</div>
 						<div class="usuario-costas">
-							<button class="usuario-costas__botao">Voltar</button>
+							<button class="usuario-costas__botao">Girar</button>
 							<button class="usuario-costas__botao" onClick="window.location.href = 'editar_usuario.html';">Editar Usuário</button>
 							<button class="usuario-costas__botao" id="botao-sair">Sair Da Sua Conta</button>
 							<button class="usuario-costas__botao" id="botao-excluir">Excluir Sua Conta</button>
@@ -67,7 +71,7 @@
 						<i class="ri-star-fill acao__icone"></i>
 						<span class="acao__descricao"><b class="acao__contador-favoritos">0</b> Favoritos</span>
 					</button>
-					<button class="acao__botao">
+					<button class="acao__botao" id="cadastrar-ingrediente-botao">
 						<i class="ri-leaf-fill acao__icone"></i>
 						<span class="acao__descricao">Cadastrar Ingrediente</span>
 					</button>
@@ -146,12 +150,20 @@
 			</section>
 		</main>
 		<div class="form-background form-background--hidden">
-			<form class="form-acao" method="POST">
+			<form class="form-acao" method="POST" action="">
 				<label for="input" class="form-acao__texto">Cadastre Um Novo Ingrediente</label>
 				<input type="text" class="form-acao__input" id="input" placeholder="Nome do ingrediente">
 				<div class="form-acao__botoes">
 					<input type="reset" class="form-acao__cancelar" value="Cancelar">
-					<input type="submit" class="form-acao__enviar" value="Enviar">
+					<input type="submit" class="form-acao__enviar" value="Enviar" onClick="window.location.href = 'scripts/js/checarIngredienteParaInserir.php'">
+				</div>
+			</form>
+			
+			<form class="form-acao" method="POST" action="">
+				<label for="input" class="form-acao__texto">TEM CERTEZA QUE DESEJA EXCLUIR?</label>
+				<div class="form-acao__botoes">
+					<input type="button" class="form-acao__cancelar" value="NÃO">
+					<input type="submit" class="form-acao__enviar" value="SIM" onClick="window.location.href= 'scripts/js/checarUsuarioParaExcluir.php'">
 				</div>
 			</form>
 		</div>
@@ -166,4 +178,5 @@
 			</div>
 		</nav>
 	</body>
+	<script src="scripts/js/usuario.js"></script>
 </html>

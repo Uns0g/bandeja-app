@@ -4,7 +4,7 @@ USE bandeja;
 CREATE TABLE usuarios(
 	usuarioID INT NOT NULL AUTO_INCREMENT,
 	nome VARCHAR(255) NOT NULL UNIQUE,
-	fotoURL VARCHAR(255) NOT NULL,
+	fotoURL VARCHAR(255) DEFAULT 'imgs/usuarios/default.jpg',
 	senha VARCHAR(255) NOT NULL,
 	PRIMARY KEY (usuarioID)
 );

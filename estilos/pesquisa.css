@@ -45,6 +45,7 @@ main{
 .ingredientes__container{
 	display: flex;
 	flex-wrap: wrap;
+	row-gap: .5em;
 	column-gap: 1em;
 	width: 100%;
 	padding: .5em;
@@ -59,6 +60,7 @@ main{
 	color: var(--secondary);
 	font-size: 1.3em;
 	font-weight: bold;
+	text-align: center;
 	cursor: pointer;
 }
 .ingredientes__elemento:hover{
@@ -92,4 +94,20 @@ main{
 }
 .receitas__titulo:active{ font-size: 2.3em;}
 
-.receitas__container{ height: 1px; visibility: hidden;}
+.receitas__seta{ transition: .3s; transform: rotate(360deg);}
+.receitas__seta--girar{ transform: rotate(180deg);}
+
+.receitas__container{
+	max-height: .01em;
+	overflow: hidden;
+}
+
+.receitas__container--abrir{ animation: abrir .5s forwards;}
+
+@keyframes abrir{
+	20%{ max-height: 10em;}
+	40%{ max-height: 20em;}
+	60%{ max-height: 40em;}
+	80%{ max-height: 80em;}
+	100%{ max-height: max-content;}
+}
