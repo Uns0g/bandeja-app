@@ -91,11 +91,11 @@
 .receita__acoes button{ cursor: pointer;}
 
 .receita__acao-favorito:hover .receita__favorito-icone{ color: #FCB55F;}
-.receita__acao-favorito:hover .receita__favorito-icone--active{ color: gray;}
+.receita__acao-favorito:hover .receita__favorito-icone--ativo{ color: gray;}
 
 .receita__favorito-icone, .receita__edita-icone{ font-size: 4.8em;}
 
-.receita__favorito-icone--active{ color: var(--secondary);}
+.receita__favorito-icone--ativo{ color: var(--secondary);}
 
 .receita__acao-texto{ font-size: 1.3em;}
 

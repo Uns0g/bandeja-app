@@ -175,11 +175,11 @@ Dum inter homines, Sumus colamus Humanitatem, Cum tacent clame.
 			</section>
 		</main>
 		<nav class="menu">
-			<div class="menu__botoes-container" onClick="window.location.href = 'pesquisa.html';">
+			<div class="menu__botoes-container" onClick="window.location.href = 'pesquisa.php';">
 				<div class="menu__botao">
 					<i class="ri-search-line"></i>
 				</div>
-				<div class="menu__botao menu__botao--active" onClick="window.location.href = 'seu_usuario.html';">
+				<div class="menu__botao menu__botao--ativo" onClick="window.location.href = 'seu_usuario.php';">
 					<i class="ri-user-3-fill"></i>
 				</div>
 			</div>

@@ -167,14 +167,14 @@
 		</main>
 		<nav class="menu">
 			<div class="menu__botoes-container">
-				<div class="menu__botao menu__botao--active">
+				<div class="menu__botao menu__botao--ativo">
 					<i class="ri-search-line"></i>
 				</div>
-				<div class="menu__botao" onClick="window.location.href = 'seu_usuario.html';">
+				<div class="menu__botao" onClick="window.location.href = 'seu_usuario.php';">
 					<i class="ri-user-3-fill"></i>
 				</div>
 			</div>
 		</nav>
 	</body>
-	<script src="scripts/js/receitas.js"></script>
+	<script src="scripts/js/pesquisa.js"></script>
 </html>

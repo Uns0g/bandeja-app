@@ -1,5 +1,5 @@
 <?php
-	$requisicao = "SELECT * FROM usuarios WHERE nome = '".$_SESSION["usuario"]."'"; 
+	session_start(); 
 ?>
 
 <html>
@@ -52,33 +52,44 @@
 		</header>
 		<main>
 			<section class="secao">
-				<div class="usuario usuario--seu">
-					<div class="usuario-container">
-						<div class="usuario-frente">
-							<div class="usuario-frente__imagem" style="background-image: url('https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTV8fHByb2ZpbGV8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60');"></div>
-							<h2 class="usuario-frente__nome">Bernadete</h2>
-						</div>
-						<div class="usuario-costas">
-							<button class="usuario-costas__botao">Girar</button>
-							<button class="usuario-costas__botao" onClick="window.location.href = 'editar_usuario.html';">Editar Usuário</button>
-							<button class="usuario-costas__botao" id="botao-sair">Sair Da Sua Conta</button>
-							<button class="usuario-costas__botao" id="botao-excluir">Excluir Sua Conta</button>
-						</div>
-					</div>
+				<div class="usuario-card">
+					<div class="usuario-card__imagem" style="background-image: url('<?php echo $_SESSION["usuario"]["IMAGEM"];?>');"></div>
+					<h2 class="usuario-card__nome"><?php echo $_SESSION["usuario"]["NOME"];?></h2>
 				</div>
 				<div class="acao">
-					<button class="acao__botao acao__botao--inactive">
+					<button class="acao__botao acao__botao--inativo">
 						<i class="ri-star-fill acao__icone"></i>
 						<span class="acao__descricao"><b class="acao__contador-favoritos">0</b> Favoritos</span>
 					</button>
-					<button class="acao__botao" id="cadastrar-ingrediente-botao">
+					<button class="acao__botao" id="cadastrar-ingrediente">
 						<i class="ri-leaf-fill acao__icone"></i>
 						<span class="acao__descricao">Cadastrar Ingrediente</span>
 					</button>
-					<button class="acao__botao" onclick="window.location.href = 'cadastrar_receita.html';">
+					<button class="acao__botao" onclick="window.location.href = 'cadastrar_receita.php';">
 						<i class="ri-add-circle-fill acao__icone"></i>
 						<span class="acao__descricao">Criar Receita</span>
 					</button>
+					<div class="acao acao--com-menu">
+						<button class="acao__botao" id="sua-conta-botao">
+							<i class="ri-user-fill acao__icone"></i>
+							<span class="acao__descricao">Sua Conta</span>
+						</button>
+						<ul class="menu-conta menu-conta--escondido">
+							<li  
+								class="menu-conta__botao"
+								onClick="window.location.href='index.php';">
+								<i class="menu-conta__icone ri-logout-box-line"></i> Sair Da Conta
+							</li>
+							<li 
+								class="menu-conta__botao"
+								onClick="window.location.href='editar_usuario.php';">
+								<i class="menu-conta__icone ri-edit-box-line"></i> Editar Conta
+							</li>
+							<li class="menu-conta__botao" id="excluir-conta">
+								<i class="menu-conta__icone ri-delete-bin-line"></i> Excluir Conta
+							</li>
+						</ul>
+					</div>
 				</div>
 			</section>
 			<section class="secao">
@@ -114,7 +125,7 @@
 				<p class="secao__titulo"><span>Meus Favoritos</span> <i class="ri-arrow-down-s-line secao__seta"></i></p>
 				<div class="secao__container">
 					<div class="receita">
-						<div class="receita__imagem" style="background-image: url('./imgs/receitas/meal.jpg');"></div>
+						<div class="receita__imagem" style="background-image: url('');"></div>
 						<div class="receita__descricao">
 							<h3 class="receita__nome">Lili Ipsumni</h3>
 							<p class="receita__texto">
@@ -148,31 +159,62 @@
 					</div>
 				</div>
 			</section>
-		</main>
-		<div class="form-background form-background--hidden">
-			<form class="form-acao" method="POST" action="">
-				<label for="input" class="form-acao__texto">Cadastre Um Novo Ingrediente</label>
-				<input type="text" class="form-acao__input" id="input" placeholder="Nome do ingrediente">
-				<div class="form-acao__botoes">
-					<input type="reset" class="form-acao__cancelar" value="Cancelar">
-					<input type="submit" class="form-acao__enviar" value="Enviar" onClick="window.location.href = 'scripts/js/checarIngredienteParaInserir.php'">
-				</div>
-			</form>
-			
-			<form class="form-acao" method="POST" action="">
-				<label for="input" class="form-acao__texto">TEM CERTEZA QUE DESEJA EXCLUIR?</label>
-				<div class="form-acao__botoes">
-					<input type="button" class="form-acao__cancelar" value="NÃO">
-					<input type="submit" class="form-acao__enviar" value="SIM" onClick="window.location.href= 'scripts/js/checarUsuarioParaExcluir.php'">
-				</div>
-			</form>
-		</div>
+		</main>	
+<?php
+		if(!isset($_SESSION["ingrediente-invalido"])){?>
+			<div class="form-background form-background--escondido">
+				<form class="form-acao form-acao--escondido" method="POST" action="scripts/php/cadastrarIngrediente.php">
+					<label for="ingrediente" class="form-acao__texto">Cadastre Um Novo Ingrediente</label>
+					<input type="text" name="ingrediente" class="form-acao__input" id="input" placeholder="Nome do ingrediente">
+					<div class="form-acao__botoes">
+						<input type="reset" class="form-acao__cancelar" value="Cancelar">
+						<input type="submit" class="form-acao__enviar" value="Enviar">
+					</div>
+				</form>
+
+				<form class="form-acao form-acao--escondido" method="POST" action="">
+					<label for="input" class="form-acao__texto">TEM CERTEZA QUE DESEJA EXCLUIR?</label>
+					<div class="form-acao__botoes">
+						<input type="button" class="form-acao__cancelar" value="NÃO">
+						<input 
+							type="submit" 
+							class="form-acao__enviar" 
+							value="SIM" 
+							onClick="window.location.href='scripts/php/excluirUsuario.php?usuario=<?php echo $_SESSION["usuario"]["NOME"];?>';">
+					</div>
+				</form>
+			</div>
+<?php 	}
+		else{?>
+			<div class="form-background">
+				<form class="form-acao" method="POST" action="scripts/php/cadastrarIngrediente.php">
+					<label for="ingrediente" class="form-acao__texto">Cadastre Um Novo Ingrediente</label>
+					<input type="text" name="ingrediente" class="form-acao__input form-acao__input--errado" id="input" placeholder="O ingrediente '<?php echo $_SESSION["ingrediente-invalido"];?>' já foi cadastrado!">
+					<div class="form-acao__botoes">
+						<input type="reset" class="form-acao__cancelar" value="Cancelar">
+						<input type="submit" class="form-acao__enviar" value="Enviar">
+					</div>
+				</form>
+
+				<form class="form-acao form-acao--escondido" method="POST" action="">
+					<label for="input" class="form-acao__texto">TEM CERTEZA QUE DESEJA EXCLUIR?</label>
+					<div class="form-acao__botoes">
+						<input type="button" class="form-acao__cancelar" value="NÃO">
+						<input 
+							type="submit" 
+							class="form-acao__enviar" 
+							value="SIM" 
+							onClick="window.location.href='scripts/php/excluirUsuario.php?usuario=<?php echo $_SESSION["usuario"]["NOME"];?>';">
+					</div>
+				</form>
+			</div>
+<?php 	}?>
 		<nav class="menu">
-			<div class="menu__botoes-container" onClick="window.location.href = 'pesquisa.html';">
+			<div class="menu__botoes-container" onClick="window.location.href = 'pesquisa.php';">
 				<div class="menu__botao">
 					<i class="ri-search-line"></i>
 				</div>
-				<div class="menu__botao menu__botao--active">
+				<div class="menu__botao menu__botao--ativo">
 					<i class="ri-user-3-fill"></i>
 				</div>
 			</div>

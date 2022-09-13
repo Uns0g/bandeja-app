@@ -54,6 +54,8 @@
 }
 .campo__texto::placeholder{ font-weight: normal;}
 
+.campo__texto-ingrediente{ text-transform: uppercase;}
+
 .campo--imagem{
 	width: 1280px;
 	margin: 1.5em auto; 
@@ -165,7 +167,30 @@
 }
 .campo__icone-x:active{ color: var(--secondary);}
 
+/* Sugestões */
+.sugestoes{
+	border-radius: 5px; 
+	background-color: #FFF; 
+	box-shadow: 2px 2px .4em rgba(0,0,0,0.5);
+	list-style-type: none;
+}
 
+.sugestoes__item{ padding: 4px; cursor: pointer;}
+.sugestoes__item:hover{ background-color: #C7C7C7;}
+.sugestoes__item:last-of-type{ border-radius: 0 0 5px 5px;}
+
+.sugestoes__item-digitado{ 
+	display: flex; 
+	justify-content: space-between;
+	align-items: center;
+	border-radius: 5px 5px 0 0;
+}
+
+.sugestoes__item-digitado--errado{ color: var(--primary); font-style: italic;}
+
+.sugestoes__mensagem-de-erro{ color: initial; font-size: .7em;}
+
+/* Botão de adicionar ingredientes */
 .adicionar-ingrediente{
 	display: flex;
 	align-items: center;
@@ -191,6 +216,7 @@
 	font-weight: bold;
 }
 
+/* Formularios */
 .formulario__botoes-container{
 	display: flex;
 	justify-content: space-around;
@@ -201,8 +227,6 @@
 .formulario__botao{
 	padding: .6em 1em;
 	border-radius: 10px;
-	/*background-color: var(--primary);
-	color: var(--secondary);*/
 	font-weight: bold;
 	font-size: 1.8em;
 	cursor: pointer;

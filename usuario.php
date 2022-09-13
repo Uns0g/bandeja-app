@@ -47,17 +47,13 @@
 		</header>
 		<main>
 			<section class="secao">
-				<div class="usuario">
-					<div class="usuario-container">
-						<div class="usuario-frente">
-							<div class="usuario-frente__imagem" style="background-image: url('https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80');"></div>
-							<h2 class="usuario-frente__nome">Ipsum Lorem</h2>
-						</div>
-					</div>
+				<div class="usuario-card">
+					<div class="usuario-card__imagem" style="background-image: url('https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80');"></div>
+					<h2 class="usuario-card__nome">Ipsum Lorem</h2>
 				</div>
 				<div class="acao">
 					<div></div>
-					<button class="acao__botao acao__botao--inactive">
+					<button class="acao__botao acao__botao--inativo">
 						<i class="ri-star-fill acao__icone"></i>
 						<span class="acao__descricao"><b class="acao__contador-favoritos">1</b> Favorito</span>
 					</button>
@@ -101,10 +97,10 @@
 		</main>
 		<nav class="menu">
 			<div class="menu__botoes-container">
-				<div class="menu__botao" onClick="window.location.href = 'pesquisa.html';">
+				<div class="menu__botao" onClick="window.location.href = 'pesquisa.php';">
 					<i class="ri-search-line"></i>
 				</div>
-				<div class="menu__botao menu__botao--active" onClick="window.location.href = 'seu_usuario.html';">
+				<div class="menu__botao menu__botao--ativo" onClick="window.location.href = 'seu_usuario.php';">
 					<i class="ri-user-3-fill"></i>
 				</div>
 			</div>

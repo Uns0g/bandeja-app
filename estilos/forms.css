@@ -76,6 +76,7 @@ main{
 
 .aviso__link{ color: var(--secondary); text-decoration: underline;}
 
+/* Form pra usuário */
 .form-background{
 	position: fixed;
 	top: 0;
@@ -99,7 +100,7 @@ main{
 	z-index: 3;
 }
 
-.form-background--hidden, .form-acao--hidden{ display: none;}
+.form-background--escondido, .form-acao--escondido{ display: none;}
 
 .form-acao__texto{ font-size: 2.4em; font-weight: bold;}
 

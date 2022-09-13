@@ -91,19 +91,14 @@
 								<b class="campo__label">Ingrediente
 									<i class="ri-close-fill campo__icone-x"></i>
 								</b>
-								<input type="text" class="campo__texto" name="ingrediente" placeholder="alguma coisa" required>
-							</div>
-						</li>
-						<li class="ingredientes__linha">
-							<div class="campo campo--pequeno">
-								<b class="campo__label">Medida</b>
-								<input type="text" class="campo__texto" name="medida" placeholder="Ex: 3 unidades de" required>
-							</div>
-							<div class="campo campo--pequeno">
-								<b class="campo__label">Ingrediente
-									<i class="ri-close-fill campo__icone-x"></i>
-								</b>
-								<input type="text" class="campo__texto" name="ingrediente" placeholder="alguma coisa" required>
+								<input 
+									type="text" 
+									class="campo__texto campo__texto-ingrediente" 
+									name="ingrediente" 
+									placeholder="alguma coisa" 
+									pattern="[A-Z]"
+									onkeyup="" 
+									required>
 							</div>
 						</li>
 					</ul>
@@ -121,21 +116,22 @@
 					<div class="campo__bandeja"></div>
 				</div>
 				<div class="formulario__botoes-container">
-					<input type="button" class="formulario__botao" value="VOLTAR" onclick="window.location.href = 'seu_usuario.html';">
+					<input type="button" class="formulario__botao" value="VOLTAR" onclick="window.location.href = 'seu_usuario.php';">
 					<input type="reset" class="formulario__botao" value="LIMPAR">
 					<input type="submit" class="formulario__botao formulario__botao" value="SALVAR">
 				</div>
 			</form>
 		</main>
 		<nav class="menu">
-			<div class="menu__botoes-container" onClick="window.location.href = 'pesquisa.html';">
+			<div class="menu__botoes-container" onClick="window.location.href = 'pesquisa.php';">
 				<div class="menu__botao">
 					<i class="ri-search-line"></i>
 				</div>
-				<div class="menu__botao menu__botao--active" onClick="window.location.href = 'seu_usuario.html';">
+				<div class="menu__botao menu__botao--ativo" onClick="window.location.href = 'seu_usuario.php';">
 					<i class="ri-user-3-fill"></i>
 				</div>
 			</div>
 		</nav>
+		<script src="scripts/js/receita.js"></script>
 	</body>
 </html>

@@ -1,3 +1,6 @@
+<?php 
+	session_start();
+?>
 <html>
 	<head>
 		<meta charset="UTF-8">
@@ -47,20 +50,19 @@
 		<main>
 			<h2 class="titulo">Entre Na Bandeja</h2>
 			<form class="form" action="scripts/php/fazerLogin.php" method="POST">
-				<?php
-					if($_SESSION["usuario-inexistente"] == false){?>
-						<input type="text" name="nome" class="form__input" placeholder="Digite seu nome de usuário" required>
-				<?php}
-					else{?>
-						<input type="text" name="nome" class="form__input form__input--errado" placeholder="O usuário digitado não existe" required>
-				<?php}
-				
-					if($_SESSION["senha-errada"] == false){?>
-						<input type="password" name="senha" class="form__input" placeholder="Digite sua senha" required>
-				<?php}
-					else{?>
-						<input type="password" name="senha" class="form__input form__input--errado" placeholder="A senha não corresponde ao usuário" required>
-				<?php}?>
+<?php			if(!empty($_SESSION["nome-invalido"])){?>
+					<input type="text" name="nome" class="form__input form__input--erro" placeholder="O usuário '<?php echo $_SESSION['nome-invalido']?>' não existe" required>
+<?php 			} else{
+					session_destroy();?>
+					<input type="text" name="nome" class="form__input" placeholder="Digite seu nome de usuário" required>
+<?php 			}?>
+
+<?php			if(isset($_SESSION["senha-invalida"])){?>
+					<input type="password" name="senha" class="form__input form__input--erro" placeholder="Senha incorreta!" required>
+<?php 			} else{
+					session_destroy();?>
+					<input type="password" name="senha" class="form__input" placeholder="Digite sua senha" required>
+<?php 			}?>
 				<input type="submit" class="form__botao" value="Login">
 			</form>
 			<p class="aviso">Não tem uma conta? <a href="index.php" class="aviso__link">Cadastre-se</a></p>

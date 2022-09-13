@@ -1,4 +1,5 @@
 <?php
+	unset($_SESSION["usuario"]);
 	session_start();
 ?>
 <html>
@@ -49,34 +50,33 @@
 		</header>
 		<main>
 			<h2 class="titulo">Cadastre-se</h2>
-			<form class="form" action="scripts/php/validarFormulario.php" enctype="multipart/form-data" method="POST">
-			<?php
-				if($_SESSION["nome-invalido"]){?>
+			<form class="form" action="scripts/php/cadastarUsuario.php" enctype="multipart/form-data" method="POST">
+<?php 			if(isset($_SESSION["nome-invalido"])){?>
 					<input type="text" name="nome" class="form__input from__input--erro" placeholder="O nome de usuário já está sendo usado" required>
-			<?php}
-				else{?>-->
+<?php 			} else{
+					session_destroy();?>
 					<input type="text" name="nome" class="form__input" placeholder="Crie um nome de usuário" required>
-			<?php}?>
-			<?php
-				if($_SESSION["imagem-invalida"]){?>
+<?php 			}?>
+
+<?php 			if(isset($_SESSION["imagem-invalida"])){?>
 					<label class="form__input form__input--foto form__input--foto-invalida">
-						<input type="file" name="foto" required="">
+						<input type="file" name="foto" required>
 						<span>Envie uma foto menor que 2MB e com extensão válida</span>
 					</label>
-			<?php}
-				else{?>
+<?php 			} else{
+					session_destroy();?>
 					<label class="form__input form__input--foto">
 						<input type="file" name="foto" value="">
 						<span>Envie uma foto sua</span>
 					</label>
-			<?php}?>
-			<?php
-				if($_SESSION["senha-invalida"]){?>
-					<input type="password" name="senha" class="form__input" placeholder="A senha não pode ser vazia" required>
-			<?php}
-				else{?>
+<?php 			}?>
+
+<?php 			if(isset($_SESSION["senha-invalida"])){?>
+					<input type="password" name="senha" class="form__input form__input--erro" placeholder="A senha não pode ser vazia" required>
+<?php 			} else{
+					session_destroy();?>
 					<input type="password" name="senha" class="form__input" placeholder="Crie uma senha" required>
-			<?php}?>
+<?php 			}?>
 				<input type="submit" class="form__botao" value="Cadastrar-se">
 			</form>
 			<p class="aviso">Já tem uma conta? <a href="login.php" class="aviso__link">Entre</a></p>

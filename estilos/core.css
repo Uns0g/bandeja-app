@@ -56,7 +56,7 @@ main{ margin: 2rem auto;}
 	cursor: pointer;
 }
 
-.menu__botao--active{
+.menu__botao--ativo{
 	border: 2px solid var(--primary);
 	border-bottom: none;
 	border-radius: 0 5px 0 0;

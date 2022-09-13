@@ -1,3 +1,14 @@
+<?php
+	include('classes/classeConexao.php');
+	session_start();
+
+	$nomeDoUsuario = $_SESSION["usuario"]["NOME"];
+	$SQL = "SELECT senha FROM usuarios WHERE nome = '$nomeDoUsuario'";
+
+	$bancoDeDados = new BancoDeDados();
+	$resposta = $bancoDeDados->selecionar($SQL);
+?>
+
 <html>
 	<head>
 		<meta charset="UTF-8">
@@ -47,15 +58,15 @@
 		<main>
 			<h2 class="titulo">Alterar Seu Usuário</h2>
 			<form class="form form--editar" action="" method="POST">
-				<input type="text" name="nome" class="form__input" placeholder="Mudar de nome de usuário">
-				<label class="form__input form__input--foto" style="background-image: url('https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTV8fHByb2ZpbGV8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60');">
+				<input type="text" name="nome" class="form__input" placeholder="Mudar de nome de usuário" value="<?php echo $_SESSION["usuario"]["NOME"]?>">
+				<label class="form__input form__input--foto" style="background-image: url('<?php echo $_SESSION["usuario"]["IMAGEM"];?>');">
 					<input type="file" name="foto">
 					<span class="form__input-botao-enviar-foto">Envie uma nova foto (opcional)</span>
 				</label>
-				<input type="password" name="senha" class="form__input" placeholder="Crie uma nova senha">
+				<input type="password" name="senha" class="form__input" placeholder="Crie uma nova senha" value="<?php echo $resposta[0]["senha"];?>">
 				<input type="submit" class="form__botao" value="Enviar">
 			</form>
-			<p class="aviso">Mudou de ideia? <a href="seu_usuario.html" class="aviso__link">Voltar</a></p>
+			<p class="aviso">Mudou de ideia? <a href="seu_usuario.php" class="aviso__link">Voltar</a></p>
 		</main>
 	</body>
 </html>
