@@ -1,3 +1,5 @@
+<?php
+session_start();?>
 <html>
 	<head>
 		<meta charset="UTF-8">
@@ -46,10 +48,10 @@
 		</header>
 		<main>
 			<h2 class="titulo">Crie Sua Receita</h2>
-			<form action="" method="POST" class="formulario" enctype="multipart/form-data">
+			<form action="scripts/php/cadastrarReceita.php" class="formulario" enctype="multipart/form-data" method="POST">
 				<div class="campo">
-					<label class="campo__label" for="nome">Dê um nome para a receita:</label>
-					<input type="text" class="campo__texto" id="nome" name="nome" placeholder="O nome público da receita será o mesmo que você digitar aqui" required>
+					<label class="campo__label" for="titulo">Dê um nome para a receita:</label>
+					<input type="text" class="campo__texto" id="nome" name="titulo" placeholder="O nome público da receita será o mesmo que você digitar aqui" autocomplete="off" required>
 				</div>
 				<div class="campo campo--imagem">
 					<label class="campo__label" for="imagem">
@@ -62,12 +64,12 @@
 					<div class="campo campo--pequeno">
 						<label class="campo__label" for="tempo">Tempo De Preparo</label>
 						<i class="ri-timer-line campo__icone"></i>
-						<input type="text" class="campo__texto" name="tempo" id="tempo" placeholder="mins, hrs, dias">
+						<input type="text" class="campo__texto" name="tempo" id="tempo" placeholder="mins, hrs, dias" maxlength="12" autocomplete="off">
 					</div>
 					<div class="campo campo--pequeno">
 						<label class="campo__label" for="porcoes">Rendimento</label>
 						<i class="ri-pie-chart-2-line campo__icone"></i>
-						<input type="text" class="campo__texto" name="porcoes" id="porcoes" placeholder="Porções">
+						<input type="text" class="campo__texto" name="porcoes" id="porcoes" placeholder="Porções" autocomplete="off">
 					</div>
 				</section>
 				<hr class="formulario__divisao">
@@ -85,7 +87,14 @@
 						<li class="ingredientes__linha">
 							<div class="campo campo--pequeno">
 								<b class="campo__label">Medida</b>
-								<input type="text" class="campo__texto" name="medida" placeholder="Ex: 3 unidades de" required>
+								<input 
+									type="text"
+									class="campo__texto"
+									name="medidas[]"
+									placeholder="Ex: 3 unidades de"
+									maxlength="50" 
+									autocomplete="off"
+									required>
 							</div>
 							<div class="campo campo--pequeno">
 								<b class="campo__label">Ingrediente
@@ -94,25 +103,25 @@
 								<input 
 									type="text" 
 									class="campo__texto campo__texto-ingrediente" 
-									name="ingrediente" 
+									name="ingredientes[]" 
 									placeholder="alguma coisa" 
-									pattern="[A-Z]"
-									onkeyup="" 
+									onkeyup=""
+									autocomplete="off"
 									required>
 							</div>
 						</li>
 					</ul>
-					<div class="adicionar-ingrediente">
-						<button type="button" class="adicionar-ingrediente__botao">
-							<i class="ri-add-fill adicionar-ingrediente__icone"></i>
-						</button>
-						<span class="adicionar-ingrediente__texto">Adicionar Outro Ingrediente</span>
-					</div>
+						<div class="adicionar-ingrediente">
+							<button type="button" class="adicionar-ingrediente__botao">
+								<i class="ri-add-fill adicionar-ingrediente__icone"></i>
+							</button>
+							<span class="adicionar-ingrediente__texto">Adicionar Outro Ingrediente</span>
+						</div>
 				</section>
 				<hr class="formulario__divisao">
 				<div class="campo campo--grande">
 					<label class="campo__label" for="preparo">Como Fazer</label>
-					<textarea class="campo__texto" name="preparo" id="preparo" placeholder="Ex: Adicione o ingrediente x, ingrediente y e um pouco de z em uma panela..." required></textarea>
+					<textarea class="campo__texto" name="preparo" id="preparo" placeholder="Ex: Adicione o ingrediente x e o ingrediente y em uma panela e misture bem até formar uma massa homogênea..." required></textarea>
 					<div class="campo__bandeja"></div>
 				</div>
 				<div class="formulario__botoes-container">

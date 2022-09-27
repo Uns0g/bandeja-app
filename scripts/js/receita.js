@@ -1,11 +1,15 @@
 const LISTA_DE_INGREDIENTES_EL = document.querySelector(".ingredientes__lista");
 const INGREDIENTE_EL = LISTA_DE_INGREDIENTES_EL.querySelector(".ingredientes__linha");
 
+const INGREDIENTE_CAMPO_EL = LISTA_DE_INGREDIENTES_EL.querySelector('.campo__texto-ingrediente');
+INGREDIENTE_CAMPO_EL.addEventListener('input', function(){ manipularInput(this)});
+
 const BOTAO_REMOVER_EL = INGREDIENTE_EL.querySelector(".campo__icone-x");
 BOTAO_REMOVER_EL.addEventListener('click', () => INGREDIENTE_EL.remove());
 
 const ADICIONAR_INGREDIENTE_EL = document.querySelector(".adicionar-ingrediente__botao");
 ADICIONAR_INGREDIENTE_EL.addEventListener('click', () =>{
+	excluirListaDeSugestoes();
 	let outroIngrediente = adicionarOutroIngrediente();
 	LISTA_DE_INGREDIENTES_EL.appendChild(outroIngrediente);
 
@@ -30,20 +34,19 @@ function manipularInput(input){
 
 	if(input.value.length >= 3){
 		excluirListaDeSugestoes();
-		let lista = document.createElement("ul");
+		let lista = document.createElement("optiongroup");
 		lista.className = 'sugestoes';
 
 		input.parentElement.appendChild(lista);
 
 		adicionarSugestao('"'+input.value+'"');
 
-		let ultimoItem = lista.querySelector("li");
+		let ultimoItem = lista.querySelector("option");
 		ultimoItem.classList.add('sugestoes__item-digitado');
 
 		removerSugestoesAnteriores();
 		procurarIngrediente(input.value);
 	}
-	else{ excluirListaDeSugestoes();}
 }
 
 function excluirListaDeSugestoes(){
@@ -54,7 +57,7 @@ function excluirListaDeSugestoes(){
 function adicionarSugestao(sugestao){
 	let listaDeSugestoes = document.querySelector('.sugestoes');
 
-	let listaItem = document.createElement('li');
+	let listaItem = document.createElement("option");
 	listaItem.className = 'sugestoes__item';
 	listaItem.textContent = sugestao;
 

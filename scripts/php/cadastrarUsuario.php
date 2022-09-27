@@ -42,7 +42,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 		else{
 			$nomeDoUsuario = str_replace(' ', '_', $nomeDigitado);
 			$extensaoDaImagem = strtolower(pathinfo($_FILES["foto"]["name"], PATHINFO_EXTENSION));
-			$fotoURL = 'imgs/usuarios/'.$nomeDoUsuario.strval(rand()).'.'.$extensaoDaImagem;
+			$fotoURL = 'imgs/usuarios/'.$nomeDoUsuario.strval(rand(0,9999)).'.'.$extensaoDaImagem;
 
 			$destino = '../../'.$fotoURL;
 			if(move_uploaded_file($_FILES["foto"]["tmp_name"], $destino)){
@@ -99,3 +99,4 @@ function validarImagem($dadosDaImagem){
 
 	return $numeroDeErros;
 }
+?>
