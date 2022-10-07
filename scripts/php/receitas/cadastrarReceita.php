@@ -1,11 +1,11 @@
 <?php
 session_start();
 
-include "../../classes/classeReceita.php";
+include "../../../classes/classeReceita.php";
 $receita = new Receita($_POST["titulo"],$_POST["preparo"],$_SESSION["usuario"]["NOME"]);
 
 /* Conexão com o banco de dados */ 
-include "../../classes/classeConexao.php";
+include "../../../classes/classeConexao.php";
 $bancoDeDados = new BancoDeDados();
 
 /* Variáveis opcionais ou indefinidas */
@@ -38,13 +38,13 @@ if(isset($_SESSION["usuario"])){
 
 	# inserindo receita no banco de dados
 	$SQL = "INSERT INTO receitas(titulo,imagemURL,tempo,autor_ID,rendimento,descricao,preparo) 
-			VALUES('$receita->titulo','$receita->imagemURL','$tempo',$receita->autor,'$receita->rendimento','$receita->descricao','$receita->preparo')";
-	$insercao = $bancoDeDados->inserir($SQL);
+			VALUES('$receita->titulo','$receita->imagemURL','$receita->tempo',$receita->autor,'$receita->rendimento','$receita->descricao','$receita->preparo')";
+	$insercao = $bancoDeDados->executar($SQL);
 
 	# se houve inserção
 	if($insercao){
 		# selecionando o ID da última receita que o usuário cadastrou (receita correta)
-		$SQL = "SELECT receitaID FROM receitas WHERE autor_ID = $receita->autor ORDER BY receitaID DESC LIMIT 1";
+		$SQL = "SELECT receitaID FROM receitas WHERE autor_ID=$receita->autor ORDER BY receitaID DESC LIMIT 1";
 		$resposta = $bancoDeDados->selecionar($SQL);
 		$receitaID = $resposta[0]["receitaID"];
 
@@ -52,25 +52,32 @@ if(isset($_SESSION["usuario"])){
 		$ingredientes = buscarIDsDosIngredientes($bancoDeDados,$ingredientes);
 
 		# inserindo em ingredientes_receitas
+		$SQL = "INSERT INTO ingredientes_receitas(unidades,ingrediente_ID,receita_ID) VALUES";
 		for ($i=0; $i < sizeof($ingredientes); $i++) { 
-			$SQL = "INSERT INTO ingredientes_receitas(unidades,ingrediente_ID,receita_ID) 
-					VALUES('$medidas[$i]',$ingredientes[$i],$receitaID)";
-			$insercao = $bancoDeDados->inserir($SQL);
-
-			if(!$insercao){
-				voltar_para_pagina_anterior("erro-na-insercao",'OCORREU ALGUM ERRO INESPERADO COM "$medidas[$i] $ingredientes[$i]"!');
+			if($i != sizeof($ingredientes)-1){
+				$SQL.="('$medidas[$i]',$ingredientes[$i],$receitaID),";
+			}
+			else{
+				$SQL.="('$medidas[$i]',$ingredientes[$i],$receitaID);";
 			}
 		}
+		print_r($SQL); // só para teste
+		$insercao = $bancoDeDados->executar($SQL);
 
-		# SE TUDO DER CERTO
-		header('Location: ../../seu_usuario.php#ultima-receita');
+		if(!$insercao){
+			voltar_para_pagina_anterior("erro-na-insercao",'OCORREU ALGUM ERRO INESPERADO COM "$medidas[$i] $ingredientes[$i]"!');
+		}
+		else{
+			# SE TUDO DER CERTO
+			header('Location: ../../../seu_usuario.php#ultima-receita');
+		}
 	}
 	else{
 		echo "<strong style='color: #8C0303; text-align: center; display: block; font-size: 1.6em;'>OCORREU UM ERRO INESPERADO AO ENVIAR PARA O BANCO DE DADOS!</strong><br/>";
 	}
 }
 else{
-	header('Location: ../../erro/nenhum_usuario.php');
+	header('Location: ../../../erro/nenhum_usuario.php');
 }
 
 function verificar_validade_da_imagem($arquivoImagem, $objetoReceita){
@@ -87,7 +94,7 @@ function verificar_validade_da_imagem($arquivoImagem, $objetoReceita){
 		}
 		else{ # caso tudo esteja certo
 			$fotoURL = $objetoReceita->gerar_url_para_imagem('.'.$extensao);
-			if(move_uploaded_file($_FILES["imagem"]["tmp_name"], '../../'.$fotoURL)){
+			if(move_uploaded_file($_FILES["imagem"]["tmp_name"], '../../../'.$fotoURL)){
 				$objetoReceita->set_imagemURL($fotoURL);
 				echo "IMAGEM ENVIADA COM SUCESSO!<br/>";
 			}
@@ -105,7 +112,7 @@ function verificar_validade_da_imagem($arquivoImagem, $objetoReceita){
 function voltar_para_pagina_anterior($sessaoDeErro, $mensagem){
 	$_SESSION[$sessaoDeErro] = $mensagem;
 	echo '<b>'.$mensagem.'</b><br/>';
-	// header('Location: ../../cadastrar_receita.php');
+	// header('Location: ../../../cadastrar_receita.php');
 }
 
 function buscarIDsDosIngredientes($objetoDoBancoDeDados,$nomesDosIngredientes){

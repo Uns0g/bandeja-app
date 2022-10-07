@@ -1,18 +1,15 @@
-.receita{
+.receita-container{ 
 	position: relative;
-	display: grid;
-	grid-template-areas: "imagem descricao descricao acoes"
-						 "imagem info info acoes";
-	grid-template-columns: .4fr repeat(2,1.2fr) .4fr;
 	width: 100%;
 	margin-bottom: 2rem;
 	border: 1px double #000;
-	border-radius: 10px 10px 0 0;
-	background-color: #e7e7e7;
-	cursor: pointer;
 }
 
-.receita::after{
+.receita-container, .receita, .receita-form{
+	border-radius: 10px 10px 0 0;
+}
+
+.receita-container::after{
 	position: absolute;
 	bottom: -6px;
 	height: 6px;
@@ -20,6 +17,15 @@
 	border-radius: 0 0 10px 10px;
 	background-color: #000;
 	content: "";
+}
+
+.receita{
+	display: grid;
+	grid-template-areas: "imagem descricao descricao acoes"
+						 "imagem info info acoes";
+	grid-template-columns: .4fr repeat(2,1.2fr) .4fr;
+	background-color: #e7e7e7;
+	cursor: pointer;
 }
 
 .receita__imagem{
@@ -61,12 +67,10 @@
 	flex-direction: column;
 	align-items: center;
 }
-
 .receita__info-container:first-of-type .receita__info-icone{ color: var(--secondary);}
 
-.receita__info-container:nth-child(4) .receita__info-icone{ color: var(--primary);}
-
 .receita__info-icone{ font-size: 2em;}
+.receita__info-icone--autor{ color: var(--primary);}
 
 .receita__info-box{
 	padding: 4px;
@@ -116,6 +120,43 @@
 }
 
 .receita__acao-edita:hover .receita__edita-icone{ animation: sacudir 1s infinite;}
+
+.receita-form{
+	display: none;
+	padding: 1em;
+	background-color: #FFF;
+}
+
+.receita-form__titulo{
+	font-size: 1.8em;
+	font-weight: bold;
+	text-align: center;
+}
+
+.receita-form__nome{ color: var(--primary);}
+
+.receita-form__botoes-container{
+	display: flex;
+	justify-content: space-between;
+	width: 80%;
+	margin: auto;
+}
+
+.receita-form__botao{
+	padding: 10px 20px;
+	border: 2px solid #FFF;
+	border-radius: 5px;
+	color: #FFF;
+	font-size: 1.2em;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.receita-form__botao--cancelar{ background-color: var(--secondary);}
+.receita-form__botao--cancelar:hover{ background: rgba(222, 135, 5, 1); color: var(--primary);}
+
+.receita-form__botao--excluir{ background-color: var(--primary);}
+.receita-form__botao--excluir:hover{ background-color: rgba(120, 3, 3, 1); color: var(--secondary);}
 
 @keyframes sacudir {
   0% { transform: translate(0, 0) rotate(0deg);}

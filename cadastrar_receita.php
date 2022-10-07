@@ -48,7 +48,7 @@ session_start();?>
 		</header>
 		<main>
 			<h2 class="titulo">Crie Sua Receita</h2>
-			<form action="scripts/php/cadastrarReceita.php" class="formulario" enctype="multipart/form-data" method="POST">
+			<form action="scripts/php/receitas/cadastrarReceita.php" class="formulario" enctype="multipart/form-data" method="POST">
 				<div class="campo">
 					<label class="campo__label" for="titulo">Dê um nome para a receita:</label>
 					<input type="text" class="campo__texto" id="nome" name="titulo" placeholder="O nome público da receita será o mesmo que você digitar aqui" autocomplete="off" required>
@@ -64,12 +64,12 @@ session_start();?>
 					<div class="campo campo--pequeno">
 						<label class="campo__label" for="tempo">Tempo De Preparo</label>
 						<i class="ri-timer-line campo__icone"></i>
-						<input type="text" class="campo__texto" name="tempo" id="tempo" placeholder="mins, hrs, dias" maxlength="12" autocomplete="off">
+						<input type="text" class="campo__texto" name="tempo" id="tempo" placeholder="mins, hrs, dias" maxlength="30" autocomplete="off">
 					</div>
 					<div class="campo campo--pequeno">
 						<label class="campo__label" for="porcoes">Rendimento</label>
 						<i class="ri-pie-chart-2-line campo__icone"></i>
-						<input type="text" class="campo__texto" name="porcoes" id="porcoes" placeholder="Porções" autocomplete="off">
+						<input type="text" class="campo__texto" name="porcoes" id="porcoes" placeholder="Porções" autocomplete="off" maxlength="30">
 					</div>
 				</section>
 				<hr class="formulario__divisao">
@@ -132,8 +132,8 @@ session_start();?>
 			</form>
 		</main>
 		<nav class="menu">
-			<div class="menu__botoes-container" onClick="window.location.href = 'pesquisa.php';">
-				<div class="menu__botao">
+			<div class="menu__botoes-container">
+				<div class="menu__botao" onClick="window.location.href = 'pesquisa.php';">
 					<i class="ri-search-line"></i>
 				</div>
 				<div class="menu__botao menu__botao--ativo" onClick="window.location.href = 'seu_usuario.php';">
@@ -141,6 +141,6 @@ session_start();?>
 				</div>
 			</div>
 		</nav>
-		<script src="scripts/js/receita.js"></script>
+		<script type="module" src="scripts/js/cadastrarReceita.js"></script>
 	</body>
 </html>

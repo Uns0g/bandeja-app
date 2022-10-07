@@ -1,6 +1,6 @@
 <?php
 session_start();
-include("../../classes/classeConexao.php");
+include("../../../classes/classeConexao.php");
 
 $dadosColetados = $_POST;
 $nomeDigitado = $fotoURL = $senhaDigitada = '';
@@ -12,7 +12,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 			if(empty($valor)){
 				$contemErro = true;
 				$_SESSION["nome-invalido"] = true;
-				header('Location: ../../index.php');
+				header('Location: ../../../index.php');
 			}
 
 			$nomeDigitado = $valor;
@@ -22,7 +22,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 			if(empty($valor)){
 				$contemErro = true;
 				$_SESSION["senha-invalida"] = true;
-				header('Location: ../../index.php');
+				header('Location: ../../../index.php');
 			}
 
 			$senhaDigitada = $valor;
@@ -37,14 +37,14 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 		$quantidadeDeErros = validarImagem($_FILES["foto"]);
 		if($quantidadeDeErros > 0){
 			$_SESSION['imagem-invalida'] = true;
-			header('Location: ../../index.php');
+			header('Location: ../../../index.php');
 		}
 		else{
 			$nomeDoUsuario = str_replace(' ', '_', $nomeDigitado);
 			$extensaoDaImagem = strtolower(pathinfo($_FILES["foto"]["name"], PATHINFO_EXTENSION));
 			$fotoURL = 'imgs/usuarios/'.$nomeDoUsuario.strval(rand(0,9999)).'.'.$extensaoDaImagem;
 
-			$destino = '../../'.$fotoURL;
+			$destino = '../../../'.$fotoURL;
 			if(move_uploaded_file($_FILES["foto"]["tmp_name"], $destino)){
 				
 				$bancoDeDados = new BancoDeDados();
@@ -54,7 +54,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 				$usuarioExistente = $bancoDeDados->selecionar($SQL);
 				if(!$usuarioExistente){
 					$SQL = "INSERT INTO usuarios(nome,fotoURL,senha) VALUES('$nomeDigitado','$fotoURL','$senhaDigitada')";
-					$insercao = $bancoDeDados->inserir($SQL);
+					$insercao = $bancoDeDados->executar($SQL);
 
 					if($insercao){ 
 						$_SESSION["usuario"] = array(
@@ -62,13 +62,13 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 							"IMAGEM" => $fotoURL,
 						);
 
-						header('Location: ../../seu_usuario.php');
+						header('Location: ../../../seu_usuario.php');
 					}
 					else{ echo "HOUVE UM ERRO AO CADASTRAR O USUÁRIO! TENTE NOVAMENTE MAIS TARDE.";}
 				}
 				else{
 					$_SESSION["nome-invalido"] = true;
-					header('Location: ../../index.php');
+					header('Location: ../../../index.php');
 				}
 			}
 			else{

@@ -58,7 +58,7 @@
 		<main>
 			<h2 class="titulo">Alterar Seu Usuário</h2>
 			<form class="form form--editar" action="" method="POST">
-				<input type="text" name="nome" class="form__input" placeholder="Mudar de nome de usuário" value="<?php echo $_SESSION["usuario"]["NOME"]?>">
+				<input type="text" name="nome" class="form__input" placeholder="Mudar de nome de usuário" value="<?php echo $_SESSION["usuario"]["NOME"];?>">
 				<label class="form__input form__input--foto" style="background-image: url('<?php echo $_SESSION["usuario"]["IMAGEM"];?>');">
 					<input type="file" name="foto">
 					<span class="form__input-botao-enviar-foto">Envie uma nova foto (opcional)</span>

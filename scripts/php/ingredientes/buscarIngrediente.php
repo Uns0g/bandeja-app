@@ -1,7 +1,7 @@
 <?php
-	include('../../classes/classeConexao.php');
+	include('../../../classes/classeConexao.php');
 
-	$ingrediente = filter_input(INPUT_GET, "nome", FILTER_SANITIZE_STRING);
+	$ingrediente = filter_input(INPUT_GET, "ingredienteNome", FILTER_SANITIZE_STRING);
 	if(!empty($ingrediente)){
 		$bancoDeDados = new BancoDeDados();
 		$SQL = "SELECT nome FROM ingredientes WHERE nome LIKE '$ingrediente%' LIMIT 8";

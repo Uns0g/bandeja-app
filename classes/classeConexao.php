@@ -26,7 +26,8 @@
 			}
 		}
 
-		function inserir($sql){
+		// Create Update Delete
+		function executar($sql){
 			$con = $this->conectar();
 
 			$query = mysqli_query($con,$sql);

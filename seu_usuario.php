@@ -1,6 +1,7 @@
 <?php
 	session_start(); 
-	if(isset($_SESSION["usuario"])){?>
+	if(isset($_SESSION["usuario"])){
+		include "classes/classeConexao.php";?>
 		<html>
 			<head>
 				<meta charset="UTF-8">
@@ -50,7 +51,7 @@
 					</div>
 				</header>
 				<main>
-					<section class="secao">
+					<section class="secao" id="usuario">
 						<div class="usuario-card">
 							<div class="usuario-card__imagem" style="background-image: url('<?php echo $_SESSION["usuario"]["IMAGEM"];?>');"></div>
 							<h2 class="usuario-card__nome"><?php echo $_SESSION["usuario"]["NOME"];?></h2>
@@ -91,36 +92,89 @@
 							</div>
 						</div>
 					</section>
-					<section class="secao">
+					<section class="secao" id="minhas-receitas">
 						<p class="secao__titulo"><span>Minhas Receitas</span> <i class="ri-arrow-down-s-line secao__seta"></i></p>
 						<div class="secao__container">
-							<div class="receita">
-								<div class="receita__imagem"></div>
-								<div class="receita__descricao">
-									<h3 class="receita__nome">Cachorro Quente</h3>
-									<p class="receita__texto">
-										Dignissimos sed voluptatem ad veritatis. Porro aut quo minus sed blanditiis ex sit. Vero architecto eius rerum molestiae totam quia voluptatum harum.
-									</p>
-								</div>
-								<div class="receita__acoes">
-									<button class="receita__acao-remove">
-										<i class="ri-close-line receita__remove-icone"></i>
-									</button>
-									<button class="receita__acao-edita">
-										<i class="ri-edit-box-line receita__edita-icone"></i>
-										<span class="receita__acao-texto">Editar Receita</span>
-									</button>
-								</div>
-								<div class="receita__informacoes">
-									<div class="receita__info-container">
-										<i class="ri-star-s-fill receita__info-icone"></i>
-										<span class="receita__info-box"><em class="receita__total-favoritos">0 Favoritos</em></span>
-									</div>
-								</div>
-							</div>
+							<?php
+								$bancoDeDados = new BancoDeDados();
+
+								// usar join
+								$autorDasReceitas = $_SESSION["usuario"]["NOME"];
+								$SQL = "SELECT usuarioID FROM usuarios WHERE nome='$autorDasReceitas'";
+								$resposta = $bancoDeDados->selecionar($SQL);
+
+								$autorDasReceitas = $resposta[0]["usuarioID"];
+								$SQL = "SELECT receitaID,titulo,imagemURL,descricao,favoritos_numeros FROM receitas WHERE autor_ID = $autorDasReceitas";
+								$resposta = $bancoDeDados->selecionar($SQL);
+
+								if(!empty($resposta)){
+									for($i = 0; $i < count($resposta); $i++){
+										if($i != count($resposta) - 1){
+											?>
+											<div class="receita-container">
+								<?php
+										}
+										else{?>
+											<div class="receita-container" id="ultima-receita">
+								<?php
+										}?>
+										
+											<div class="receita" data-receitaid="<?php echo $resposta[$i]['receitaID'];?>">
+												<div class="receita__imagem" style="background-image: url('<?php echo $resposta[$i]["imagemURL"];?>');"></div>
+												<div class="receita__descricao">
+													<h3 class="receita__nome"><?php echo $resposta[$i]["titulo"];?></h3>
+													<p class="receita__texto">
+													<?php
+														if($resposta[$i]["descricao"]){?>
+															<p><?php echo $resposta[$i]["descricao"];?></p>
+													<?php
+														} 
+														else{
+															$receitaID = $resposta[0]["receitaID"];
+															$SQL = "SELECT * FROM ingredientes_receitas WHERE receita_ID=$receitaID";?>
+															<p><?php echo $SQL;?></p>
+													<?php
+														}
+													?>
+													</p>
+												</div>
+												<div class="receita__acoes">
+													<button class="receita__acao-remove">
+														<i class="ri-close-line receita__remove-icone"></i>
+													</button>
+													<button class="receita__acao-edita">
+														<i class="ri-edit-box-line receita__edita-icone"></i>
+														<span class="receita__acao-texto">Editar Receita</span>
+													</button>
+												</div>
+												<div class="receita__informacoes">
+													<div class="receita__info-container">
+														<i class="ri-star-s-fill receita__info-icone"></i>
+														<span class="receita__info-box">
+															<em class="receita__total-favoritos">
+															<?php
+																echo $resposta[$i]["favoritos_numeros"];
+															?> favoritos
+															</em>
+														</span>
+													</div>
+												</div>
+											</div>
+											<form class="receita-form" action="editar_receita.php" method="POST">
+												<label class="receita-form__titulo">TEM CERTEZA DE QUE QUER EXCLUIR "<span class="receita-form__nome"><?php echo $resposta[$i]["titulo"];?></span>"</label>
+												<input type="number" name="receitaID" value="<?php echo $resposta[$i]["receitaID"];?>" style="display: none;"> 
+												<div class="receita-form__botoes-container">
+													<button type="button" class="receita-form__botao receita-form__botao--cancelar">CANCELAR</button>
+													<button class="receita-form__botao receita-form__botao--excluir">Excluir</button>
+												</div>
+											</form>
+										</div><?php  	
+										}
+									}
+								?>
 						</div>
 					</section>
-					<section class="secao secao--direita">
+					<section class="secao secao--direita" id="favoritos">
 						<p class="secao__titulo"><span>Meus Favoritos</span> <i class="ri-arrow-down-s-line secao__seta"></i></p>
 						<div class="secao__container">
 							<div class="receita">
@@ -209,8 +263,8 @@
 					</div>
 		<?php 	}?>
 				<nav class="menu">
-					<div class="menu__botoes-container" onClick="window.location.href = 'pesquisa.php';">
-						<div class="menu__botao">
+					<div class="menu__botoes-container">
+						<div class="menu__botao" onClick="window.location.href = 'pesquisa.php';">
 							<i class="ri-search-line"></i>
 						</div>
 						<div class="menu__botao menu__botao--ativo">
@@ -220,6 +274,7 @@
 				</nav>
 			</body>
 			<script src="scripts/js/usuario.js"></script>
+			<script src="scripts/js/elementoReceita.js"></script>
 		</html>
 <?php
 	}?>

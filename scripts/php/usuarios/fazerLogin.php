@@ -1,6 +1,6 @@
 <?php
 session_start();
-include("../../classes/classeConexao.php");
+include("../../../classes/classeConexao.php");
 
 $dadosColetados = $_POST;
 $nomeDigitado = $senhaDigitada = '';
@@ -11,7 +11,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 		if($chave == "nome"){
 			if(empty($valor)){
 				$_SESSION["nome-invalido"] = true;
-				header('Location: ../../login.php');
+				header('Location: ../../../login.php');
 			}
 
 			$nomeDigitado = $valor;
@@ -20,7 +20,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 		if($chave == "senha"){
 			if(empty($valor)){
 				$_SESSION["senha-invalida"] = true;
-				header('Location: ../../login.php');
+				header('Location: ../../../login.php');
 			}
 
 			$senhaDigitada = $valor;
@@ -34,7 +34,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 	$usuarioJaExistente = $bancoDeDados->selecionar($SQL);
 	if(!$usuarioJaExistente){
 		$_SESSION["nome-invalido"] = $nomeDigitado;
-		header('Location: ../../login.php');
+		header('Location: ../../../login.php');
 	}
 	else{
 		$SQL = "SELECT senha FROM usuarios WHERE nome = '$nomeDigitado'";
@@ -49,12 +49,12 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 				"IMAGEM" => $resposta[0]["fotoURL"],
 			);
 
-			header('Location: ../../seu_usuario.php');
+			header('Location: ../../../seu_usuario.php');
 		}
 		else{
 			$_SESSION["senha-invalida"] = true;
 			echo "A SENHA NÃO CORRESPONDE AO QUE ESTÁ NO BANCO DE DADOS";
-			header('Location: ../../login.php');
+			header('Location: ../../../login.php');
 		}
 	}
 }

@@ -16,14 +16,73 @@ main{
 .pesquisa__label{ font-size: 2.4em;}
 
 .pesquisa__barra{
+	display: grid;
+	grid-template-areas: "barra barra barra barra botao"
+						 "sugestoes sugestoes sugestoes sugestoes nada"
+}
+
+.pesquisa__input{
+	grid-area: barra;
 	padding: .4em;
 	border-radius: 5px;
 	font-size: 1.7em;
 	text-transform: uppercase;
 }
-.pesquisa__barra::placeholder{ text-transform: capitalize;}
+.pesquisa__input::placeholder{ text-transform: capitalize;}
 
 .pesquisa__botao{
+	grid-area: botao;
+	background-color: var(--primary);
+	color: var(--secondary);
+	border: 2px outset var(--secondary);
+	border-radius:  0 5px 5px 0;
+	font-size: 3.2em;
+	font-weight: bold;
+	cursor: pointer;
+}
+.pesquisa__botao:hover{ background-color: var(--primary); opacity: .9;}
+.pesquisa__botao:active{ border-style: inset;}
+
+/* Sugestões */
+.sugestoes{
+	grid-area: sugestoes;
+	width: 100%;
+	border-radius: 5px; 
+	background-color: #FFF;
+	box-shadow: 4px 4px .8em rgba(0,0,0,0.5);
+	list-style: none;
+}
+
+.sugestoes__item{ 
+	padding: .4em;
+	font-size: 1.5em;
+	cursor: pointer;
+}
+.sugestoes__item:hover{ background-color: #E7E7E7;}
+.sugestoes__item:last-of-type{ border-radius: 0 0 5px 5px;}
+
+.sugestoes__item--cadastrar{ 
+	background-color: var(--primary);
+	color: #FFF;
+	font-weight: bold;
+	text-align: center;
+}
+.sugestoes__item--cadastrar:hover{ background-color: var(--primary); color: var(--secondary);}
+
+.sugestoes__item-digitado{ 
+	display: flex; 
+	justify-content: space-between;
+	align-items: center;
+	border: 2px solid var(--primary);
+	border-top: none;
+	border-radius: 5px 5px 0 0;
+}
+
+.sugestoes__item-digitado--errado{ color: var(--primary); font-style: italic;}
+
+.sugestoes__mensagem-de-erro{ color: initial; font-size: .7em;}
+
+/*.pesquisa__botao{
 	position: absolute;
 	right: 0;
 	bottom: 0;
@@ -37,7 +96,7 @@ main{
 	cursor: pointer;
 }
 .pesquisa__botao:hover{ background-color: var(--primary); opacity: .9;}
-.pesquisa__botao:active{ border-style: outset;}
+.pesquisa__botao:active{ border-style: outset;}*/
 
 /* Seção De Ingredientes */
 .ingredientes{ width: 100%; margin: 1em auto;}
@@ -49,7 +108,7 @@ main{
 	column-gap: 1em;
 	width: 100%;
 	padding: .5em;
-	border: 1px solid #C2C2C2;
+	border: 2px solid var(--primary);
 	border-radius: 5px;
 }
 
@@ -97,10 +156,7 @@ main{
 .receitas__seta{ transition: .3s; transform: rotate(360deg);}
 .receitas__seta--girar{ transform: rotate(180deg);}
 
-.receitas__container{
-	max-height: .01em;
-	overflow: hidden;
-}
+.receitas__container{ max-height: .01em; overflow: hidden;}
 
 .receitas__container--abrir{ animation: abrir .5s forwards;}
 
