@@ -67,9 +67,9 @@
 	flex-direction: column;
 	align-items: center;
 }
-.receita__info-container:first-of-type .receita__info-icone{ color: var(--secondary);}
 
 .receita__info-icone{ font-size: 2em;}
+.receita__info-icone--favorito{ color: var(--secondary);}
 .receita__info-icone--autor{ color: var(--primary);}
 
 .receita__info-box{

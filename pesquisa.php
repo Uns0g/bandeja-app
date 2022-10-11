@@ -1,3 +1,8 @@
+<?php 
+	session_start();
+	$nome = $_SESSION["usuario"]["NOME"];
+?>
+
 <html>
 	<head>
 		<meta charset="UTF-8">
@@ -55,45 +60,12 @@
 			</section>
 			<section class="ingredientes">
 				<h2 class="ingredientes__titulo">INGREDIENTES:</h2>
-				<div class="ingredientes__container">
-					<!--<input type="text" class="ingredientes__elemento" value="OVO" size="2" disabled>
-					<input type="text" class="ingredientes__elemento ingredientes__elemento--errado" value="LEIT" size="3" disabled>-->
+				<div class="ingredientes__container" data-seuUsuario="<?php echo $nome;?>">
 				</form>
 			</section>
 			<section class="receitas">
 				<h2 class="receitas__titulo">Receitas <i class="ri-arrow-down-s-line receitas__seta"></i></h2>
 				<div class="receitas__container">
-					<div class="receita-container">
-						<div class="receita">
-							<div class="receita__imagem" style="background-image: url('https://images.unsplash.com/photo-1497681204192-eb12c0702305?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y29jb251dCUyMGNha2V8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60');"></div>
-							<div class="receita__descricao">
-								<h3 class="receita__nome">Bolo De Coco</h3>
-								<p class="receita__texto">
-									Dignissimos sed voluptatem ad veritatis. Porro aut quo minus sed blanditiis ex sit. Vero architecto eius rerum molestiae totam quia voluptatum harum.
-								</p>
-							</div>
-							<div class="receita__acoes">
-								<button class="receita__acao-favorito">
-									<i class="ri-star-fill receita__favorito-icone"></i>
-									<span class="receita__acao-texto">0 Favoritos</span>
-								</button>
-							</div>
-							<div class="receita__informacoes">
-								<div class="receita__info-container">
-									<i class="ri-timer-line receita__info-icone"></i>
-									<span class="receita__info-box"><em class="receita__tempo">45 min.</em></span>
-								</div>
-								<div class="receita__info-container">
-									<i class="ri-pie-chart-2-line receita__info-icone"></i>
-									<span class="receita__info-box"><em class="receita__porcoes">12 Porções</em></span>
-								</div>
-								<div class="receita__info-container">
-									<i class="ri-user-fill receita__info-icone receita__info-icone--autor"></i>
-									<span class="receita__info-box"><strong class="receita__autor">Ipsum Lorem</strong></span>
-								</div>
-							</div>
-						</div>	
-					</div>
 				</div>
 			</section>
 		</main>

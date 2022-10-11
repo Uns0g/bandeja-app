@@ -50,7 +50,7 @@ function abrirContainerReceitas(){
 }
 
 async function buscarReceitas(){
-	let urlParaBusca = 'scripts/php/receitas/buscarReceitas.php?ingredientes=';
+	let urlParaBusca = 'scripts/php/receitas/buscarReceitasPelosIngredientes.php?ingredientes=';
 
 	let elementosIngredientes = document.querySelectorAll('.ingredientes__elemento');
 	elementosIngredientes.forEach((elemento) => urlParaBusca += elemento.textContent+',');
@@ -63,7 +63,6 @@ async function buscarReceitas(){
 }
 
 function criarElementoReceita(receita){
-	console.log(receita);
 	let receitaContainer = document.createElement('div');
 	receitaContainer.id = receita.receitaID;
 	receitaContainer.className = 'receita-container';
@@ -101,15 +100,12 @@ function criarElementoReceita(receita){
 
 	receitaContainer.addEventListener('click', () =>{
 		let urlParaReceita = 'ver_receita.php?rID='+receitaContainer.id;
-		console.log(urlParaReceita);
-
-		// ir para página da receita depois
+		window.location.href = urlParaReceita;
 	});
 
 	let botaoFavoritos = receitaContainer.querySelector('.receita__acao-favorito');
 	botaoFavoritos.addEventListener('click', (ev) =>{
 		ev.stopPropagation();
-		console.log(ev.target);
 
 		let urlParaAlterarFavorito = 'scripts/php/receitas/atualizarFavoritos.php?';
 		// alterarFavorito depois
@@ -120,8 +116,7 @@ function criarElementoReceita(receita){
 		ev.stopPropagation();
 
 		let urlParaUsuario = 'usuario.php?uID='+botaoAutor.dataset.usuarioid;
-		console.log(urlParaUsuario);
-		// ir para página do usuário depois
+		window.location.href = urlParaUsuario;
 	});
 
 	CONTAINER_EL.appendChild(receitaContainer);

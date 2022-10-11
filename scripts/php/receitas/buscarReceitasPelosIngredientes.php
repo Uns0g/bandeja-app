@@ -16,6 +16,8 @@
 		$SQL.= "GROUP BY receitaID ORDER BY COUNT(receitaID) DESC, COUNT(favoritos_numeros) DESC 
 				LIMIT 40";
 		$resposta = $bancoDeDados->selecionar($SQL);
+
+		/*$resposta["autor_ID"] e $resposta["receitaID"]*/
 		if($resposta){
 			$dados = $resposta;
 		}

@@ -2,6 +2,7 @@
 	session_start(); 
 	if(isset($_SESSION["usuario"])){
 		include "classes/classeConexao.php";?>
+
 		<html>
 			<head>
 				<meta charset="UTF-8">
@@ -97,14 +98,15 @@
 						<div class="secao__container">
 							<?php
 								$bancoDeDados = new BancoDeDados();
-
 								// usar join
 								$autorDasReceitas = $_SESSION["usuario"]["NOME"];
 								$SQL = "SELECT usuarioID FROM usuarios WHERE nome='$autorDasReceitas'";
 								$resposta = $bancoDeDados->selecionar($SQL);
 
 								$autorDasReceitas = $resposta[0]["usuarioID"];
-								$SQL = "SELECT receitaID,titulo,imagemURL,descricao,favoritos_numeros FROM receitas WHERE autor_ID = $autorDasReceitas";
+								$SQL = "SELECT receitaID,titulo,imagemURL,descricao,favoritos_numeros 
+										FROM receitas 
+										WHERE autor_ID=$autorDasReceitas";
 								$resposta = $bancoDeDados->selecionar($SQL);
 
 								if(!empty($resposta)){
@@ -149,12 +151,17 @@
 												</div>
 												<div class="receita__informacoes">
 													<div class="receita__info-container">
-														<i class="ri-star-s-fill receita__info-icone"></i>
+														<i class="ri-star-s-fill receita__info-icone receita__info-icone--favorito"></i>
 														<span class="receita__info-box">
 															<em class="receita__total-favoritos">
 															<?php
-																echo $resposta[$i]["favoritos_numeros"];
-															?> favoritos
+																if($resposta[$i]["favoritos_numeros"] == 1){
+																	echo '1 Favorito';
+																}
+																else{
+																	echo $resposta[$i]["favoritos_numeros"].' Favoritos';
+																}
+															?> 
 															</em>
 														</span>
 													</div>
@@ -177,39 +184,66 @@
 					<section class="secao secao--direita" id="favoritos">
 						<p class="secao__titulo"><span>Meus Favoritos</span> <i class="ri-arrow-down-s-line secao__seta"></i></p>
 						<div class="secao__container">
-							<div class="receita">
-								<div class="receita__imagem" style="background-image: url('');"></div>
-								<div class="receita__descricao">
-									<h3 class="receita__nome">Lili Ipsumni</h3>
-									<p class="receita__texto">
-										Error sequi reiciendis iusto dignissimos sit consequatur. Eius consequatur sed similique cumque. Et eius ea accusantium temporibus.
-									</p>
-								</div>
-								<div class="receita__acoes">
-									<button class="receita__acao-favorito">
-										<i class="ri-star-fill receita__favorito-icone receita__favorito-icone--active"></i>
-										<span class="receita__acao-texto">Retirar Favorito</span>
-									</button>
-								</div>
-								<div class="receita__informacoes">
-									<div class="receita__info-container">
-										<i class="ri-star-s-fill receita__info-icone"></i>
-										<span class="receita__info-box"><em class="receita__total-favoritos">0 Favoritos</em></span>
+						<?php 
+								$SQL = "SELECT receitas.*,usuarios.nome AS autor FROM favoritos 
+										INNER JOIN receitas ON favoritos.receita_ID=receitas.receitaID
+										INNER JOIN usuarios ON receitas.autor_ID=usuarios.usuarioID 
+										WHERE favoritos.usuario_ID=$autorDasReceitas";
+								$receitas = $bancoDeDados->selecionar($SQL);
+
+								foreach ($receitas as $receita){?>
+									<div class="receita-container" data-receitaid="<?php echo $receita["receitaID"];?>">
+										<div class="receita">
+											<div class="receita__imagem" style="background-image: url('<?php echo $receita["imagemURL"];?>')"></div>
+											<div class="receita__descricao">
+												<h3 class="receita__nome"><?php echo $receita["titulo"];?></h3>
+												<p class="receita__texto"><?php echo $receita["descricao"];?></p>
+											</div>
+											<div class="receita__acoes">
+												<button class="receita__acao-favorito">
+													<i class="ri-star-fill receita__favorito-icone receita__favorito-icone--ativo"></i>
+													<span class="receita__acao-texto">Retirar Favorito</span>
+												</button>
+											</div>
+											<div class="receita__informacoes">
+												<div class="receita__info-container">
+													<i class="ri-star-s-fill receita__info-icone receita__info-icone--favorito"></i>
+													<span class="receita__info-box">
+														<em class="receita__total-favoritos">
+														<?php
+															if($receita["favoritos_numeros"] != 1){
+																echo $receita["favoritos_numeros"].' Favoritos';
+															}
+															else{
+																echo '1 Favorito';
+															}
+														?>
+														</em>
+													</span>
+												</div>
+												<div class="receita__info-container">
+													<i class="ri-timer-line receita__info-icone"></i>
+													<span class="receita__info-box">
+														<em class="receita__tempo"><?php echo $receita["tempo"];?></em>
+													</span>
+												</div>
+												<div class="receita__info-container">
+													<i class="ri-pie-chart-2-line receita__info-icone"></i>
+													<span class="receita__info-box">
+														<em class="receita__porcoes"><?php echo $receita["rendimento"];?></em>
+													</span>
+												</div>
+												<div class="receita__info-container receita__botao-autor" data-autorid="<?php echo $receita["autor_ID"];?>">
+													<i class="ri-user-fill receita__info-icone receita__info-icone--autor"></i>
+													<span class="receita__info-box">
+														<strong class="receita__autor"><?php echo $receita["autor"];?></strong>
+													</span>
+												</div>
+											</div>
+										</div>
 									</div>
-									<div class="receita__info-container">
-										<i class="ri-timer-line receita__info-icone"></i>
-										<span class="receita__info-box"><em class="receita__tempo">15 min.</em></span>
-									</div>
-									<div class="receita__info-container">
-										<i class="ri-pie-chart-2-line receita__info-icone"></i>
-										<span class="receita__info-box"><em class="receita__porcoes">1 Porção</em></span>
-									</div>
-									<div class="receita__info-container">
-										<i class="ri-user-fill receita__info-icone"></i>
-										<span class="receita__info-box"><strong class="receita__autor">Ipsum Lorem</strong></span>
-									</div>
-								</div>
-							</div>
+						<?php
+								}?>
 						</div>
 					</section>
 				</main>	
@@ -273,8 +307,7 @@
 					</div>
 				</nav>
 			</body>
-			<script src="scripts/js/usuario.js"></script>
-			<script src="scripts/js/elementoReceita.js"></script>
+			<script src="scripts/js/seuUsuario.js"></script>
 		</html>
 <?php
 	}?>
