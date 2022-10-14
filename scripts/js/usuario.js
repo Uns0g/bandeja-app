@@ -6,20 +6,19 @@ SECAO_TITULO_EL.addEventListener('click', function(){
 
 const RECEITA_CONTAINER_ELS = document.querySelectorAll('.receita-container');
 RECEITA_CONTAINER_ELS.forEach((RECEITA_CONTAINER_EL) =>{
-	let botaoFavorito = RECEITA_CONTAINER_EL.querySelector('.receita__acao-favorito');
-
 	let receitaID = RECEITA_CONTAINER_EL.id;
-	let usuarioID = botaoFavorito.dataset.usuarioid;
 
 	RECEITA_CONTAINER_EL.addEventListener('click', function(){
-		let urlParaReceita = 'ver_receita.php?rID='+receitaID;
+		let urlParaReceita = 'receita.php?rID='+receitaID;
 		window.location.href = urlParaReceita;
 	})
 
+	let botaoFavorito = RECEITA_CONTAINER_EL.querySelector('.receita__acao-favorito');
 	botaoFavorito.addEventListener('click', (ev) =>{
 		ev.stopPropagation();
 
-		let urlParaAlterarFavorito = `scripts/php/receitas/atualizarFavoritos.php?rID=${receitaID}&uID=${usuarioID}&inc=`;
+		let visitanteID = botaoFavorito.dataset.visitanteid;
+		let urlParaAlterarFavorito = `scripts/php/receitas/atualizarFavoritos.php?rID=${receitaID}&uID=${visitanteID}&inc=`;
 		if(botaoFavorito.firstElementChild.className.includes('receita__favorito-icone--ativo')){
 			urlParaAlterarFavorito += '-1';
 		}

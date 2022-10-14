@@ -2,7 +2,7 @@
 session_start();
 
 include "../../../classes/classeReceita.php";
-$receita = new Receita($_POST["titulo"],$_POST["preparo"],$_SESSION["usuario"]["NOME"]);
+$receita = new Receita($_POST["titulo"],$_POST["preparo"],$_SESSION["usuario"]["ID"]);
 
 /* Conexão com o banco de dados */ 
 include "../../../classes/classeConexao.php";
@@ -30,11 +30,6 @@ if(isset($_SESSION["usuario"])){
 	else{
 		voltar_para_pagina_anterior("cadastro-invalido",'NENHUM INGREDIENTE FOI CADASTRADO');
 	}
-
-	# transformando autor em autor_ID
-	$SQL = "SELECT usuarioID FROM usuarios WHERE nome = '$receita->autor'";
-	$resposta = $bancoDeDados->selecionar($SQL);
-	$receita->set_autor($resposta[0]["usuarioID"]);
 
 	# inserindo receita no banco de dados
 	$SQL = "INSERT INTO receitas(titulo,imagemURL,tempo,autor_ID,rendimento,descricao,preparo) 

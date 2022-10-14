@@ -93,28 +93,28 @@ function mudarDeTelaParaReceita(elementoParaApagar,elementoParaAparecer){
 /* Elementos De Receitas Favoritas */
 const RECEITAS_FAVORITAS_ELS = document.querySelectorAll('#favoritos .receita-container');
 RECEITAS_FAVORITAS_ELS.forEach((RECEITA_FAVORITA_EL) =>{
-	let botaoAutor = RECEITA_FAVORITA_EL.querySelector('.receita__botao-autor');
-	let botaoFavorito = RECEITA_FAVORITA_EL.querySelector('.receita__acao-favorito');
-
 	let receitaID = RECEITA_FAVORITA_EL.dataset.receitaid;
-	let usuarioID = botaoAutor.dataset.autorid;
 
 	RECEITA_FAVORITA_EL.addEventListener('click', () =>{
 		let urlParaReceita = `ver_receita.php?rID=${receitaID}`;
 		window.location.href = urlParaReceita;
 	});
 
+	let botaoAutor = RECEITA_FAVORITA_EL.querySelector('.receita__botao-autor');
 	botaoAutor.addEventListener('click', (ev) =>{
 		ev.stopPropagation();
 
+		let usuarioID = botaoAutor.dataset.autorid;
 		let urlParaUsuario = `usuario.php?uID=${usuarioID}`;
 		window.location.href = urlParaUsuario;
 	});
 
+	let botaoFavorito = RECEITA_FAVORITA_EL.querySelector('.receita__acao-favorito');
 	botaoFavorito.addEventListener('click', (ev) =>{
 		ev.stopPropagation();
-		
-		let urlParaAlterarFavorito = `scripts/php/receitas/atualizarFavoritos.php?rID=${receitaID}&uID=${usuarioID}&inc=-1`;
+
+		let visitanteID = botaoFavorito.dataset.usuarioid;
+		let urlParaAlterarFavorito = `scripts/php/receitas/atualizarFavoritos.php?rID=${receitaID}&uID=${visitanteID}&inc=-1`;
 		window.location.href = urlParaAlterarFavorito;
 	});
 });

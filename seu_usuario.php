@@ -60,19 +60,13 @@
 						<div class="acao">
 							<button class="acao__botao acao__botao--inativo">
 								<i class="ri-star-fill acao__icone"></i>
-								<?php 
-									$SQL = "SELECT COUNT(usuario_ID) AS numFavoritos, *
-											FROM favoritos
-											INNER JOIN receitas ON favoritos.receita_ID=receitas.receitaID
-											WHERE receitas.autor_ID=$id";
-								?>
 								<span class="acao__descricao"><b class="acao__contador-favoritos">0</b> Favoritos</span>
 							</button>
 							<button class="acao__botao" id="cadastrar-ingrediente">
 								<i class="ri-leaf-fill acao__icone"></i>
 								<span class="acao__descricao">Cadastrar Ingrediente</span>
 							</button>
-							<button class="acao__botao" onclick="window.location.href = 'cadastrar_receita.php';">
+							<button class="acao__botao" onclick="window.location.href='cadastrar_receita.php';">
 								<i class="ri-add-circle-fill acao__icone"></i>
 								<span class="acao__descricao">Criar Receita</span>
 							</button>
@@ -104,12 +98,8 @@
 						<div class="secao__container">
 							<?php
 								$bancoDeDados = new BancoDeDados();
-								// usar join
-								$autorDasReceitas = $_SESSION["usuario"]["NOME"];
-								$SQL = "SELECT usuarioID FROM usuarios WHERE nome='$autorDasReceitas'";
-								$resposta = $bancoDeDados->selecionar($SQL);
 
-								$autorDasReceitas = $resposta[0]["usuarioID"];
+								$autorDasReceitas = $_SESSION["usuario"]["ID"];
 								$SQL = "SELECT receitaID,titulo,imagemURL,descricao,favoritos_numeros 
 										FROM receitas 
 										WHERE autor_ID=$autorDasReceitas";
@@ -206,7 +196,7 @@
 												<p class="receita__texto"><?php echo $receita["descricao"];?></p>
 											</div>
 											<div class="receita__acoes">
-												<button class="receita__acao-favorito">
+												<button class="receita__acao-favorito" data-usuarioid="<?php echo $autorDasReceitas;?>">
 													<i class="ri-star-fill receita__favorito-icone receita__favorito-icone--ativo"></i>
 													<strong class="receita__acao-texto">Retirar Favorito</strong>
 												</button>
@@ -258,7 +248,7 @@
 					<div class="form-background form-background--escondido">
 						<form class="form-acao form-acao--escondido" method="POST" action="scripts/php/cadastrarIngrediente.php">
 							<label for="ingrediente" class="form-acao__texto">Cadastre Um Novo Ingrediente</label>
-							<input type="text" name="ingrediente" class="form-acao__input" id="input" placeholder="Nome do ingrediente">
+							<input type="text" name="ingrediente" class="form-acao__input" id="ingrediente" placeholder="Nome do ingrediente">
 							<div class="form-acao__botoes">
 								<input type="reset" class="form-acao__cancelar" value="Cancelar">
 								<input type="submit" class="form-acao__enviar" value="Enviar">
@@ -273,7 +263,7 @@
 									type="submit" 
 									class="form-acao__enviar" 
 									value="SIM" 
-									onClick="window.location.href='scripts/php/excluirUsuario.php?usuario=<?php echo $_SESSION["usuario"]["NOME"];?>';">
+									onClick="window.location.href='scripts/php/excluirUsuario.php?usuarioID=<?php echo $autorDasReceitas;?>';">
 							</div>
 						</form>
 					</div>
@@ -297,7 +287,7 @@
 									type="submit" 
 									class="form-acao__enviar" 
 									value="SIM" 
-									onClick="window.location.href='scripts/php/excluirUsuario.php?usuario=<?php echo $_SESSION["usuario"]["NOME"];?>';">
+									onClick="window.location.href='scripts/php/excluirUsuario.php?usuarioID=<?php echo $autorDasReceitas;?>';">
 							</div>
 						</form>
 					</div>

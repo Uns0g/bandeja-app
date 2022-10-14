@@ -49,15 +49,18 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 				
 				$bancoDeDados = new BancoDeDados();
 
-				$SQL = "SELECT * FROM usuarios WHERE nome = '$nomeDigitado'";
-				
+				$SQL = "SELECT * FROM usuarios WHERE nome='$nomeDigitado'";
 				$usuarioExistente = $bancoDeDados->selecionar($SQL);
 				if(!$usuarioExistente){
 					$SQL = "INSERT INTO usuarios(nome,fotoURL,senha) VALUES('$nomeDigitado','$fotoURL','$senhaDigitada')";
 					$insercao = $bancoDeDados->executar($SQL);
 
+					$SQL = "SELECT usuarioID FROM usuarios WHERE nome='$nomeDigitado'";
+					$usuarioID = $bancoDeDados->selecionar($SQL)[0]["usuarioID"];
+
 					if($insercao){ 
 						$_SESSION["usuario"] = array(
+							"ID" => $usuarioID,
 							"NOME" => $nomeDigitado,
 							"IMAGEM" => $fotoURL,
 						);

@@ -104,12 +104,15 @@ function criarElementoReceita(receita){
 	</div>`;
 
 	receitaContainer.addEventListener('click', () =>{
-		let urlParaReceita = 'ver_receita.php?rID='+receitaContainer.id;
+		let urlParaReceita = 'receita.php?rID='+receitaContainer.firstElementChild.dataset.receitaid;
 		window.location.href = urlParaReceita;
 	});
 
+	console.log(receitaContainer.querySelector('.receita__acao-favorito'));
+
 	if(receita.favoritado){
 		let botaoFavorito = receitaContainer.querySelector('.receita__acao-favorito');
+
 		botaoFavorito.firstElementChild.classList.add('receita__favorito-icone--ativo');
 		botaoFavorito.lastElementChild.textContent = 'Retirar Favorito';
 	}
@@ -119,23 +122,23 @@ function criarElementoReceita(receita){
 }
 
 function adicionarFuncoesAosBotoes(elementoReceita){
-	let botaoAutor = elementoReceita.querySelector('.receita__botao-autor');
-	let botaoFavorito = elementoReceita.querySelector('.receita__acao-favorito');
-
 	let receitaID = elementoReceita.firstElementChild.dataset.receitaid;
-	let usuarioID = botaoAutor.dataset.usuarioid;
 
+	let botaoAutor = elementoReceita.querySelector('.receita__botao-autor');
 	botaoAutor.addEventListener('click', (ev) => {
 		ev.stopPropagation();
 
-		let urlParaUsuario = 'usuario.php?uID='+usuarioID;
+		let usuarioID = botaoAutor.dataset.usuarioid;
+		let urlParaUsuario = `usuario.php?uID=${usuarioID}`;
 		window.location.href = urlParaUsuario;
 	});
 
+	let botaoFavorito = elementoReceita.querySelector('.receita__acao-favorito');
 	botaoFavorito.addEventListener('click', (ev) =>{
 		ev.stopPropagation();
 
-		let urlParaAlterarFavorito = `scripts/php/receitas/atualizarFavoritos.php?rID=${receitaID}&uID=${usuarioID}&inc=`;
+		let visitanteID = PESQUISA_INGREDIENTE_EL.dataset.pesquisador;
+		let urlParaAlterarFavorito = `scripts/php/receitas/atualizarFavoritos.php?rID=${receitaID}&uID=${visitanteID}&inc=`;
 		if(botaoFavorito.firstElementChild.className.includes('receita__favorito-icone--ativo')){
 			urlParaAlterarFavorito += '-1';
 		}

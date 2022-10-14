@@ -1,6 +1,6 @@
 <?php
 	session_start();
-	$nome = $_SESSION["usuario"]["NOME"];
+	$id = $_SESSION["usuario"]["ID"];
 
 	include "../../../classes/classeConexao.php";
 
@@ -11,7 +11,7 @@
 		$SQL = "SELECT receita_ID
 			FROM favoritos
 			INNER JOIN usuarios ON favoritos.usuario_ID=usuarios.usuarioID
-			WHERE usuarios.nome='$nome'";
+			WHERE usuarios.usuarioID=$id";
 		$resultado = $bancoDeDados->selecionar($SQL);
 
 		$listaDeFavoritos = [];

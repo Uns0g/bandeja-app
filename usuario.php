@@ -3,6 +3,10 @@
 	include "classes/classeConexao.php";
 	$bancoDeDados = new BancoDeDados();
 
+	/* Dados do visitante */
+	$visitanteID = $_SESSION["usuario"]["ID"];
+	$visitanteNome = $_SESSION["usuario"]["NOME"];
+
 	$id = $_GET["uID"];
 
 	$SQL = "SELECT nome,fotoURL FROM usuarios WHERE usuarioID=$id";
@@ -88,11 +92,10 @@
 							<p class="secao__titulo"><span>Últimas Receitas de <?php echo $dadosDoUsuario[0]["nome"];?></span> <i class="ri-arrow-down-s-line secao__seta"></i></p>
 							<div class="secao__container">
 						<?php
-								$nome = $_SESSION["usuario"]["NOME"];
 								$SQL = "SELECT receita_ID
 										FROM favoritos
 										INNER JOIN usuarios ON favoritos.usuario_ID=usuarios.usuarioID
-										WHERE usuarios.nome='$nome'";
+										WHERE usuarios.usuarioID=$visitanteID";
 								$resultado = $bancoDeDados->selecionar($SQL);
 
 								$listaDeFavoritos = [];
@@ -115,15 +118,17 @@
 													<p class="receita__texto"><?php echo $receita["descricao"];?></p>
 												</div>
 												<div class="receita__acoes">
-													<button class="receita__acao-favorito" data-usuarioid="<?php echo $receita["autor_ID"];?>">
+													<button class="receita__acao-favorito" data-visitanteid="<?php echo $visitanteID;?>">
 													<?php
-															if(!in_array($receita["receitaID"],$listaDeFavoritos)){?>
+															if(!in_array($receita["receitaID"],$listaDeFavoritos)){
+																echo "<script>console.log('Não está nos favoritos');</script>";?>
 																<i class="ri-star-fill receita__favorito-icone"></i>
 																<strong class="receita__acao-texto">
 																	Favoritar
 																</strong>
 													<?php 	}
-															else{?>
+															else{
+																echo "<script></script>";?>
 																<i class="ri-star-fill receita__favorito-icone receita__favorito-icone--ativo"></i>
 																<strong class="receita__acao-texto">
 																	Retirar Favorito
@@ -169,9 +174,6 @@
 										</div>
 							<?php 	}?>
 						<?php 	}?>
-
-								
-								
 							</div>
 						</section>
 					</main>

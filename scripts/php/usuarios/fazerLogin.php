@@ -45,6 +45,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 		
 			$resposta = $bancoDeDados->selecionar($SQL);
 			$_SESSION["usuario"] = array(
+				"ID" => $resposta[0]["usuarioID"],
 				"NOME" => $resposta[0]["nome"],
 				"IMAGEM" => $resposta[0]["fotoURL"],
 			);

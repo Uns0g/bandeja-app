@@ -1,6 +1,6 @@
 <?php 
 	session_start();
-	$nome = $_SESSION["usuario"]["NOME"];
+	$visitanteID = $_SESSION["usuario"]["ID"];
 ?>
 
 <html>
@@ -54,14 +54,13 @@
 			<section class="pesquisa">
 				<label class="pesquisa__label" for="pesquisa-ingrediente">Pesquisar Receitas Por Ingredientes</label>
 				<div class="pesquisa__barra">
-					<input type="search" class="pesquisa__input" name="ingredienteNome" id="pesquisa-ingrediente" placeholder="Digite o nome de um ingrediente">			
+					<input type="search" class="pesquisa__input" name="ingredienteNome" id="pesquisa-ingrediente" data-pesquisador="<?php echo $visitanteID;?>" placeholder="Digite o nome de um ingrediente">			
 					<button class="pesquisa__botao"><i class="ri-search-line"></i></button>
 				</div>
 			</section>
 			<section class="ingredientes">
 				<h2 class="ingredientes__titulo">INGREDIENTES:</h2>
-				<div class="ingredientes__container" data-seuUsuario="<?php echo $nome;?>">
-				</form>
+				<div class="ingredientes__container">
 			</section>
 			<section class="receitas">
 				<h2 class="receitas__titulo">Receitas <i class="ri-arrow-down-s-line receitas__seta"></i></h2>
