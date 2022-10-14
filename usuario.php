@@ -67,7 +67,7 @@
 									<i class="ri-star-fill acao__icone"></i>
 									<span class="acao__descricao">
 									<?php
-										$SQL = "SELECT COUNT(receita_ID) AS numFavoritos 
+										$SQL = "SELECT COUNT(usuario_ID) AS numFavoritos 
 												FROM favoritos
 												INNER JOIN receitas ON favoritos.receita_ID=receitas.receitaID
 												WHERE receitas.autor_ID=$id";
@@ -96,8 +96,10 @@
 								$resultado = $bancoDeDados->selecionar($SQL);
 
 								$listaDeFavoritos = [];
-								for($i = 0; $i<sizeof($resultado); $i++){
-									array_push($listaDeFavoritos,$resultado[$i]["receita_ID"]);
+								if($resultado){
+									for($i = 0; $i<sizeof($resultado); $i++){
+										array_push($listaDeFavoritos,$resultado[$i]["receita_ID"]);
+									}
 								}
 								
 								$SQL = "SELECT * FROM receitas 
@@ -113,48 +115,39 @@
 													<p class="receita__texto"><?php echo $receita["descricao"];?></p>
 												</div>
 												<div class="receita__acoes">
-													<button class="receita__acao-favorito">
+													<button class="receita__acao-favorito" data-usuarioid="<?php echo $receita["autor_ID"];?>">
 													<?php
 															if(!in_array($receita["receitaID"],$listaDeFavoritos)){?>
 																<i class="ri-star-fill receita__favorito-icone"></i>
-																<span class="receita__acao-texto">
-																<?php
-																	if($receita["favoritos_numeros"] == 1){
-																		echo '1 Favorito';
-																	}
-																	else{
-																		echo $receita["favoritos_numeros"].' Favoritos';
-																	}?>
-																</span>
+																<strong class="receita__acao-texto">
+																	Favoritar
+																</strong>
 													<?php 	}
 															else{?>
 																<i class="ri-star-fill receita__favorito-icone receita__favorito-icone--ativo"></i>
-																<span class="receita__acao-texto">
+																<strong class="receita__acao-texto">
 																	Retirar Favorito
-																</span>
+																</strong>
 													<?php  	}?>
 														</span>
 													</button>
 												</div>
 												<div class="receita__informacoes">
-												<?php
-													if(in_array($receita["receitaID"],$listaDeFavoritos)){?>
-														<div class="receita__info-container">
-															<i class="ri-star-s-fill receita__info-icone receita__info-icone--favorito"></i>
-															<span class="receita__info-box">
-																<em class="receita__total-favoritos">
-																<?php 
-																	if($receita["favoritos_numeros"] != 1){
-																		echo $receita["favoritos_numeros"].' Favoritos';
-																	}
-																	else{
-																		echo '1 Favorito';
-																	}
-																?>
-																</em>
-															</span>
-														</div>
-											<?php	}?>
+													<div class="receita__info-container">
+														<i class="ri-star-s-fill receita__info-icone receita__info-icone--favorito"></i>
+														<span class="receita__info-box">
+															<em class="receita__total-favoritos">
+															<?php 
+																if($receita["favoritos_numeros"] != 1){
+																	echo $receita["favoritos_numeros"].' Favoritos';
+																}
+																else{
+																	echo '1 Favorito';
+																}
+															?>
+															</em>
+														</span>
+													</div>
 													<div class="receita__info-container">
 														<i class="ri-timer-line receita__info-icone"></i>
 														<span class="receita__info-box">

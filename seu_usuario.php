@@ -60,6 +60,12 @@
 						<div class="acao">
 							<button class="acao__botao acao__botao--inativo">
 								<i class="ri-star-fill acao__icone"></i>
+								<?php 
+									$SQL = "SELECT COUNT(usuario_ID) AS numFavoritos, *
+											FROM favoritos
+											INNER JOIN receitas ON favoritos.receita_ID=receitas.receitaID
+											WHERE receitas.autor_ID=$id";
+								?>
 								<span class="acao__descricao"><b class="acao__contador-favoritos">0</b> Favoritos</span>
 							</button>
 							<button class="acao__botao" id="cadastrar-ingrediente">
@@ -133,7 +139,7 @@
 														} 
 														else{
 															$receitaID = $resposta[0]["receitaID"];
-															$SQL = "SELECT * FROM ingredientes_receitas WHERE receita_ID=$receitaID";?>
+															$SQL = "SELECT * FROM ingredientes_receitas WHERE receita_ID=$resposta[$i]['descricao']";?>
 															<p><?php echo $SQL;?></p>
 													<?php
 														}
@@ -202,7 +208,7 @@
 											<div class="receita__acoes">
 												<button class="receita__acao-favorito">
 													<i class="ri-star-fill receita__favorito-icone receita__favorito-icone--ativo"></i>
-													<span class="receita__acao-texto">Retirar Favorito</span>
+													<strong class="receita__acao-texto">Retirar Favorito</strong>
 												</button>
 											</div>
 											<div class="receita__informacoes">

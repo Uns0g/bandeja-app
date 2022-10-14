@@ -11,8 +11,8 @@ PESQUISA_INGREDIENTE_EL.addEventListener('keydown', async (ev) =>{
 });
 
 window.onload = () => {
-	PESQUISA_INGREDIENTE_EL.value = ''}
-;
+	PESQUISA_INGREDIENTE_EL.value = ''
+};
 
 const INGREDIENTES_CONTAINER_EL = document.querySelector(".ingredientes__container");
 async function criarElementoDeIngrediente(nome){
@@ -25,19 +25,17 @@ async function criarElementoDeIngrediente(nome){
 	}; 
 
 	let ingredienteExiste = await buscarIngredientesNoBanco(nome);
-	if(ingredienteExiste.erro){
-		elementoIngrediente.classList.add('ingredientes__elemento--errado');
-	}
+	if(ingredienteExiste.erro){	elementoIngrediente.classList.add('ingredientes__elemento--errado')}
 
 	INGREDIENTES_CONTAINER_EL.appendChild(elementoIngrediente);
 }
 
-async function exibirReceitas(input){
+async function exibirReceitas(){
 	excluirListaDeSugestoes();
 	abrirContainerReceitas();
 	PESQUISA_INGREDIENTE_EL.value = '';
 	let receitas = await buscarReceitas();
-	receitas.forEach(receita => criarElementoReceita(receita));
+	receitas.forEach((receita) => criarElementoReceita(receita));
 }
 
 const SETA_EL = document.querySelector('.receitas__seta');
@@ -64,11 +62,10 @@ async function buscarReceitas(){
 
 function criarElementoReceita(receita){
 	let receitaContainer = document.createElement('div');
-	receitaContainer.id = receita.receitaID;
 	receitaContainer.className = 'receita-container';
 
 	receitaContainer.innerHTML = 
-	`<div class="receita">
+	`<div class="receita" data-receitaid="${receita.receitaID}">
 		<div class="receita__imagem" style="background-image: url('${receita.imagemURL}');"></div>
 		<div class="receita__descricao">
 			<h3 class="receita__nome">${receita.titulo}</h3>
@@ -79,10 +76,18 @@ function criarElementoReceita(receita){
 		<div class="receita__acoes">
 			<button class="receita__acao-favorito">
 				<i class="ri-star-fill receita__favorito-icone"></i>
-				<span class="receita__acao-texto">${(receita.favoritos_numeros != 1) ? receita.favoritos_numeros + ' Favoritos' : '1 Favorito'}</span>
+				<strong class="receita__acao-texto">Favoritar</strong>
 			</button>
 		</div>
 		<div class="receita__informacoes">
+			<div class="receita__info-container">
+				<i class="ri-star-s-fill receita__info-icone receita__info-icone--favorito"></i>
+				<span class="receita__info-box">
+					<em class="receita__total-favoritos">
+						${(receita.favoritos_numeros != 1) ? receita.favoritos_numeros + ' Favoritos' : '1 Favorito'}
+					</em>
+				</span>
+			</div>
 			<div class="receita__info-container">
 				<i class="ri-timer-line receita__info-icone"></i>
 				<span class="receita__info-box"><em class="receita__tempo">${receita.tempo}</em></span>
@@ -103,28 +108,47 @@ function criarElementoReceita(receita){
 		window.location.href = urlParaReceita;
 	});
 
-	let botaoFavoritos = receitaContainer.querySelector('.receita__acao-favorito');
-	botaoFavoritos.addEventListener('click', (ev) =>{
-		ev.stopPropagation();
+	if(receita.favoritado){
+		let botaoFavorito = receitaContainer.querySelector('.receita__acao-favorito');
+		botaoFavorito.firstElementChild.classList.add('receita__favorito-icone--ativo');
+		botaoFavorito.lastElementChild.textContent = 'Retirar Favorito';
+	}
+	adicionarFuncoesAosBotoes(receitaContainer);
+	
+	CONTAINER_EL.appendChild(receitaContainer);
+}
 
-		let urlParaAlterarFavorito = 'scripts/php/receitas/atualizarFavoritos.php?';
-		// alterarFavorito depois
-	});
+function adicionarFuncoesAosBotoes(elementoReceita){
+	let botaoAutor = elementoReceita.querySelector('.receita__botao-autor');
+	let botaoFavorito = elementoReceita.querySelector('.receita__acao-favorito');
 
-	let botaoAutor = receitaContainer.querySelector('.receita__botao-autor');
+	let receitaID = elementoReceita.firstElementChild.dataset.receitaid;
+	let usuarioID = botaoAutor.dataset.usuarioid;
+
 	botaoAutor.addEventListener('click', (ev) => {
 		ev.stopPropagation();
 
-		let urlParaUsuario = 'usuario.php?uID='+botaoAutor.dataset.usuarioid;
+		let urlParaUsuario = 'usuario.php?uID='+usuarioID;
 		window.location.href = urlParaUsuario;
 	});
 
-	CONTAINER_EL.appendChild(receitaContainer);
+	botaoFavorito.addEventListener('click', (ev) =>{
+		ev.stopPropagation();
+
+		let urlParaAlterarFavorito = `scripts/php/receitas/atualizarFavoritos.php?rID=${receitaID}&uID=${usuarioID}&inc=`;
+		if(botaoFavorito.firstElementChild.className.includes('receita__favorito-icone--ativo')){
+			urlParaAlterarFavorito += '-1';
+		}
+		else{
+			urlParaAlterarFavorito += '1';
+		}
+
+		window.location.href = urlParaAlterarFavorito;
+	});
 }
 
 /* seção de receitas */
 const TITULO_EL = document.querySelector(".receitas__titulo");
-
 TITULO_EL.addEventListener('click', () => {
 	SETA_EL.classList.toggle('receitas__seta--girar');
 	CONTAINER_EL.classList.toggle('receitas__container--abrir');

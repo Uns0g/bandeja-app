@@ -1,9 +1,27 @@
 <?php
+	session_start();
+	$nome = $_SESSION["usuario"]["NOME"];
+
 	include "../../../classes/classeConexao.php";
 
-	$ingredientes = explode(',',$_GET["ingredientes"]);
+	$ingredientes = explode(',',$_GET['ingredientes']);
 	if(!empty($ingredientes)){
 		$bancoDeDados = new BancoDeDados();
+		/* Buscando favoritos do usuario */
+		$SQL = "SELECT receita_ID
+			FROM favoritos
+			INNER JOIN usuarios ON favoritos.usuario_ID=usuarios.usuarioID
+			WHERE usuarios.nome='$nome'";
+		$resultado = $bancoDeDados->selecionar($SQL);
+
+		$listaDeFavoritos = [];
+		if($resultado){
+			for($i = 0; $i<sizeof($resultado); $i++){
+				array_push($listaDeFavoritos,$resultado[$i]["receita_ID"]);
+			}
+		}
+
+		/* Buscando Receitas */
 		$SQL = "SELECT COUNT(receitaID) AS numIngredientes, receitas.*, usuarios.nome AS autor
 			FROM ingredientes_receitas 
 			INNER JOIN receitas ON ingredientes_receitas.receita_ID=receitas.receitaID
@@ -17,8 +35,14 @@
 				LIMIT 40";
 		$resposta = $bancoDeDados->selecionar($SQL);
 
-		/*$resposta["autor_ID"] e $resposta["receitaID"]*/
 		if($resposta){
+			if(!empty($listaDeFavoritos)){
+				for($i = 0; $i < sizeof($resposta); $i++){
+					if(in_array($resposta[$i]["receitaID"], $listaDeFavoritos)){
+						$resposta[$i]["favoritado"] = true;
+					}
+				}
+			}
 			$dados = $resposta;
 		}
 		else{
@@ -28,6 +52,6 @@
 	else{
 		$dados = ['erro' => true, 'mensagem' => "NENHUM INGREDIENTE FOI INFORMADO"];
 	}
-	
+
 	echo json_encode($dados);
 ?>
