@@ -2,7 +2,6 @@
 	session_start(); 
 	if(isset($_SESSION["usuario"])){
 		include "classes/classeConexao.php";?>
-
 		<html>
 			<head>
 				<meta charset="UTF-8">

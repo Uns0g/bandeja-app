@@ -2,6 +2,10 @@ import { manipularInput, excluirListaDeSugestoes, buscarIngredientesNoBanco } fr
 
 /* seção de ingredientes */
 const PESQUISA_INGREDIENTE_EL = document.getElementById('pesquisa-ingrediente');
+window.onload = () => {
+	PESQUISA_INGREDIENTE_EL.value = '';
+};
+
 PESQUISA_INGREDIENTE_EL.addEventListener('input', function(){ manipularInput(this);});
 PESQUISA_INGREDIENTE_EL.addEventListener('keydown', async (ev) =>{
 	if(ev.key == 'Enter'){
@@ -10,9 +14,11 @@ PESQUISA_INGREDIENTE_EL.addEventListener('keydown', async (ev) =>{
 	}
 });
 
-window.onload = () => {
-	PESQUISA_INGREDIENTE_EL.value = ''
-};
+const BOTAO_PESQUISA_EL = document.querySelector('.pesquisa__botao');
+BOTAO_PESQUISA_EL.addEventListener('click', async () =>{
+	await criarElementoDeIngrediente(PESQUISA_INGREDIENTE_EL.value.toUpperCase());
+	await exibirReceitas();
+});
 
 const INGREDIENTES_CONTAINER_EL = document.querySelector(".ingredientes__container");
 async function criarElementoDeIngrediente(nome){
@@ -107,8 +113,6 @@ function criarElementoReceita(receita){
 		let urlParaReceita = 'receita.php?rID='+receitaContainer.firstElementChild.dataset.receitaid;
 		window.location.href = urlParaReceita;
 	});
-
-	console.log(receitaContainer.querySelector('.receita__acao-favorito'));
 
 	if(receita.favoritado){
 		let botaoFavorito = receitaContainer.querySelector('.receita__acao-favorito');

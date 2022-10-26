@@ -1,12 +1,12 @@
 <?php
-	include('classes/classeConexao.php');
+	include "classes/classeConexao.php";
+	$bancoDeDados = new BancoDeDados();
 	session_start();
 
 	$nomeDoUsuario = $_SESSION["usuario"]["NOME"];
-	$SQL = "SELECT senha FROM usuarios WHERE nome = '$nomeDoUsuario'";
 
-	$bancoDeDados = new BancoDeDados();
-	$resposta = $bancoDeDados->selecionar($SQL);
+	$SQL = "SELECT senha FROM usuarios WHERE nome = '$nomeDoUsuario'";
+	$senha = $bancoDeDados->selecionar($SQL)[0]["senha"];
 ?>
 
 <html>
@@ -18,7 +18,7 @@
 		<link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
 		<link href="estilos/core.css" rel="stylesheet">
 		<link href="estilos/forms.css" rel="stylesheet">
-		<title>Editando Perfil De [Nome de usuário]</title>
+		<title>Editando Perfil De <?php echo $nomeDoUsuario;?></title>
 	</head>
 	<body>
 		<header class="header">
@@ -57,13 +57,14 @@
 		</header>
 		<main>
 			<h2 class="titulo">Alterar Seu Usuário</h2>
-			<form class="form form--editar" action="" method="POST">
-				<input type="text" name="nome" class="form__input" placeholder="Mudar de nome de usuário" value="<?php echo $_SESSION["usuario"]["NOME"];?>">
+			<form action="scripts/php/usuarios/editarUsuario.php" class="form form--editar" enctype="multipart/form-data" method="POST">
+				<input type="number" name="usuarioID" style="display: none;">
+				<input type="text" name="nome" class="form__input" placeholder="Mudar de nome de usuário" value="<?php echo $nomeDoUsuario;?>">
 				<label class="form__input form__input--foto" style="background-image: url('<?php echo $_SESSION["usuario"]["IMAGEM"];?>');">
 					<input type="file" name="foto">
 					<span class="form__input-botao-enviar-foto">Envie uma nova foto (opcional)</span>
 				</label>
-				<input type="password" name="senha" class="form__input" placeholder="Crie uma nova senha" value="<?php echo $resposta[0]["senha"];?>">
+				<input type="password" name="senha" class="form__input" placeholder="Crie uma nova senha" value="<?php echo $senha;?>">
 				<input type="submit" class="form__botao" value="Enviar">
 			</form>
 			<p class="aviso">Mudou de ideia? <a href="seu_usuario.php" class="aviso__link">Voltar</a></p>

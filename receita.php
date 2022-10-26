@@ -19,8 +19,8 @@
 					<meta name="viewport" content="width=device-width, initial-scale=1.0">
 					<link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
 					<link href="estilos/core.css" rel="stylesheet">
-					<link href="estilos/ver_receita.css" rel="stylesheet">
-					<title><?php echo $resposta[0]["titulo"].' - '.$_SESSION["usuario"]["NOME"];?></title>
+					<link href="estilos/receita.css" rel="stylesheet">
+					<title><?php echo $resposta[0]["titulo"].' - '.$resposta[0]["autor"];?></title>
 				</head>
 				<body>
 					<header class="header">
@@ -61,12 +61,17 @@
 						<h2 class="titulo"><?php echo $resposta[0]["titulo"];?></h2>
 						<div class="receita__foto" style="background-image: url('<?php echo $resposta[0]["imagemURL"];?>');"></div>
 						<section class="informacao">
-							<div class="informacao__box">
-								<i class="informacao__icone ri-star-fill"></i>
-								<span class="informacao__texto">
-									<strong class="receita__numero-favoritos">
-										<?php echo $resposta[0]["favoritos_numeros"];?>	
-									</strong>
+						<?php
+							$visitanteID = $_SESSION["usuario"]["ID"];
+							$SQL = "SELECT receita_ID FROM favoritos WHERE receita_ID=$id AND usuario_ID=$visitanteID";
+							$receitaFavorita = $bancoDeDados->selecionar($SQL)[0]["receita_ID"];
+							if(empty($receitaFavorita)){?>
+								<div class="informacao__box" onclick="window.location.href='scripts/php/receitas/atualizarFavoritos.php?rID=<?php echo $id;?>&uID=<?php echo $visitanteID;?>&inc=1'">
+									<i class="ri-star-fill informacao__icone informacao__icone--favorito"></i>
+									<span class="informacao__texto">
+										<strong class="receita__numero-favoritos">
+											<?php echo $resposta[0]["favoritos_numeros"];?>	
+										</strong>
 									<?php
 										if($resposta[0]["favoritos_numeros"] == 1){
 											echo ' Favorito';
@@ -75,20 +80,34 @@
 											echo ' Favoritos';
 										}
 									?>
-								</span>
-							</div>
-							<div class="informacao__box informacao__box--autor" onclick="window.location.href='usuario.php?uID=<?php echo $resposta[0]["autor_ID"];?>';">
-								<i class="informacao__icone ri-user-fill"></i>
+									</span>
+								</div>
+						<?php
+							}
+							else{?>
+								<div class="informacao__box" onclick="window.location.href='scripts/php/receitas/atualizarFavoritos.php?rID=<?php echo $id;?>&uID=<?php echo $visitanteID;?>&inc=-1'">
+									<i class="ri-star-fill informacao__icone informacao__icone--favorito-ativo"></i>
+									<span class="informacao__texto">
+										<strong class="receita__numero-favoritos">
+											Retirar Favorito
+										</strong>
+									</span>
+								</div>
+						<?php
+							}
+						?>
+							<div class="informacao__box" onclick="window.location.href='usuario.php?uID=<?php echo $resposta[0]["autor_ID"];?>';">
+								<i class="ri-user-fill informacao__icone informacao__icone--autor"></i>
 								<span class="informacao__texto">
 									<strong class="receita__autor"><?php echo $resposta[0]["autor"];?></strong>
 								</span>
 							</div>
 							<div class="informacao__box">
-								<i class="informacao__icone ri-timer-line"></i>
+								<i class="ri-timer-line informacao__icone"></i>
 								<span class="informacao__texto"><?php echo $resposta[0]["tempo"];?></span>
 							</div>
 							<div class="informacao__box">
-								<i class="informacao__icone ri-pie-chart-2-line"></i>
+								<i class="ri-pie-chart-2-line informacao__icone"></i>
 								<span class="informacao__texto"><?php echo $resposta[0]["rendimento"];?></span>
 							</div>
 						</section>
@@ -107,14 +126,18 @@
 				?>
 						<div class="campo">
 							<h3 class="campo__titulo">Ingredientes</h3>
-							<?php
-								$SQL = "SELECT ingredientes.nome FROM ingredientes_receitas
-									 	INNER JOIN ingredientes_receitas.ingrediente_ID=ingredientes.ingredienteID
-									 	WHERE receita_ID=$id";
-							?>
 							<div class="campo__conteudo">
 								<ul class="campo__lista">
-									<li class="campo__item">Algum Ingrediente</li>
+								<?php
+									$SQL = "SELECT ingredientes.nome FROM ingredientes_receitas
+										 	INNER JOIN ingredientes ON ingredientes_receitas.ingrediente_ID=ingredientes.ingredienteID
+										 	WHERE receita_ID=$id";
+									$ingredientes = $bancoDeDados->selecionar($SQL);
+									foreach ($ingredientes as $ingrediente){?>
+										<li class="campo__item"><?php echo $ingrediente["nome"];?></li>
+								<?php
+									}
+								?>
 								</ul>
 							</div>
 							<div class="campo__bandeja"></div>
@@ -128,56 +151,87 @@
 							<div class="campo__bandeja"></div>
 						</div>
 						<hr class="receita__divisoria">
-						<section class="secao-comentarios">
+						<section class="secao-comentarios" id="comentarios">
 							<h3 class="secao-comentarios__titulo">Comentários <i class="secao-comentarios__icone ri-arrow-up-s-line"></i></h3>
-							<form action="" method="POST" class="comentario comentario--seu">
-								<div class="comentario__usuario">
-									<div class="comentario__usuario-foto" style="background-image: url('https://images.unsplash.com/photo-1564564321837-a57b7070ac4f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1176&q=80');"></div>
-									<span class="comentario__usuario-nome">Lorem Ipsum</span>
-								</div>
-								<textarea class="comentario__texto" name="comentario-do-usuario" placeholder="Comente o que achou da receita"></textarea>
-								<div class="comentario__acoes">
-									<button class="comentario__botao">
-										<i class="ri-send-plane-fill comentario__botao-icone"></i>
-										<span class="comentario__botao-texto">Enviar</span>
-									</button>
-								</div>
-							</form>
-							<hr class="receita__divisoria">
-							<section class="outros-comentarios">
-								<div class="comentario">
-									<div class="comentario__usuario">
-										<div class="comentario__usuario-foto" style="background-image: url('https://images.unsplash.com/photo-1499952127939-9bbf5af6c51c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1176&q=80');"></div>
-										<span class="comentario__usuario-nome">Alguém Aí</span>
-									</div>
-									<div class="comentario__texto">
-										<p>
-											Et quis repellendus error dolorem ipsa. Eum at blanditiis harum facere. Laborum voluptatibus ipsa totam sed tempora qui. Ipsum quod vel ipsa cum est illum qui.
-										</p>
-										<p>
-											Et quis repellendus error dolorem ipsa. Eum at blanditiis harum facere. Laborum voluptatibus ipsa totam sed tempora qui. Ipsum quod vel ipsa cum est illum qui.
-										</p>
-										<p>
-											Et quis repellendus error dolorem ipsa. Eum at blanditiis harum facere. Laborum voluptatibus ipsa totam sed tempora qui. Ipsum quod vel ipsa cum est illum qui.
-										</p>
-										
-									</div>
-								</div>
-								<div class="comentario">
-									<div class="comentario__usuario">
-										<div class="comentario__usuario-foto" style="background-image: url('https://images.unsplash.com/photo-1499952127939-9bbf5af6c51c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1176&q=80');"></div>
-										<span class="comentario__usuario-nome">Alguém Aí</span>
-									</div>
-									<div class="comentario__texto">
-										<p>
-											Et quis repellendus error dolorem ipsa. Eum at blanditiis harum facere. Laborum voluptatibus ipsa totam sed tempora qui. Ipsum quod vel ipsa cum est illum qui.
-										</p>
-										<p>
-											In cum aut molestiae placeat enim tempore illo. Dolorum optio fuga cupiditate. Eligendi corrupti veritatis et quasi suscipit.
-										</p>
-									</div>
-								</div>
-							</section>
+							<?php
+								$SQL = "SELECT * FROM comentarios WHERE receita_ID=$id AND autor_ID=$visitanteID";
+								$resposta = $bancoDeDados->selecionar($SQL);
+								if(empty($resposta)){?>
+									<form action="scripts/php/comentarios/criarComentario.php" method="POST" class="comentario comentario--seu">
+										<div class="comentario__usuario">
+											<div class="comentario__usuario-foto" style="background-image: url('<?php echo $_SESSION["usuario"]["IMAGEM"];?>');"></div>
+											<span class="comentario__usuario-nome"><?php echo $_SESSION["usuario"]["NOME"];?></span>
+										</div>
+										<textarea class="comentario__texto" name="conteudo" placeholder="Comente o que achou da receita!"></textarea>
+										<div style="display: none;">
+											<input type="number" name="autorID" value="<?php echo $visitanteID;?>">
+											<input type="number" name="receitaID" value="<?php echo $id;?>">
+										</div>
+										<div class="comentario__acoes">
+											<button class="comentario__botao" id="botao-enviar">
+												<i class="ri-send-plane-fill comentario__botao-icone"></i>
+												<span class="comentario__botao-texto">Enviar</span>
+											</button>
+										</div>
+									</form>
+							<?php
+								}
+								else{?>
+									<form action="scripts/php/comentarios/excluirComentario.php" method="POST" class="comentario comentario--seu">
+										<div class="comentario__usuario">
+											<div class="comentario__usuario-foto" style="background-image: url('<?php echo $_SESSION["usuario"]["IMAGEM"];?>');"></div>
+											<span class="comentario__usuario-nome"><?php echo $_SESSION["usuario"]["NOME"];?></span>
+										</div>
+										<textarea class="comentario__texto" name="conteudo" placeholder="Edite seu comentário" disabled><?php echo $resposta[0]["conteudo"];?></textarea>
+										<div style="display: none;">
+											<input type="number" name="comentarioID" value="<?php echo $resposta[0]["comentarioID"];?>">
+											<input type="number" name="receitaID" value="<?php echo $id;?>">
+										</div>
+										<div class="comentario__acoes">
+											<button type="button" class="comentario__botao" id="botao-editar">
+												<i class="ri-edit-box-line comentario__botao-icone"></i>
+												<span class="comentario__botao-texto">Editar</span>
+											</button>
+											<button type="button" class="comentario__botao comentario__botao--escondido" id="botao-voltar">
+												<i class="ri-arrow-go-back-fill comentario__botao-icone"></i>
+												<span class="comentario__botao-texto">Voltar</span>
+											</button>
+											<button class="comentario__botao comentario__botao--escondido" id="botao-enviar">
+												<i class="ri-send-plane-fill comentario__botao-icone"></i>
+												<span class="comentario__botao-texto">Enviar</span>
+											</button>
+										</div>
+										<button class="comentario__botao comentario__botao--remove">
+											<i class="ri-close-line comentario__botao-icone"></i>
+										</button>
+									</form>
+							<?php
+								}
+
+								$SQL = "SELECT conteudo, usuarios.nome AS autor, usuarios.fotoURL AS foto
+										FROM comentarios
+										INNER JOIN usuarios ON comentarios.autor_ID=usuarios.usuarioID
+										WHERE receita_ID=$id AND autor_ID<>$visitanteID";
+								$resposta = $bancoDeDados->selecionar($SQL);
+
+								if(!empty($resposta)){?>
+									<section class="outros-comentarios">
+							<?php
+									foreach ($resposta as $receita) {?>
+										<div class="comentario">
+											<div class="comentario__usuario">
+												<div class="comentario__usuario-foto" style="background-image: url('<?php echo $resposta["foto"];?>');"></div>
+												<span class="comentario__usuario-nome"><?php echo $resposta["autor"];?></span>
+											</div>
+											<textarea class="comentario__texto" disabled>
+												<?php echo $resposta["conteudo"];?>
+											</textarea>
+										</div>
+							<?php
+									}
+								}
+							?>
+									</section>
 						</section>
 					</main>
 					<nav class="menu">
@@ -191,6 +245,7 @@
 						</div>
 					</nav>
 				</body>
+				<script type="text/javascript" src="scripts/js/receita.js"></script>
 			</html>
 <?php
 		}

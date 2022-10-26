@@ -101,6 +101,8 @@ main{
 /* Seção De Ingredientes */
 .ingredientes{ width: 100%; margin: 1em auto;}
 
+.ingredientes__titulo{ color: var(--primary);}
+
 .ingredientes__container{
 	display: flex;
 	flex-wrap: wrap;
@@ -130,7 +132,11 @@ main{
 }
 .ingredientes__elemento:active{ border: 1px solid #000;}
 
-.ingredientes__elemento--errado{ color: var(--primary); border-color: var(--primary);}
+.ingredientes__elemento--errado{ 
+	border-color: var(--primary);
+	background-color: transparent;
+	color: var(--primary); 
+}
 
 /* Seção De Receitas*/
 .receitas{ position: relative; margin-top: 1em;}

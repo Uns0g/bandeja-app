@@ -18,7 +18,7 @@
 
 		if($exclusao){	alterarNumeroDeFavoritos($bancoDeDados,$receitaID);}
 	}
-	echo "<script>history.go(-1)</script>";
+	echo "<script>history.back()</script>";
 
 	function alterarNumeroDeFavoritos($objetoBancoDeDados,$idAlvo){
 		$SQL = "SELECT COUNT(usuario_ID) AS numFavoritos FROM favoritos WHERE receita_ID=$idAlvo";

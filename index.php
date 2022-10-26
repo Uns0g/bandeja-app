@@ -66,7 +66,7 @@
 <?php 			} else{
 					session_destroy();?>
 					<label class="form__input form__input--foto">
-						<input type="file" name="foto" value="">
+						<input type="file" name="foto">
 						<span>Envie uma foto sua</span>
 					</label>
 <?php 			}?>

@@ -5,9 +5,7 @@
 	border: 1px double #000;
 }
 
-.receita-container, .receita, .receita-form{
-	border-radius: 10px 10px 0 0;
-}
+.receita-container, .receita, .receita-form{ border-radius: 10px 10px 0 0;}
 
 .receita-container::after{
 	position: absolute;
