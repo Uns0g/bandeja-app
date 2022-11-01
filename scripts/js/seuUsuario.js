@@ -44,41 +44,42 @@ SECAO_TITULO_ELS.forEach(SECAO_TITULO_EL => {
 /* Elementos De Minhas Receitas */
 const MINHAS_RECEITAS_ELS = document.querySelectorAll("#minhas-receitas .receita-container");
 MINHAS_RECEITAS_ELS.forEach(MINHA_RECEITA_EL => {
-	/* receita */
+	/* ELEMENTOS */
 	let receita = MINHA_RECEITA_EL.firstElementChild;
-	let receitaID = receita.dataset.receitaid;
+	let formularioReceita = MINHA_RECEITA_EL.querySelector('.receita-form');
+
+	// Ir Para Página De Receita
 	receita.addEventListener('click', function(){
-		let urlParaReceita = `ver_receita.php?rID=${receitaID}`;
+		let urlParaReceita = `receita.php?rID=${receita.dataset.receitaid}`;
 		window.location.href = urlParaReceita;
 	});
 
-	let formularioReceita = MINHA_RECEITA_EL.querySelector('.receita-form');
-
-	let botaoAparecerFormulario = receita.querySelector(".receita__acao-remove");
-	botaoAparecerFormulario.addEventListener('click', (ev) => {
-		ev.stopPropagation();
-
-		formularioReceita.action = `scripts/php/receitas/excluirReceita.php?receitaID=${receitaID}`;
-		formularioReceita.method = 'GET';
-
-		mudarDeTelaParaReceita(receita,formularioReceita);
-	});
-
+	// Ir Para Página De Editar Receita
 	let botaoEditarReceita = receita.querySelector(".receita__acao-edita");
 	botaoEditarReceita.addEventListener('click', (ev) =>{
 		ev.stopPropagation(); 
 		formularioReceita.submit();
 	});
 
-	/* formulario */
-	let botarCancelarFormulario = formularioReceita.querySelector(".receita-form__botao--cancelar");
-	botarCancelarFormulario.addEventListener('click', () => {
+	// Aparecer Formulário De Exclusão
+	let botaoAparecerFormulario = receita.querySelector(".receita__acao-remove");
+	botaoAparecerFormulario.addEventListener('click', (ev) => {
+		ev.stopPropagation();
+
+		formularioReceita.action = 'scripts/php/receitas/excluirReceita.php';
+
+		mudarDeTelaParaReceita(receita,formularioReceita);
+	});
+
+	// Desaparecer Formulário De Exclusão 
+	let botarDesaparecerFormulario = formularioReceita.querySelector(".receita-form__botao--cancelar");
+	botarDesaparecerFormulario.addEventListener('click', () => {
 		formularioReceita.action = 'editar_receita.php';
-		formularioReceita.method = 'POST';
 
 		mudarDeTelaParaReceita(formularioReceita,receita);
 	});
 
+	// 
 	let botaoExcluirReceita = formularioReceita.querySelector('.receita-form__botao--excluir');
 	botaoExcluirReceita.addEventListener('click', () => formularioReceita.submit());
 });
@@ -96,7 +97,7 @@ RECEITAS_FAVORITAS_ELS.forEach((RECEITA_FAVORITA_EL) =>{
 	let receitaID = RECEITA_FAVORITA_EL.dataset.receitaid;
 
 	RECEITA_FAVORITA_EL.addEventListener('click', () =>{
-		let urlParaReceita = `ver_receita.php?rID=${receitaID}`;
+		let urlParaReceita = `receita.php?rID=${receitaID}`;
 		window.location.href = urlParaReceita;
 	});
 

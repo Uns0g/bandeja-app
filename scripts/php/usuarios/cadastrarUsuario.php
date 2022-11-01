@@ -34,7 +34,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 		$fotoURL = 'imgs/usuarios/default.jpg';
 	}
 	else{
-		$quantidadeDeErros = validarImagem($_FILES["foto"]);
+		$quantidadeDeErros = validar_imagem($_FILES["foto"]);
 		if($quantidadeDeErros > 0){
 			$_SESSION['imagem-invalida'] = true;
 			header('Location: ../../../index.php');
@@ -82,11 +82,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 }
 else{ echo "<b>HOUVE ERRO NA REQUISIÇÃO AO SERVIDOR</b>";}
 
-function validarImagem($dadosDaImagem){
+function validar_imagem($dadosDaImagem){
 	$numeroDeErros = 0;
 
-	$nomeDaImagemEnviada = $dadosDaImagem["name"];
-	$extensaoDaImagem = strtolower(pathinfo($nomeDaImagemEnviada, PATHINFO_EXTENSION));
+	$extensaoDaImagem = strtolower(pathinfo($dadosDaImagem["name"], PATHINFO_EXTENSION));
 	$extensoesValidas = array('gif','png','jpg','jpeg','jpe','jfif','heif','heic');
 
 	if(!in_array($extensaoDaImagem,$extensoesValidas)){ 

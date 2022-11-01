@@ -59,7 +59,24 @@
 						<div class="acao">
 							<button class="acao__botao acao__botao--inativo">
 								<i class="ri-star-fill acao__icone"></i>
-								<span class="acao__descricao"><b class="acao__contador-favoritos">0</b> Favoritos</span>
+								<span class="acao__descricao">
+									<?php
+										$bancoDeDados = new BancoDeDados();
+										$id = $_SESSION["usuario"]["ID"];
+
+										$SQL = "SELECT COUNT(usuario_ID) AS numFavoritos 
+												FROM favoritos
+												INNER JOIN receitas ON favoritos.receita_ID=receitas.receitaID
+												WHERE receitas.autor_ID=$id";
+										$totalDeFavoritos = $bancoDeDados->selecionar($SQL)[0]["numFavoritos"];
+										if($totalDeFavoritos != 1){
+											echo "<b class='acao__contador-favoritos'>$totalDeFavoritos</b> Favoritos";
+										}
+										else{
+											echo "<b class='acao__contador-favoritos'>1</b> Favorito";
+										}
+									?>
+								</span>
 							</button>
 							<button class="acao__botao" id="cadastrar-ingrediente">
 								<i class="ri-leaf-fill acao__icone"></i>
@@ -96,8 +113,6 @@
 						<p class="secao__titulo"><span>Minhas Receitas</span> <i class="ri-arrow-down-s-line secao__seta"></i></p>
 						<div class="secao__container">
 							<?php
-								$bancoDeDados = new BancoDeDados();
-
 								$autorDasReceitas = $_SESSION["usuario"]["ID"];
 								$SQL = "SELECT receitaID,titulo,imagemURL,descricao,favoritos_numeros 
 										FROM receitas 
@@ -243,7 +258,8 @@
 					</section>
 				</main>	
 		<?php
-				if(!isset($_SESSION["ingrediente-invalido"])){?>
+				if(!isset($_SESSION["ingrediente-invalido"])){
+					unset($_SESSION["ingrediente-invalido"]);?>
 					<div class="form-background form-background--escondido">
 						<form class="form-acao form-acao--escondido" method="POST" action="scripts/php/cadastrarIngrediente.php">
 							<label for="ingrediente" class="form-acao__texto">Cadastre Um Novo Ingrediente</label>
@@ -254,15 +270,11 @@
 							</div>
 						</form>
 
-						<form class="form-acao form-acao--escondido" method="POST" action="">
+						<form class="form-acao form-acao--escondido" action="scripts/php/usuarios/excluirUsuario.php" method="POST">
 							<label for="input" class="form-acao__texto">TEM CERTEZA QUE DESEJA EXCLUIR?</label>
 							<div class="form-acao__botoes">
 								<input type="button" class="form-acao__cancelar" value="NÃO">
-								<input 
-									type="submit" 
-									class="form-acao__enviar" 
-									value="SIM" 
-									onClick="window.location.href='scripts/php/excluirUsuario.php?usuarioID=<?php echo $autorDasReceitas;?>';">
+								<input type="submit" class="form-acao__enviar" value="SIM">
 							</div>
 						</form>
 					</div>
@@ -278,15 +290,11 @@
 							</div>
 						</form>
 
-						<form class="form-acao form-acao--escondido" method="POST" action="">
+						<form class="form-acao form-acao--escondido" action="scripts/php/usuarios/excluirUsuario.php" method="POST">
 							<label for="input" class="form-acao__texto">TEM CERTEZA QUE DESEJA EXCLUIR?</label>
 							<div class="form-acao__botoes">
 								<input type="button" class="form-acao__cancelar" value="NÃO">
-								<input 
-									type="submit" 
-									class="form-acao__enviar" 
-									value="SIM" 
-									onClick="window.location.href='scripts/php/excluirUsuario.php?usuarioID=<?php echo $autorDasReceitas;?>';">
+								<input type="submit" class="form-acao__enviar" value="SIM" >
 							</div>
 						</form>
 					</div>

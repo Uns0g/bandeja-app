@@ -53,7 +53,7 @@
 		/* Outras Funções */
 		# tentar colocar static
 		function gerar_url_para_imagem($extensaoDaImagem){
-			$nomeDoAutorNaURL = strtolower(str_replace(' ','-',$this->autor));
+			$nomeDoAutorNaURL = str_replace(' ','_',$this->autor);
 			$tituloNaURL = $this->tirar_caracteres_latinos(strtolower(str_replace(' ','_',$this->titulo)));
 
 			$this->imagemURL = 'imgs/receitas/'.$nomeDoAutorNaURL.'__'.$tituloNaURL.strval(rand(0,9999)).$extensaoDaImagem;
@@ -61,7 +61,7 @@
 		}
 
 		// colocar como private depois
-		function tirar_caracteres_latinos($texto){
+		private function tirar_caracteres_latinos($texto){
 			return strtr(utf8_decode($texto),utf8_decode('àáâãäçèéêëìíîïñòóôõöùúûü'),'aaaaaceeeeiiiinooooouuuu');
 		}
 	}

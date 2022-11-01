@@ -5,7 +5,7 @@
 	$bancoDeDados = new BancoDeDados();
 
 	$nomeDoIngrediente = strtoupper($_POST["ingrediente"]);
-	$SQL = "SELECT * FROM ingredientes WHERE nome = '$nomeDoIngrediente'";
+	$SQL = "SELECT * FROM ingredientes WHERE nome='$nomeDoIngrediente'";
 	$resposta = $bancoDeDados->selecionar($SQL);
 
 	# Se tiver erro

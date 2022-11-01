@@ -5,7 +5,7 @@
 		private $senha = "pass";
 		private $banco = "bandeja";
 
-		function conectar(){
+		private function conectar(){
 			$conexao = mysqli_connect($this->servidor,$this->usuario,$this->senha,$this->banco);
 			return $conexao;
 		}

@@ -120,21 +120,18 @@
 												<div class="receita__acoes">
 													<button class="receita__acao-favorito" data-visitanteid="<?php echo $visitanteID;?>">
 													<?php
-															if(!in_array($receita["receitaID"],$listaDeFavoritos)){
-																echo "<script>console.log('Não está nos favoritos');</script>";?>
+															if(!in_array($receita["receitaID"],$listaDeFavoritos)){?>
 																<i class="ri-star-fill receita__favorito-icone"></i>
 																<strong class="receita__acao-texto">
 																	Favoritar
 																</strong>
 													<?php 	}
-															else{
-																echo "<script></script>";?>
+															else{?>
 																<i class="ri-star-fill receita__favorito-icone receita__favorito-icone--ativo"></i>
 																<strong class="receita__acao-texto">
 																	Retirar Favorito
 																</strong>
 													<?php  	}?>
-														</span>
 													</button>
 												</div>
 												<div class="receita__informacoes">

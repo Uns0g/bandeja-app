@@ -16,20 +16,46 @@
 		if($usuario["nome"] != $novoNome){
 			$SQL = "UPDATE usuarios SET nome='$novoNome' WHERE usuarioID=$idDoUsuario";
 			$resposta = $bancoDeDados->executar($SQL);
-			$_SESSION["usuario"]["NOME"] = $novoNome; 
 
 			if(!$resposta){
 				$erroAoAtualizar = true;
 				echo "<center><strong>HOUVE UM ERRO AO ATUALIZAR O NOME DO SEU USUÁRIO!</strong></center><br> Tente Novamente Mais Tarde!";
 			}
+			else{
+				$nomeAntigoSemEspacos = str_replace(' ','_',$_SESSION["usuario"]["NOME"]);
+				$novoNomeSemEspacos = str_replace(' ','_',$novoNome);
+
+				# renomeando foto de perfil do usuário
+				$novaFotoURL = str_replace($nomeAntigoSemEspacos,$novoNomeSemEspacos,$_SESSION["usuario"]["IMAGEM"]);
+				rename('../../../'.$_SESSION["usuario"]["IMAGEM"], '../../../'.$novaFotoURL);
+				$SQL = "UPDATE usuarios SET fotoURL='$novaFotoURL' WHERE usuarioID=$idDoUsuario";
+				$alteracao = $bancoDeDados->executar($SQL);
+
+				# alterando Sessão de usuário
+				$_SESSION["usuario"]["NOME"] = $novoNome;
+				$_SESSION["usuario"]["IMAGEM"] = $novaFotoURL;
+
+				# renomeando nome das imagens de receitas do usuário
+				$SQL = "SELECT receitaID AS ID, imagemURL AS URL
+						FROM receitas
+						WHERE autor_ID=$idDoUsuario";
+				$dadosDasImagens = $bancoDeDados->selecionar($SQL);
+				foreach ($dadosDasImagens as $dadosDaImagem) {
+					$novaURL = str_replace($nomeAntigoSemEspacos,$novoNomeSemEspacos,$dadosDaImagem["URL"]);
+					rename('../../../'.$dadosDaImagem["URL"],'../../../'.$novaURL);
+
+					$receitaID = $dadosDaImagem["ID"];
+					$SQL = "UPDATE receitas SET imagemURL='$novaURL' WHERE receitaID=$receitaID";
+					$alteracao = $bancoDeDados->executar($SQL);
+				}
+			}
 		}
 
 		if($_FILES["foto"]["error"] == 4){
-			print_r($_FILES);
 			echo "A FOTO CONTINUA A MESMA";
 		}
 		else{
-			validarImagem($_FILES["foto"]);
+			validar_imagem($_FILES["foto"]);
 
 			if(!$erroAoAtualizar){
 				$imagemAntiga = '../../../'.$_SESSION["usuario"]["IMAGEM"];
@@ -76,7 +102,7 @@
 	}
 
 	// função de validação da imagem
-	function validarImagem($dadosDaImagem){
+	function validar_imagem($dadosDaImagem){
 		$nomeDaImagemEnviada = $dadosDaImagem["name"];
 		$extensaoDaImagem = strtolower(pathinfo($nomeDaImagemEnviada, PATHINFO_EXTENSION));
 		$extensoesValidas = array('gif','png','jpg','jpeg','jpe','jfif','heif','heic');

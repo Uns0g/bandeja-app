@@ -10,17 +10,21 @@
 		$SQL = "INSERT INTO favoritos(usuario_ID,receita_ID) VALUES($usuarioID,$receitaID)";
 		$insercao = $bancoDeDados->executar($SQL);
 
-		if($insercao){	alterarNumeroDeFavoritos($bancoDeDados,$receitaID);}
+		if($insercao){	
+			alterar_numero_de_favoritos($bancoDeDados,$receitaID);
+		}
 	}
 	else{
 		$SQL = "DELETE FROM favoritos WHERE usuario_ID=$usuarioID AND receita_ID=$receitaID";
 		$exclusao = $bancoDeDados->executar($SQL);
 
-		if($exclusao){	alterarNumeroDeFavoritos($bancoDeDados,$receitaID);}
+		if($exclusao){	
+			alterar_numero_de_favoritos($bancoDeDados,$receitaID);
+		}
 	}
-	echo "<script>history.back()</script>";
+	echo "<script>history.go(-1);</script>";
 
-	function alterarNumeroDeFavoritos($objetoBancoDeDados,$idAlvo){
+	function alterar_numero_de_favoritos($objetoBancoDeDados,$idAlvo){
 		$SQL = "SELECT COUNT(usuario_ID) AS numFavoritos FROM favoritos WHERE receita_ID=$idAlvo";
 		$numeroDeFavoritos = $objetoBancoDeDados->selecionar($SQL)[0]["numFavoritos"];
 

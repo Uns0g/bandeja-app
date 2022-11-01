@@ -129,12 +129,14 @@
 							<div class="campo__conteudo">
 								<ul class="campo__lista">
 								<?php
-									$SQL = "SELECT ingredientes.nome FROM ingredientes_receitas
+									$SQL = "SELECT unidades, ingredientes.nome FROM ingredientes_receitas
 										 	INNER JOIN ingredientes ON ingredientes_receitas.ingrediente_ID=ingredientes.ingredienteID
 										 	WHERE receita_ID=$id";
 									$ingredientes = $bancoDeDados->selecionar($SQL);
 									foreach ($ingredientes as $ingrediente){?>
-										<li class="campo__item"><?php echo $ingrediente["nome"];?></li>
+										<li class="campo__item">
+											<?php echo $ingrediente["unidades"].' '.$ingrediente["nome"];?>
+										</li>
 								<?php
 									}
 								?>
@@ -220,11 +222,11 @@
 									foreach ($resposta as $receita) {?>
 										<div class="comentario">
 											<div class="comentario__usuario">
-												<div class="comentario__usuario-foto" style="background-image: url('<?php echo $resposta["foto"];?>');"></div>
-												<span class="comentario__usuario-nome"><?php echo $resposta["autor"];?></span>
+												<div class="comentario__usuario-foto" style="background-image: url('<?php echo $receita["foto"];?>');"></div>
+												<span class="comentario__usuario-nome"><?php echo $receita["autor"];?></span>
 											</div>
 											<textarea class="comentario__texto" disabled>
-												<?php echo $resposta["conteudo"];?>
+												<?php echo $receita["conteudo"];?>
 											</textarea>
 										</div>
 							<?php
@@ -236,10 +238,10 @@
 					</main>
 					<nav class="menu">
 						<div class="menu__botoes-container">
-							<div class="menu__botao  menu__botao--ativo" onClick="window.location.href = 'pesquisa.php';">
+							<div class="menu__botao  menu__botao--ativo" onClick="window.location.href='pesquisa.php';">
 								<i class="ri-search-line"></i>
 							</div>
-							<div class="menu__botao" onClick="window.location.href = 'seu_usuario.php';">
+							<div class="menu__botao" onClick="window.location.href='seu_usuario.php';">
 								<i class="ri-user-3-fill"></i>
 							</div>
 						</div>

@@ -30,24 +30,18 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 	# checa se usuário já existe
 	$bancoDeDados = new BancoDeDados();
 	
-	$SQL = "SELECT * FROM usuarios WHERE nome = '$nomeDigitado'";
+	$SQL = "SELECT * FROM usuarios WHERE nome='$nomeDigitado'";
 	$usuarioJaExistente = $bancoDeDados->selecionar($SQL);
 	if(!$usuarioJaExistente){
 		$_SESSION["nome-invalido"] = $nomeDigitado;
 		header('Location: ../../../login.php');
 	}
 	else{
-		$SQL = "SELECT senha FROM usuarios WHERE nome = '$nomeDigitado'";
-
-		$resposta = $bancoDeDados->selecionar($SQL);
-		if($resposta[0]["senha"] == $senhaDigitada){
-			$SQL = "SELECT * FROM usuarios WHERE nome = '$nomeDigitado'";
-		
-			$resposta = $bancoDeDados->selecionar($SQL);
+		if($senhaDigitada == $usuarioJaExistente[0]["senha"]){
 			$_SESSION["usuario"] = array(
-				"ID" => $resposta[0]["usuarioID"],
-				"NOME" => $resposta[0]["nome"],
-				"IMAGEM" => $resposta[0]["fotoURL"],
+				"ID" => $usuarioJaExistente[0]["usuarioID"],
+				"NOME" => $usuarioJaExistente[0]["nome"],
+				"IMAGEM" => $usuarioJaExistente[0]["fotoURL"],
 			);
 
 			header('Location: ../../../seu_usuario.php');

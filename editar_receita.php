@@ -3,7 +3,7 @@
 	$bancoDeDados = new BancoDeDados();
 	session_start();
 
-	$receitaID = $_GET["rID"];
+	$receitaID = $_POST["receitaID"];
 	$visitanteID = $_SESSION["usuario"]["ID"];
 
 	$SQL = "SELECT * FROM receitas WHERE receitaID=$receitaID AND autor_ID=$visitanteID";
@@ -57,10 +57,10 @@
 				</header>
 				<main>
 					<h2 class="titulo">Editar Sua Receita</h2>
-					<form action="" method="POST" class="formulario" enctype="multipart/form-data">
+					<form action="scripts/php/receitas/alterarReceita.php" method="POST" class="formulario" enctype="multipart/form-data">
 						<div class="campo">
 							<label class="campo__label" for="nome">Dê um novo nome para a receita:</label>
-							<input type="text" class="campo__texto" id="nome" name="nome" placeholder="O novo nome público da receita será o mesmo que você digitar aqui" value="<?php echo $receita["titulo"];?>">0
+							<input type="text" class="campo__texto" id="nome" name="nome" placeholder="O novo nome público da receita será o mesmo que você digitar aqui" value="<?php echo $receita["titulo"];?>" required>
 						</div>
 						<div class="imagem-antiga" style="background-image: url('<?php echo $receita["imagemURL"];?>');">
 							<p class="imagem-antiga__texto">Imagem Atual Da Receita</p>
@@ -76,18 +76,45 @@
 							<div class="campo campo--pequeno">
 								<label class="campo__label" for="tempo">Tempo De Preparo</label>
 								<i class="ri-timer-line campo__icone"></i>
-								<input type="text" class="campo__texto" name="tempo" id="tempo" value="<?php echo $receita["tempo"];?>" placeholder="mins, hrs, dias">
+								<?php
+									if($receita["tempo"] != 'Não Informado'){?>
+										<input type="text" class="campo__texto" name="tempo" id="tempo" value="<?php echo $receita["tempo"];?>" placeholder="mins, hrs, dias">
+								<?php
+									}
+									else{?>
+										<input type="text" class="campo__texto" name="tempo" id="tempo" placeholder="mins, hrs, dias">
+								<?php
+									}
+								?>
 							</div>
 							<div class="campo campo--pequeno">
 								<label class="campo__label" for="porcoes">Rendimento</label>
 								<i class="ri-pie-chart-2-line campo__icone"></i>
-								<input type="text" class="campo__texto" name="porcoes" id="porcoes" value="<?php echo $receita["rendimento"];?>" placeholder="Porções">
+								<?php
+									if($receita["rendimento"] != 'Não Informado'){?>
+										<input type="text" class="campo__texto" name="porcoes" id="porcoes" value="<?php echo $receita["rendimento"];?>" placeholder="Porções">
+								<?php
+									}
+									else{?>
+										<input type="text" class="campo__texto" name="porcoes" id="porcoes" placeholder="Porções">
+								<?php
+									}
+								?>
 							</div>
 						</section>
 						<hr class="formulario__divisao">
 						<div class="campo campo--grande">
 							<label class="campo__label" for="descricao">Nova Descrição</label>
-							<textarea class="campo__texto" name="descricao" id="descricao" placeholder="Adicione uma nova descricao para sua receita"><?php echo $receita["descricao"];?></textarea>
+							<?php
+								if($receita["descricao"] != 'Não Informado'){?>
+									<textarea class="campo__texto" name="descricao" id="descricao" placeholder="Adicione uma nova descricao para sua receita"><?php echo $receita["descricao"];?></textarea>
+							<?php	
+								}
+								else{?>
+									<textarea class="campo__texto" name="descricao" id="descricao" placeholder="Adicione uma descrição para a receita"></textarea>
+							<?php
+								}
+							?>
 							<div class="campo__bandeja"></div>
 						</div>
 						<section class="ingredientes">
@@ -96,18 +123,27 @@
 								<span class="campo__mensagem">Adicione os ingredientes da sua receita</span>
 							</div>
 							<ul class="ingredientes__lista">
-								<li class="ingredientes__linha">
-									<div class="campo campo--pequeno">
-										<b class="campo__label">Medida</b>
-										<input type="text" class="campo__texto" name="medida" value="" placeholder="Ex: 3 unidades de">
-									</div>
-									<div class="campo campo--pequeno">
-										<b class="campo__label">Ingrediente
-											<i class="ri-close-fill campo__icone-x"></i>
-										</b>
-										<input type="text" class="campo__texto" name="ingrediente" placeholder="alguma coisa">
-									</div>
-								</li>
+								<?php
+									$SQL = "SELECT unidades AS medida, ingredientes.nome FROM ingredientes_receitas 
+											INNER JOIN ingredientes ON ingredientes_receitas.ingrediente_ID=ingredientes.ingredienteID
+											WHERE receita_ID=$receitaID";
+									$ingredientesDaReceita = $bancoDeDados->selecionar($SQL);
+									foreach ($ingredientesDaReceita as $ingrediente) {?>
+										<li class="ingredientes__linha">
+											<div class="campo campo--pequeno">
+												<b class="campo__label">Medida</b>
+												<input type="text" class="campo__texto" name="medida" value="<?php echo $ingrediente["medida"];?>" placeholder="Ex: 3 unidades de" required>
+											</div>
+											<div class="campo campo--pequeno">
+												<b class="campo__label">Ingrediente
+													<i class="ri-close-fill campo__icone-x"></i>
+												</b>
+												<input type="text" class="campo__texto" name="ingrediente" value="<?php echo $ingrediente["nome"];?>" placeholder="alguma coisa" required>
+											</div>
+										</li>
+								<?php
+									}
+								?>
 							</ul>
 							<div class="adicionar-ingrediente">
 								<button type="button" class="adicionar-ingrediente__botao">
@@ -119,9 +155,10 @@
 						<hr class="formulario__divisao">
 						<div class="campo campo--grande">
 							<label class="campo__label" for="preparo">Como Fazer</label>
-							<textarea class="campo__texto" name="preparo" id="preparo" placeholder="Mude a descrição do modo de preparo da sua receita"><?php echo $receita["preparo"];?></textarea>
+							<textarea class="campo__texto" name="preparo" id="preparo" placeholder="Mude a descrição do modo de preparo da sua receita" required><?php echo $receita["preparo"];?></textarea>
 							<div class="campo__bandeja"></div>
 						</div>
+						<input type="number" name="receitaID" value="<?php echo $receita["receitaID"];?>" style="display: none;">
 						<div class="formulario__botoes-container">
 							<input type="button" class="formulario__botao" value="VOLTAR" onclick="window.location.href = 'seu_usuario.html';">
 							<input type="reset" class="formulario__botao" value="LIMPAR">
@@ -131,10 +168,10 @@
 				</main>
 				<nav class="menu">
 					<div class="menu__botoes-container">
-						<div class="menu__botao" onClick="window.location.href = 'pesquisa.html';">
+						<div class="menu__botao" onClick="window.location.href='pesquisa.php';">
 							<i class="ri-search-line"></i>
 						</div>
-						<div class="menu__botao menu__botao--active" onClick="window.location.href = 'seu_usuario.html';">
+						<div class="menu__botao menu__botao--ativo" onClick="window.location.href='seu_usuario.php';">
 							<i class="ri-user-3-fill"></i>
 						</div>
 					</div>
