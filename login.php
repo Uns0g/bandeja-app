@@ -49,7 +49,7 @@
 		</header>
 		<main>
 			<h2 class="titulo">Entre Na Bandeja</h2>
-			<form class="form" action="scripts/php/usuarios/fazerLogin.php" method="POST">
+			<form class="form" action="scripts/php/usuarios/fazerLogin.php" method="POST" autocomplete="off">
 <?php			if(!empty($_SESSION["nome-invalido"])){?>
 					<input type="text" name="nome" class="form__input form__input--erro" placeholder="O usuário '<?php echo $_SESSION['nome-invalido']?>' não existe" required>
 <?php 			} else{

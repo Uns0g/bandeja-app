@@ -16,7 +16,7 @@
 			$this->tempo = 'Não Informado';
 			$this->autor = $nomeDoAutor;
 			$this->rendimento = 'Não Informado';
-			$this->descricao = 'Não Informado';
+			$this->descricao = NULL;
 			$this->preparo = $comoFazer;
 		}
 

@@ -51,6 +51,7 @@
 }
 .campo__texto::placeholder{ font-weight: normal;}
 
+.campo__texto-titulo{ text-transform: capitalize; }
 .campo__texto-ingrediente{ text-transform: uppercase;}
 
 .campo--imagem{

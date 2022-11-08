@@ -258,12 +258,11 @@
 					</section>
 				</main>	
 		<?php
-				if(!isset($_SESSION["ingrediente-invalido"])){
-					unset($_SESSION["ingrediente-invalido"]);?>
+				if(!isset($_SESSION["ingrediente-invalido"])){?>
 					<div class="form-background form-background--escondido">
-						<form class="form-acao form-acao--escondido" method="POST" action="scripts/php/cadastrarIngrediente.php">
+						<form class="form-acao form-acao--escondido" method="POST" action="scripts/php/ingredientes/cadastrarIngrediente.php">
 							<label for="ingrediente" class="form-acao__texto">Cadastre Um Novo Ingrediente</label>
-							<input type="text" name="ingrediente" class="form-acao__input" id="ingrediente" placeholder="Nome do ingrediente">
+							<input type="text" name="ingrediente" class="form-acao__input" id="ingrediente" placeholder="Nome do ingrediente" autocomplete="off">
 							<div class="form-acao__botoes">
 								<input type="reset" class="form-acao__cancelar" value="Cancelar">
 								<input type="submit" class="form-acao__enviar" value="Enviar">
@@ -273,7 +272,11 @@
 						<form class="form-acao form-acao--escondido" action="scripts/php/usuarios/excluirUsuario.php" method="POST">
 							<label for="input" class="form-acao__texto">TEM CERTEZA QUE DESEJA EXCLUIR?</label>
 							<div class="form-acao__botoes">
-								<input type="button" class="form-acao__cancelar" value="NÃO">
+								<input 
+									type="button" 
+									class="form-acao__cancelar" 
+									value="NÃO" 
+									onclick="<?php unset($_SESSION["ingrediente-invalido"]);?>">
 								<input type="submit" class="form-acao__enviar" value="SIM">
 							</div>
 						</form>
@@ -281,11 +284,15 @@
 		<?php 	}
 				else{?>
 					<div class="form-background">
-						<form class="form-acao" method="POST" action="scripts/php/cadastrarIngrediente.php">
+						<form class="form-acao" method="POST" action="scripts/php/ingredientes/cadastrarIngrediente.php">
 							<label for="ingrediente" class="form-acao__texto">Cadastre Um Novo Ingrediente</label>
-							<input type="text" name="ingrediente" class="form-acao__input form-acao__input--errado" id="input" placeholder="O ingrediente '<?php echo $_SESSION["ingrediente-invalido"];?>' já foi cadastrado!">
+							<input type="text" name="ingrediente" class="form-acao__input form-acao__input--errado" id="input" placeholder="O ingrediente '<?php echo $_SESSION["ingrediente-invalido"];?>' já foi cadastrado!" autocomplete="off">
 							<div class="form-acao__botoes">
-								<input type="reset" class="form-acao__cancelar" value="Cancelar">
+								<input 
+									type="reset" 
+									class="form-acao__cancelar" 
+									value="Cancelar"
+									onclick="<?php unset($_SESSION["ingrediente-invalido"]);?>">
 								<input type="submit" class="form-acao__enviar" value="Enviar">
 							</div>
 						</form>

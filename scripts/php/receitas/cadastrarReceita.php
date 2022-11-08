@@ -61,7 +61,7 @@
 			$insercao = $bancoDeDados->executar($SQL);
 
 			if(!$insercao){
-				voltar_para_pagina_anterior("erro-na-insercao",'OCORREU ALGUM ERRO INESPERADO COM "$medidas[$i] $ingredientes[$i]"!');
+				voltar_para_pagina_anterior("erro-na-insercao",'OCORREU ALGUM ERRO INESPERADO AO INSERIR INGREDIENTES!');
 			}
 			else{
 				# SE TUDO DER CERTO
@@ -114,7 +114,7 @@
 	function buscar_IDs_dos_ingredientes($objetoDoBancoDeDados,$nomesDosIngredientes){
 		$listaDeIDs = array();
 		for ($i=0; $i < sizeof($nomesDosIngredientes); $i++) { 
-			$SQL = "SELECT ingredienteID FROM ingredientes WHERE nome = '$nomesDosIngredientes[$i]';";
+			$SQL = "SELECT ingredienteID FROM ingredientes WHERE nome = '$nomesDosIngredientes[$i]'";
 			$resposta = $objetoDoBancoDeDados->selecionar($SQL);
 			
 			array_push($listaDeIDs, $resposta[0]["ingredienteID"]);

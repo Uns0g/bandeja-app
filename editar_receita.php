@@ -60,7 +60,7 @@
 					<form action="scripts/php/receitas/alterarReceita.php" method="POST" class="formulario" enctype="multipart/form-data">
 						<div class="campo">
 							<label class="campo__label" for="nome">Dê um novo nome para a receita:</label>
-							<input type="text" class="campo__texto" id="nome" name="nome" placeholder="O novo nome público da receita será o mesmo que você digitar aqui" value="<?php echo $receita["titulo"];?>" required>
+							<input type="text" class="campo__texto campo__texto-titulo" id="nome" name="nome" placeholder="O novo nome público da receita será o mesmo que você digitar aqui" value="<?php echo $receita["titulo"];?>" required>
 						</div>
 						<div class="imagem-antiga" style="background-image: url('<?php echo $receita["imagemURL"];?>');">
 							<p class="imagem-antiga__texto">Imagem Atual Da Receita</p>
@@ -132,13 +132,27 @@
 										<li class="ingredientes__linha">
 											<div class="campo campo--pequeno">
 												<b class="campo__label">Medida</b>
-												<input type="text" class="campo__texto" name="medida" value="<?php echo $ingrediente["medida"];?>" placeholder="Ex: 3 unidades de" required>
+												<input 
+													type="text" 
+													class="campo__texto" 
+													name="medidas[]" 
+													value="<?php echo $ingrediente["medida"];?>" 
+													placeholder="Ex: 3 unidades de"
+													autocomplete="off" 
+													required>
 											</div>
 											<div class="campo campo--pequeno">
 												<b class="campo__label">Ingrediente
 													<i class="ri-close-fill campo__icone-x"></i>
 												</b>
-												<input type="text" class="campo__texto" name="ingrediente" value="<?php echo $ingrediente["nome"];?>" placeholder="alguma coisa" required>
+												<input 
+													type="text" 
+													class="campo__texto campo__texto-ingrediente" 
+													name="ingredientes[]" 
+													value="<?php echo $ingrediente["nome"];?>" 
+													placeholder="alguma coisa" 
+													autocomplete="off" 
+													required>
 											</div>
 										</li>
 								<?php
@@ -160,7 +174,7 @@
 						</div>
 						<input type="number" name="receitaID" value="<?php echo $receita["receitaID"];?>" style="display: none;">
 						<div class="formulario__botoes-container">
-							<input type="button" class="formulario__botao" value="VOLTAR" onclick="window.location.href = 'seu_usuario.html';">
+							<input type="button" class="formulario__botao" value="VOLTAR" onclick="window.location.href = 'seu_usuario.php';">
 							<input type="reset" class="formulario__botao" value="LIMPAR">
 							<input type="submit" class="formulario__botao formulario__botao" value="EDITAR">
 						</div>
@@ -177,6 +191,7 @@
 					</div>
 				</nav>
 			</body>
+			<script type="module" src="scripts/js/cadastrarReceita.js"></script>
 		</html>
 <?php
 	}

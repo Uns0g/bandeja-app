@@ -50,7 +50,7 @@
 		</header>
 		<main>
 			<h2 class="titulo">Cadastre-se</h2>
-			<form class="form" action="scripts/php/usuarios/cadastrarUsuario.php" enctype="multipart/form-data" method="POST">
+			<form class="form" action="scripts/php/usuarios/cadastrarUsuario.php" enctype="multipart/form-data" method="POST" autocomplete="off">
 <?php 			if(isset($_SESSION["nome-invalido"])){?>
 					<input type="text" name="nome" class="form__input from__input--erro" placeholder="O nome de usuário já está sendo usado" required>
 <?php 			} else{

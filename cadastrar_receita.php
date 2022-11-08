@@ -51,7 +51,7 @@ session_start();?>
 			<form action="scripts/php/receitas/cadastrarReceita.php" class="formulario" enctype="multipart/form-data" method="POST">
 				<div class="campo">
 					<label class="campo__label" for="titulo">Dê um nome para a receita:</label>
-					<input type="text" class="campo__texto" id="titulo" name="titulo" placeholder="O nome público da receita será o mesmo que você digitar aqui" autocomplete="off" required>
+					<input type="text" class="campo__texto campo__texto-titulo" id="titulo" name="titulo" placeholder="O nome público da receita será o mesmo que você digitar aqui" autocomplete="off" required>
 				</div>
 				<div class="campo campo--imagem">
 					<label class="campo__label" for="imagem">
