@@ -75,9 +75,9 @@ function criarElementoReceita(receita){
 		<div class="receita__imagem" style="background-image: url('${receita.imagemURL}');"></div>
 		<div class="receita__descricao">
 			<h3 class="receita__nome">${receita.titulo}</h3>
-			<p class="receita__texto">
-				${receita.descricao}
-			</p>
+			<textarea class="receita__texto" disabled>
+				${receita.descricao.replaceAll('\t','')}
+			</textarea>
 		</div>
 		<div class="receita__acoes">
 			<button class="receita__acao-favorito">
@@ -108,6 +108,10 @@ function criarElementoReceita(receita){
 			</div>
 		</div>
 	</div>`;
+
+	// mudando a descricao 
+	let receitaDescricao = receitaContainer.querySelector('.receita__texto');
+	receitaDescricao.innerHTML = receitaDescricao.innerHTML.replaceAll('\t','');
 
 	receitaContainer.addEventListener('click', () =>{
 		let urlParaReceita = 'receita.php?rID='+receitaContainer.firstElementChild.dataset.receitaid;

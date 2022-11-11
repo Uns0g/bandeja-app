@@ -68,3 +68,9 @@ input:focus, textarea:focus{ outline: 2px solid var(--primary);}
 	border-radius: 0 5px 0 0;
 	color: var(--primary);
 }
+
+@media (max-width: 500px){
+	.menu__botoes-container{ width: 100%; }
+
+	.menu__botao{ width: 50%; text-align: center;}
+}

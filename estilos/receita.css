@@ -176,3 +176,44 @@
 	right: 0;
 	font-size: 1.5em;
 }
+
+@media (max-width: 1440px){
+	.receita__foto{
+		margin: .5em auto;
+		width: 640px;
+		height: 360px;
+	}
+}
+
+@media (max-width: 800px){
+	.receita__foto{
+		width: 480px;
+		height: 270px;
+	}
+
+	.informacao{ width: 90%; }
+
+	.informacao__icone{ font-size: 3em; }
+
+	.informacao__texto{ text-align: center; }
+
+	.comentario{
+		align-items: center;
+		column-gap: 0;
+		flex-direction: column;
+		padding: 1em 0 0 0;
+		border: 1px solid #E7E7E7;
+	}
+
+	.comentario__usuario{ width: 50%; border-radius: 5px 5px 0 0;}
+
+	.comentario__usuario-foto{ width: 180px; height: 180px;}
+}
+
+@media (max-width: 550px){
+	.receita__foto{ width: 320px; height: 180px;}
+
+	.campo__conteudo{ padding: .5em; width: 95%;}
+
+	.comentario__usuario{ width: 70%; }
+}

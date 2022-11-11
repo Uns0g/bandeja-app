@@ -110,8 +110,8 @@
 						</div>
 					</section>
 					<section class="secao" id="minhas-receitas">
-						<p class="secao__titulo"><span>Minhas Receitas</span> <i class="ri-arrow-down-s-line secao__seta"></i></p>
-						<div class="secao__container">
+						<p class="secao__titulo"><span>Minhas Receitas</span> <i class="ri-arrow-down-s-line secao__seta secao__seta secao__seta--subir"></i></p>
+						<div class="secao__container secao__container--abrir">
 							<?php
 								$autorDasReceitas = $_SESSION["usuario"]["ID"];
 								$SQL = "SELECT receitaID,titulo,imagemURL,descricao,favoritos_numeros 
@@ -135,20 +135,18 @@
 												<div class="receita__imagem" style="background-image: url('<?php echo $resposta[$i]["imagemURL"];?>');"></div>
 												<div class="receita__descricao">
 													<h3 class="receita__nome"><?php echo $resposta[$i]["titulo"];?></h3>
-													<p class="receita__texto">
+														<textarea class="receita__texto" disabled>
 													<?php
-														if($resposta[$i]["descricao"]){?>
-															<p><?php echo $resposta[$i]["descricao"];?></p>
-													<?php
+														if($resposta[$i]["descricao"]){
+															echo $resposta[$i]["descricao"];
 														} 
 														else{
 															$receitaID = $resposta[0]["receitaID"];
-															$SQL = "SELECT * FROM ingredientes_receitas WHERE receita_ID=$resposta[$i]['descricao']";?>
-															<p><?php echo $SQL;?></p>
-													<?php
+															$SQL = "SELECT * FROM ingredientes_receitas WHERE receita_ID=$resposta[$i]['descricao']";
+															echo $SQL;
 														}
 													?>
-													</p>
+														</textarea>
 												</div>
 												<div class="receita__acoes">
 													<button class="receita__acao-remove">
@@ -192,8 +190,8 @@
 						</div>
 					</section>
 					<section class="secao secao--direita" id="favoritos">
-						<p class="secao__titulo"><span>Meus Favoritos</span> <i class="ri-arrow-down-s-line secao__seta"></i></p>
-						<div class="secao__container">
+						<p class="secao__titulo"><span>Meus Favoritos</span> <i class="ri-arrow-down-s-line secao__seta secao__seta--subir"></i></p>
+						<div class="secao__container secao__container--abrir">
 						<?php 
 								$SQL = "SELECT receitas.*,usuarios.nome AS autor FROM favoritos 
 										INNER JOIN receitas ON favoritos.receita_ID=receitas.receitaID
@@ -207,7 +205,7 @@
 											<div class="receita__imagem" style="background-image: url('<?php echo $receita["imagemURL"];?>')"></div>
 											<div class="receita__descricao">
 												<h3 class="receita__nome"><?php echo $receita["titulo"];?></h3>
-												<p class="receita__texto"><?php echo $receita["descricao"];?></p>
+												<textarea class="receita__texto" disabled><?php echo $receita["descricao"];?></textarea>
 											</div>
 											<div class="receita__acoes">
 												<button class="receita__acao-favorito" data-usuarioid="<?php echo $autorDasReceitas;?>">
@@ -234,13 +232,29 @@
 												<div class="receita__info-container">
 													<i class="ri-timer-line receita__info-icone"></i>
 													<span class="receita__info-box">
-														<em class="receita__tempo"><?php echo $receita["tempo"];?></em>
+														<em class="receita__tempo">
+															<?php 
+																if(empty($receita["tempo"])){
+																	echo "Não Informado";
+																}
+																else{
+																	echo $receita["tempo"];
+																}
+															?>	
+														</em>
 													</span>
 												</div>
 												<div class="receita__info-container">
 													<i class="ri-pie-chart-2-line receita__info-icone"></i>
 													<span class="receita__info-box">
-														<em class="receita__porcoes"><?php echo $receita["rendimento"];?></em>
+														<?php 
+															if(empty($receita["rendimento"])){
+																echo "Não Informado";
+															}
+															else{
+																echo $receita["rendimento"];
+															}
+														?>	
 													</span>
 												</div>
 												<div class="receita__info-container receita__botao-autor" data-autorid="<?php echo $receita["autor_ID"];?>">

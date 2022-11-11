@@ -75,7 +75,9 @@ session_start();?>
 				<hr class="formulario__divisao">
 				<div class="campo campo--grande">
 					<label class="campo__label" for="descricao">Descrição (opcional)</label>
-					<textarea class="campo__texto" name="descricao" id="descricao" placeholder="Adicione uma descrição para sua receita, se quiser"></textarea>
+					<div class="campo__texto">
+						<textarea class="campo__texto-extenso" name="descricao" id="descricao" placeholder="Adicione uma descrição para sua receita, se quiser"></textarea>
+					</div>
 					<div class="campo__bandeja"></div>
 				</div>
 				<section class="ingredientes">
@@ -121,7 +123,9 @@ session_start();?>
 				<hr class="formulario__divisao">
 				<div class="campo campo--grande">
 					<label class="campo__label" for="preparo">Como Fazer</label>
-					<textarea class="campo__texto" name="preparo" id="preparo" placeholder="Ex: Adicione o ingrediente x e o ingrediente y em uma panela e misture bem até formar uma massa homogênea..." required></textarea>
+					<div class="campo__texto">
+						<textarea class="campo__texto-extenso" name="preparo" id="preparo" placeholder="Ex: Adicione o ingrediente x e o ingrediente y em uma panela e misture bem até formar uma massa homogênea..." required></textarea>
+					</div>
 					<div class="campo__bandeja"></div>
 				</div>
 				<div class="formulario__botoes-container">

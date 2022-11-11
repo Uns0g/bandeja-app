@@ -32,6 +32,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 	# verificando a imagem enviada
 	if($_FILES["foto"]["error"] == 4){
 		$fotoURL = 'imgs/usuarios/default.jpg';
+		$nomeDoUsuario = str_replace(' ', '_', $nomeDigitado);
+
+		inserir_usuario($nomeDoUsuario,$senhaDigitada,$fotoURL);
 	}
 	else{
 		$quantidadeDeErros = validar_imagem($_FILES["foto"]);
@@ -46,33 +49,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
 			$destino = '../../../'.$fotoURL;
 			if(move_uploaded_file($_FILES["foto"]["tmp_name"], $destino)){
-				
-				$bancoDeDados = new BancoDeDados();
-
-				$SQL = "SELECT * FROM usuarios WHERE nome='$nomeDigitado'";
-				$usuarioExistente = $bancoDeDados->selecionar($SQL);
-				if(!$usuarioExistente){
-					$SQL = "INSERT INTO usuarios(nome,fotoURL,senha) VALUES('$nomeDigitado','$fotoURL','$senhaDigitada')";
-					$insercao = $bancoDeDados->executar($SQL);
-
-					$SQL = "SELECT usuarioID FROM usuarios WHERE nome='$nomeDigitado'";
-					$usuarioID = $bancoDeDados->selecionar($SQL)[0]["usuarioID"];
-
-					if($insercao){ 
-						$_SESSION["usuario"] = array(
-							"ID" => $usuarioID,
-							"NOME" => $nomeDigitado,
-							"IMAGEM" => $fotoURL,
-						);
-
-						header('Location: ../../../seu_usuario.php');
-					}
-					else{ echo "HOUVE UM ERRO AO CADASTRAR O USUÁRIO! TENTE NOVAMENTE MAIS TARDE.";}
-				}
-				else{
-					$_SESSION["nome-invalido"] = true;
-					header('Location: ../../../index.php');
-				}
+				inserir_usuario($nomeDoUsuario,$senhaDigitada,$fotoURL);
 			}
 			else{
 				echo "<strong style='color: #8C0303; text-align: center; display: block; font-size: 1.6em;' data-message='Não foi possível enviar a foto ao servidor de destino'>OCORREU UM ERRO INESPERADO! TENTE SE CADASTRAR MAIS TARDE</strong>";
@@ -100,5 +77,34 @@ function validar_imagem($dadosDaImagem){
 	}
 
 	return $numeroDeErros;
+}
+
+function inserir_usuario($nome,$senha,$urlDaFoto){
+	$bancoDeDados = new BancoDeDados();
+
+	$SQL = "SELECT * FROM usuarios WHERE nome='$nome'";
+	$usuarioExistente = $bancoDeDados->selecionar($SQL);
+	if(!$usuarioExistente){
+		$SQL = "INSERT INTO usuarios(nome,fotoURL,senha) VALUES('$nome','$urlDaFoto','$senha')";
+		$insercao = $bancoDeDados->executar($SQL);
+
+		$SQL = "SELECT usuarioID FROM usuarios WHERE nome='$nome'";
+		$usuarioID = $bancoDeDados->selecionar($SQL)[0]["usuarioID"];
+
+		if($insercao){ 
+			$_SESSION["usuario"] = array(
+				"ID" => $usuarioID,
+				"NOME" => $nome,
+				"IMAGEM" => $urlDaFoto,
+			);
+
+			header('Location: ../../../seu_usuario.php');
+		}
+		else{ echo "HOUVE UM ERRO AO CADASTRAR O USUÁRIO! TENTE NOVAMENTE MAIS TARDE.";}
+	}
+	else{
+		$_SESSION["nome-invalido"] = true;
+		header('Location: ../../../index.php');
+	}
 }
 ?>

@@ -1,12 +1,14 @@
 <?php
+	session_start();
 	include "../../../classes/classeConexao.php";
 	$bancoDeDados = new BancoDeDados();
 
 	$receitaID = $_POST["receitaID"];
-	$autorID = $_SESSSION["usuario"]["ID"];
+	$autorID = $_SESSION["usuario"]["ID"];
 
-	$SQL = "SELECT COUNT(*) FROM receitas WHERE receitaID=$receitaID AND autor_ID=$autor_ID";
-	if($bancoDeDados->selecionar($SQL)[0]["COUNT(*)"] != 0){
+	$SQL = "SELECT * FROM receitas WHERE receitaID=$receitaID AND autor_ID=$autorID";
+	$resposta = $bancoDeDados->selecionar($SQL);
+	if($resposta){
 		# excluindo favoritos da receita
 		$SQL = "SELECT COUNT(*) AS numFavoritosDaReceita FROM favoritos WHERE receita_ID=$receitaID";
 		$numFavoritos = $bancoDeDados->selecionar($SQL)[0]["numFavoritosDaReceita"];
@@ -34,13 +36,13 @@
 			unlink('../../../'.$imagemDaReceita);
 		}
 
-		$SQL = "DELETE FROM receitas WHERE receitaID=$receitaID";
+		$SQL = "DELETE FROM receitas WHERE receitaID=$receitaID AND autor_ID=$autorID";
 		$exclusao = $bancoDeDados->executar($SQL);
 		if($exclusao){
-			echo "TUDO CERTO";
+			header('Location: ../../../seu_usuario.php');
 		}
 		else{
-			echo "NADA CERTO";
+			echo "OCORREU UM ERRO DESCONHECIDO AO TENTAR EXCLUIR A SUA RECEITA";
 		}
 	}
 	else{

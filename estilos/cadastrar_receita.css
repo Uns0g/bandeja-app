@@ -28,7 +28,7 @@
 	top: -1.3em;
 	left: -2px;
 	width: 1280px;
-	padding: .4em;
+	padding: .1em;
 	background-color: #000;
 	color: #FFF;
 	font-size: 1.5em;
@@ -47,10 +47,7 @@
 	font-weight: bold;
 	box-shadow: 1px 1px 3px inset #C2C2C2,
 				-1px -1px 3px inset #C2C2C2;
-	resize: none;
 }
-.campo__texto::placeholder{ font-weight: normal;}
-
 .campo__texto-titulo{ text-transform: capitalize; }
 .campo__texto-ingrediente{ text-transform: uppercase;}
 
@@ -117,6 +114,17 @@
 	padding: 1em; 
 	font-size: 2em;
 }
+
+.campo__texto-extenso{
+	width: 100%;
+	min-height: 13rem;
+	border: none;
+	color: inherit;
+	font-size: inherit;
+	font-weight: inherit;
+	resize: none;
+}
+.campo__texto-extenso:focus{ outline: none; }
 
 .campo__bandeja{
 	height: 6px;
@@ -247,4 +255,80 @@
 	background-color: var(--primary);
 	color: var(--secondary);
 	font-size: 2em;
+}
+
+@media (max-width: 1440px){
+	.imagem-antiga, .imagem-antiga__texto, .campo--imagem{ width: 640px; }
+
+	.imagem-antiga{ height: 360px; }
+
+	.campo--imagem{
+		padding: .5em;
+		margin: 1em auto;
+	}
+}
+
+@media (max-width: 800px){
+	.imagem-antiga, .imagem-antiga__texto, .campo--imagem{ width: 480px; }
+
+	.imagem-antiga{height: 270px;}
+
+	.campo__imagem-mensagem{ font-size: 1.3em; }
+
+	.campo__botao-imagem{ padding: .3em 2em; font-size: 1em; }
+
+	.campo__texto{ padding: .3em; font-size: 1.1em;}
+
+	.campo__icone{ font-size: 3em; }
+
+	.ingredientes__lista{ margin-left: 1.5em; }
+
+	.campo__mensagem{ font-size: 1.4em; }
+
+	.ingredientes__linha{ column-gap: 1em; padding: .5em 0;}
+
+	.formulario__botoes-container{ width: 100%; }
+}
+
+@media (max-width: 650px){
+	.titulo{ font-size: 2.3rem; }
+
+	.imagem-antiga, .imagem-antiga__texto, .campo--imagem{ width: 320px; }
+
+	.imagem-antiga{ height: 180px; }
+
+	.informacoes{
+		flex-direction: column;
+		row-gap: 1em;
+		width: 60%;
+	}
+
+	.informacoes .campo{ border: 1px solid #A2A2A2; }
+
+	.informacoes .campo .campo__label{
+		padding-top: .2em;
+		background-color: #000;
+		color: #FFF;
+	}
+
+	.ingredientes{ width: 95%; }
+
+	.ingredientes__lista{ margin-left: .5em; }
+
+	.ingredientes__linha{
+		flex-direction: column;
+		row-gap: .8em;
+		width: 100%;
+		margin-left: .5em;
+		margin-bottom: 1em;
+	}
+
+	.ingredientes__linha .campo:nth-child(2n+1) .campo__label::before{
+		top: 2.6em;
+		left: -1.5em;
+		width: 1em;
+		height: 1em;
+	}
+
+	.formulario__botoes-container{ flex-direction: column-reverse; row-gap: 1em; }
 }

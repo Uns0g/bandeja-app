@@ -129,3 +129,14 @@ main{
 .form-acao__cancelar{ background-color: var(--primary); color: #FFF;}
 
 .form-acao__enviar{ background-color: var(--secondary); font-weight: bold;}
+
+@media (max-width: 650px){
+	main{ height: 100%; overflow-x: hidden; }
+
+	.form{ padding: 1.5em;}
+
+	.form--editar .form__input--foto{
+		width: 14em;
+		height: 11em;
+	}
+}

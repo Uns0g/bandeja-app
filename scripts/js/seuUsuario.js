@@ -48,6 +48,10 @@ MINHAS_RECEITAS_ELS.forEach(MINHA_RECEITA_EL => {
 	let receita = MINHA_RECEITA_EL.firstElementChild;
 	let formularioReceita = MINHA_RECEITA_EL.querySelector('.receita-form');
 
+	// Alterar O Texto Da Receita
+	let receitaDescricao = MINHA_RECEITA_EL.querySelector('.receita__texto');
+	receitaDescricao.innerHTML = receitaDescricao.innerHTML.replaceAll('\t','');
+
 	// Ir Para Página De Receita
 	receita.addEventListener('click', function(){
 		let urlParaReceita = `receita.php?rID=${receita.dataset.receitaid}`;
@@ -95,6 +99,9 @@ function mudarDeTelaParaReceita(elementoParaApagar,elementoParaAparecer){
 const RECEITAS_FAVORITAS_ELS = document.querySelectorAll('#favoritos .receita-container');
 RECEITAS_FAVORITAS_ELS.forEach((RECEITA_FAVORITA_EL) =>{
 	let receitaID = RECEITA_FAVORITA_EL.dataset.receitaid;
+
+	let receitaDescricao = RECEITA_FAVORITA_EL.querySelector('.receita__texto');
+	receitaDescricao.innerHTML = receitaDescricao.innerHTML.replaceAll('\t','');
 
 	RECEITA_FAVORITA_EL.addEventListener('click', () =>{
 		let urlParaReceita = `receita.php?rID=${receitaID}`;

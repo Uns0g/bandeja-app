@@ -1,3 +1,9 @@
+/* alterando descricoes */
+let descricoes = document.querySelectorAll('.receita__texto');
+descricoes.forEach(descricao =>{
+	descricao.innerHTML = descricao.innerHTML.replaceAll('\t','');
+});
+
 const SECAO_TITULO_EL = document.querySelector(".secao__titulo");
 SECAO_TITULO_EL.addEventListener('click', function(){
 	this.lastElementChild.classList.toggle('secao__seta--subir');
@@ -6,6 +12,9 @@ SECAO_TITULO_EL.addEventListener('click', function(){
 
 const RECEITA_CONTAINER_ELS = document.querySelectorAll('.receita-container');
 RECEITA_CONTAINER_ELS.forEach((RECEITA_CONTAINER_EL) =>{
+	let receitaDescricao = RECEITA_CONTAINER_EL.querySelector('.receita__texto');
+	receitaDescricao.innerHTML = receitaDescricao.innerHTML.replaceAll('\t','');
+
 	let receitaID = RECEITA_CONTAINER_EL.id;
 
 	RECEITA_CONTAINER_EL.addEventListener('click', function(){

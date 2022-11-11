@@ -105,16 +105,18 @@
 						<hr class="formulario__divisao">
 						<div class="campo campo--grande">
 							<label class="campo__label" for="descricao">Nova Descrição</label>
+							<div class="campo__texto">
 							<?php
 								if($receita["descricao"] != 'Não Informado'){?>
-									<textarea class="campo__texto" name="descricao" id="descricao" placeholder="Adicione uma nova descricao para sua receita"><?php echo $receita["descricao"];?></textarea>
+									<textarea class="campo__texto-extenso" name="descricao" id="descricao" placeholder="Adicione uma nova descricao para sua receita"><?php echo $receita["descricao"];?></textarea>
 							<?php	
 								}
 								else{?>
-									<textarea class="campo__texto" name="descricao" id="descricao" placeholder="Adicione uma descrição para a receita"></textarea>
+									<textarea class="campo__texto-extenso" name="descricao" id="descricao" placeholder="Adicione uma descrição para a receita"></textarea>
 							<?php
 								}
 							?>
+							</div>
 							<div class="campo__bandeja"></div>
 						</div>
 						<section class="ingredientes">
@@ -169,14 +171,16 @@
 						<hr class="formulario__divisao">
 						<div class="campo campo--grande">
 							<label class="campo__label" for="preparo">Como Fazer</label>
-							<textarea class="campo__texto" name="preparo" id="preparo" placeholder="Mude a descrição do modo de preparo da sua receita" required><?php echo $receita["preparo"];?></textarea>
+							<div class="campo__texto">
+								<textarea class="campo__texto-extenso" name="preparo" id="preparo" placeholder="Mude a descrição do modo de preparo da sua receita" required><?php echo $receita["preparo"];?></textarea>
+							</div>
 							<div class="campo__bandeja"></div>
 						</div>
 						<input type="number" name="receitaID" value="<?php echo $receita["receitaID"];?>" style="display: none;">
 						<div class="formulario__botoes-container">
 							<input type="button" class="formulario__botao" value="VOLTAR" onclick="window.location.href = 'seu_usuario.php';">
 							<input type="reset" class="formulario__botao" value="LIMPAR">
-							<input type="submit" class="formulario__botao formulario__botao" value="EDITAR">
+							<input type="submit" class="formulario__botao formulario__botao" value="SALVAR">
 						</div>
 					</form>
 				</main>

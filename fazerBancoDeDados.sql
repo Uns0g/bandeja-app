@@ -23,6 +23,12 @@ CREATE TABLE receitas(
 	FOREIGN KEY (autor_ID) REFERENCES usuarios(usuarioID)
 );
 
+CREATE TABLE ingredientes(
+	ingredienteID INT NOT NULL AUTO_INCREMENT,
+	nome VARCHAR(255) NOT NULL UNIQUE,
+	PRIMARY KEY (ingredienteID)
+);
+
 CREATE TABLE ingredientes_receitas(
 	ingredienteReceitaID BIGINT NOT NULL AUTO_INCREMENT,
 	unidades VARCHAR(50) NOT NULL,
@@ -31,12 +37,6 @@ CREATE TABLE ingredientes_receitas(
 	PRIMARY KEY (ingredienteReceitaID),
 	FOREIGN KEY (ingrediente_ID) REFERENCES ingredientes(ingredienteID),
 	FOREIGN KEY (receita_ID) REFERENCES receitas(receitaID)
-);
-
-CREATE TABLE ingredientes(
-	ingredienteID INT NOT NULL AUTO_INCREMENT,
-	nome VARCHAR(255) NOT NULL UNIQUE,
-	PRIMARY KEY (ingredienteID)
 );
 
 CREATE TABLE favoritos(

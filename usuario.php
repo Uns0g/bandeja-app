@@ -115,7 +115,7 @@
 												<div class="receita__imagem" style="background-image: url('<?php echo $receita["imagemURL"];?>');"></div>
 												<div class="receita__descricao">
 													<h3 class="receita__nome"><?php echo $receita["titulo"];?></h3>
-													<p class="receita__texto"><?php echo $receita["descricao"];?></p>
+													<textarea class="receita__texto" disabled><?php echo $receita["descricao"];?></textarea>
 												</div>
 												<div class="receita__acoes">
 													<button class="receita__acao-favorito" data-visitanteid="<?php echo $visitanteID;?>">
@@ -154,7 +154,14 @@
 														<i class="ri-timer-line receita__info-icone"></i>
 														<span class="receita__info-box">
 															<em class="receita__tempo">
-																<?php echo $receita["tempo"];?>	
+																<?php 
+																	if(empty($receita["tempo"])){
+																		echo "Não Informado";
+																	}
+																	else{
+																		echo $receita["tempo"];
+																	}
+																?>	
 															</em>
 														</span>
 													</div>
@@ -162,7 +169,14 @@
 														<i class="ri-pie-chart-2-line receita__info-icone"></i>
 														<span class="receita__info-box">
 															<em class="receita__porcoes">
-																<?php echo $receita["rendimento"];?>
+																<?php 
+																	if(empty($receita["rendimento"])){
+																		echo "Não Informado";
+																	}
+																	else{
+																		echo $receita["rendimento"];
+																	}
+																?>	
 															</em>
 														</span>
 													</div>

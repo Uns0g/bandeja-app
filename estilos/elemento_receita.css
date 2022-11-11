@@ -49,9 +49,16 @@
 
 .receita__texto{  
 	padding: 2px .6em;
-	font-size: 1.4rem;
+	min-height: 7rem;
+	border: none;
+	background-color: transparent;
+	font-family: inherit;
+	font-size: 1.2rem;
 	text-align: justify;
+	resize: none;
 }
+
+.receita__texto:focus{ outline: none;}
 
 .receita__informacoes{
 	grid-area: info;
@@ -162,4 +169,61 @@
   50% { transform: translate(0, 0) rotate(0deg);}
   75% { transform: translate(-5px, 5px) rotate(-5deg);}
   100% { transform: translate(0, 0) rotate(0deg);}
+}
+
+@media (max-width: 1000px){
+	.receita__favorito-icone, .receita__edita-icone{ font-size: 3em;}
+
+	.receita__acao-texto{ font-size: 1.1em; }
+}
+
+@media (max-width: 650px){
+	.receita{
+		grid-template-areas: "imagem imagem"
+							 "descricao descricao"
+							 "info info"
+							 "acoes acoes";
+		grid-template-columns: repeat(2, 4fr);
+	}
+
+	.receita__imagem{
+		width: 100%;
+		height: 15rem;
+		border: 2px solid #000;
+		border-radius: 5px 5px 0 0;
+	}
+
+	.receita__descricao{
+		margin: 0;
+		padding: 10px;
+		border-bottom: 1px solid #000;
+		background-color: #fff;
+	}
+
+	.receita__nome{
+		margin-bottom: 5px;
+		text-align: center;
+		text-decoration: underline;
+	}
+
+	.receita__acoes{ 
+		flex-direction: row-reverse;
+		justify-content: space-around;
+		padding: 5px 0;
+		border-left: 0; 
+		border-top: 1px solid #000;
+	}
+
+	.receita__acao-edita, .receita__acao-remove{
+		position: relative;
+		bottom: 0;
+		top: 0;
+		right: 0;
+		left: 0;
+	}
+
+	.receita__acao-remove::after{
+		content: "Excluir Receita";
+		font-size: .4em;
+	}
 }
