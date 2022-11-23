@@ -56,9 +56,9 @@
 	$SQL = "DELETE FROM usuarios WHERE usuarioID=$idDoUsuario AND nome='$nomeDoUsuario'";
 	$exclusao = $bancoDeDados->executar($SQL);
 	if($exclusao){
-		header('../../../index.php');
+		header('Location: ../../../index.php');
 	}
 	else{
 		echo "NÃO EXCLUIU";
-	}	
+	}
 ?>
